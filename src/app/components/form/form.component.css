@@ -1,0 +1,10 @@
+.app-form {
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: var(--main-border-radius);
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 12px;
+  padding: 32px;
+  width: 360px;
+}

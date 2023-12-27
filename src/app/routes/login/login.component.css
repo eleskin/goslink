@@ -1,0 +1,57 @@
+.app-login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.app-login h2 {
+  text-align: center;
+}
+
+.app-login__submit {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.app-login app-button {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.app-login__footer a {
+  color: var(--main-color);
+  font-size: 14px;
+  position: relative;
+  text-decoration: none;
+  transition: var(--main-transition);
+}
+
+.app-login__footer a::after {
+  background-color: var(--main-color-hover);
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 1px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  transform: translateY(2px);
+  transition: var(--main-transition);
+}
+
+.app-login__footer a:hover {
+  color: var(--main-color-hover);
+}
+
+.app-login__footer a:hover::after {
+  opacity: 1;
+}

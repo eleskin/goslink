@@ -1,0 +1,18 @@
+<div class="app-login">
+  <app-form (submit)="handleFormSubmit($event)">
+    <h2 class="app-title--2">Log in</h2>
+
+    <label>
+      <app-input [(ngModel)]="emailValue" ngDefaultControl placeholder="Email" type="email"/>
+    </label>
+    <label>
+      <app-input [(ngModel)]="passwordValue" ngDefaultControl placeholder="Password" type="password"/>
+    </label>
+    <app-checkbox [(ngModel)]="rememberValue" label="Remember me" ngDefaultControl/>
+    <app-button text="Login" type="submit"/>
+
+    <footer class="app-login__footer">
+      <a routerLink="/register">Sign up</a>
+    </footer>
+  </app-form>
+</div>

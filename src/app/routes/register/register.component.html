@@ -1,0 +1,60 @@
+<div class="app-register">
+  <app-form (submit)="handleFormSubmit($event)">
+    <h2 class="app-title--2">Sign up</h2>
+
+    <label>
+      <app-input
+        [(ngModel)]="nameValue"
+        [required]="true"
+        ngDefaultControl
+        placeholder="Name"
+        type="text"
+      />
+      <em>{{ registerFormErrors.nameValue }}</em>
+    </label>
+    <label>
+      <app-input
+        [(ngModel)]="usernameValue"
+        [required]="true"
+        ngDefaultControl
+        placeholder="Username"
+        type="text"
+      />
+      <em>{{ registerFormErrors.usernameValue }}</em>
+    </label>
+    <label>
+      <app-input
+        [(ngModel)]="emailValue"
+        [required]="true"
+        ngDefaultControl
+        placeholder="Email"
+        type="email"
+      />
+      <em>{{ registerFormErrors.emailValue }}</em>
+    </label>
+    <label>
+      <app-input
+        [(ngModel)]="passwordValue"
+        [required]="true"
+        ngDefaultControl
+        placeholder="Password"
+        type="password"
+      />
+      <em>{{ registerFormErrors.passwordValue }}</em>
+    </label>
+    <!--    <label>-->
+    <!--      <app-input-->
+    <!--        [(ngModel)]="repeatPasswordValue"-->
+    <!--        [required]="true"-->
+    <!--        ngDefaultControl-->
+    <!--        placeholder="Repeat password"-->
+    <!--        type="password"-->
+    <!--      />-->
+    <!--      <em>{{ registerFormErrors.repeatPasswordValue }}</em>-->
+    <!--    </label>-->
+    <app-button text="Sign up" type="submit"/>
+    <footer class="app-register__footer">
+      <a routerLink="/login">Log in</a>
+    </footer>
+  </app-form>
+</div>

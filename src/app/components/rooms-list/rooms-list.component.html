@@ -1,0 +1,32 @@
+<div class="app-rooms-list">
+  <div class="app-rooms-list__search">
+    <app-input (input)="handleInputSearch($event)" [placeholder]="'Search'"/>
+  </div>
+  <div *ngIf="!searchedUsers.length" class="app-rooms-list__rooms">
+    <a
+      *ngFor="let room of rooms"
+      [class]="['app-rooms-list__chat', room.conversationalist === conversationalist ? 'app-rooms-list__chat--active' : '']"
+      [routerLink]="'/chat/' + room.conversationalist"
+    >
+      <span>
+        {{ room.conversationalistName.slice(0, 1) }}
+        <i *ngIf="room.online"></i>
+      </span>
+      <div>
+        <strong>{{ room.conversationalistName }}</strong>
+        <span>{{ truncate(room.lastMessage, 40) }}</span>
+      </div>
+    </a>
+  </div>
+  <div *ngIf="searchedUsers.length" class="app-rooms-list__search-results">
+    <span>Results: </span>
+    <a *ngFor="let user of searchedUsers" [routerLink]="'/chat/' + user.username" class="app-rooms-list__chat">
+      <span>
+        {{ user.name.slice(0, 1) }}
+      </span>
+      <div>
+        <strong>{{ user.name }}</strong>
+      </div>
+    </a>
+  </div>
+</div>

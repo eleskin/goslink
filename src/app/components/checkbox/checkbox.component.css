@@ -1,0 +1,41 @@
+.app-checkbox {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  grid-column-gap: 6px;
+  justify-content: flex-start;
+}
+
+.app-checkbox > input {
+  appearance: none;
+  position: absolute;
+}
+
+.app-checkbox > i {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: block;
+  height: 16px;
+  transition: var(--main-transition);
+  width: 16px;
+}
+
+.app-checkbox > i > svg {
+  height: 100%;
+  opacity: 0;
+  transition: var(--main-transition);
+  width: 100%;
+}
+
+.app-checkbox > input:checked + i {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.app-checkbox > input:checked + i > svg {
+  opacity: 1;
+}
+
+.app-checkbox > span {
+  font-size: 14px;
+}

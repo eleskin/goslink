@@ -1,0 +1,20 @@
+<div class="chat">
+  <header class="chat__header">
+    <i>{{ conversationalistName.slice(0, 1) }}</i>
+    <div>
+      <span>{{ conversationalistName }}</span>
+      <i>{{ online ? 'Online' : 'Last seen recently' }}</i>
+    </div>
+  </header>
+  <div #chat class="chat__body" name="chat" ngDefaultControl ngModel>
+    <div *ngFor="let message of messages">
+      <app-message [message]="message"/>
+    </div>
+  </div>
+  <footer class="chat__footer">
+    <form (submit)="handleFormSubmit($event)">
+      <app-input (input)="handleInputMessage($event)" [required]="true" [value]="message" placeholder="Your message"/>
+      <app-button text="Send" type="submit"/>
+    </form>
+  </footer>
+</div>
