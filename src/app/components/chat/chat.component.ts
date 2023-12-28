@@ -43,7 +43,6 @@ export class ChatComponent {
   ) {
     if (!this.chatService.webSocket) return;
 
-    this.chatService.webSocket.addEventListener('open', (event) => this.handleOpenWebSocket(event));
     this.chatService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
@@ -78,13 +77,6 @@ export class ChatComponent {
       username: this.user.username,
       conversationalist: this.conversationalist,
     };
-  }
-
-  private handleOpenWebSocket(event: any) {
-    this.chatService.handleOpenWebSocket(event.currentTarget, {
-      ...this.getChatArgs(),
-      online: Boolean(this.conversationalist),
-    });
   }
 
   private handleMessageWebSocket() {

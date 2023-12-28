@@ -1,14 +1,7 @@
-import {effect, inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import UserStore from '../../store/user/user.store';
 import ChatStore from '../../store/chat/chat.store';
 import {ActivatedRoute} from '@angular/router';
-
-interface CreateRequest {
-  webSocket: WebSocket;
-  username: string;
-  conversationalist: string;
-  online: boolean;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -22,18 +15,6 @@ export class ChatService {
     this.webSocket = new WebSocket(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
 
     this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
-    console.log(this.route.snapshot.paramMap.get('username') ?? '');
-
-    effect(() => {
-      if (this.webSocket?.readyState === 1) {
-        this.createNewUserRequest({
-          webSocket: this.webSocket,
-          username: this.userStore.user().username,
-          conversationalist: this.route.snapshot.paramMap.get('username') ?? '',
-          online: Boolean(this.userStore.user().conversationalist),
-        });
-      }
-    });
   }
 
   public createNewMessageRequest(data: {
@@ -59,29 +40,6 @@ export class ChatService {
     }));
   }
 
-  public handleOpenWebSocket(
-    webSocket: WebSocket,
-    {username, conversationalist, online}: Omit<CreateRequest, 'webSocket'>,
-  ) {
-    if (webSocket.readyState === 1) {
-      this.createNewUserRequest({
-        webSocket,
-        username,
-        conversationalist,
-        online,
-      });
-    }
-  }
-
-  private createNewUserRequest({webSocket, username, conversationalist, online}: CreateRequest) {
-    webSocket.send(JSON.stringify({
-      type: 'NEW_USER',
-      username,
-      conversationalist,
-      online,
-    }));
-  }
-
   private async handleMessageWebSocket(event: any) {
     const data = JSON.parse(event.data);
     console.log(data.data);
@@ -101,6 +59,18 @@ export class ChatService {
     } else if (data.type === 'SET_OFFLINE') {
       console.log(data.data);
       this.chatStore.setOnlineUsers(this.chatStore.onlineUsers().filter((user) => user !== data.data.conversationalist));
+    }
+  }
+
+  public createNewUserRequest(conversationalist: string) {
+    console.log(this.route.snapshot.paramMap.get('username') ?? '');
+    if (this.webSocket?.readyState === 1) {
+      this.webSocket.send(JSON.stringify({
+        type: 'NEW_USER',
+        username: this.userStore.user().username,
+        online: Boolean(conversationalist),
+        conversationalist,
+      }));
     }
   }
 }
