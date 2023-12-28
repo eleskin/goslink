@@ -26,7 +26,8 @@ export class HomeComponent {
 
     this.router.events.subscribe(async (value) => {
       if (value instanceof NavigationEnd) {
-        this.chatService.createNewUserRequest(this.route.snapshot.paramMap.get('username') ?? '');
+        console.log(1);
+        // this.chatService.createNewUserRequest(this.route.snapshot.paramMap.get('username') ?? '');
       }
     });
   }
