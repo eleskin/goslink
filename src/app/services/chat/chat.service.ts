@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import UserStore from '../../store/user/user.store';
 import ChatStore from '../../store/chat/chat.store';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +11,16 @@ export class ChatService {
   private readonly chatStore = inject(ChatStore);
   private readonly userStore = inject(UserStore);
 
-  constructor() {
+  constructor(private router: Router) {
     this.webSocket = new WebSocket(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
 
     this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
+
+    this.router.events.subscribe(async (value) => {
+      if (value instanceof NavigationEnd) {
+        this.createNewUserRequest(this.chatStore.conversationalist());
+      }
+    });
   }
 
   public createNewMessageRequest(data: {

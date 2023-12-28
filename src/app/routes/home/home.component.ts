@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RoomsListComponent} from '../../components/rooms-list/rooms-list.component';
 import {ChatComponent} from '../../components/chat/chat.component';
 import {NgIf} from '@angular/common';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ChatService} from '../../services/chat/chat.service';
+import ChatStore from '../../store/chat/chat.store';
 
 @Component({
   selector: 'app-home',
@@ -18,17 +19,13 @@ import {ChatService} from '../../services/chat/chat.service';
 })
 export class HomeComponent {
   protected visibleChat: boolean = Boolean(this.route.snapshot.paramMap.get('username'));
+  private chatStore = inject(ChatStore);
 
-  constructor(private route: ActivatedRoute, private chatService: ChatService, private router: Router) {
+  constructor(private route: ActivatedRoute, private chatService: ChatService) {
     this.chatService.webSocket?.addEventListener('open', () => {
       this.chatService.createNewUserRequest(this.route.snapshot.paramMap.get('username') ?? '');
     });
 
-    this.router.events.subscribe(async (value) => {
-      if (value instanceof NavigationEnd) {
-        console.log(1);
-        // this.chatService.createNewUserRequest(this.route.snapshot.paramMap.get('username') ?? '');
-      }
-    });
+    this.chatStore.setConversationalist(this.route.snapshot.paramMap.get('username') ?? '');
   }
 }
