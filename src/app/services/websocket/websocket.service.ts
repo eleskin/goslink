@@ -23,36 +23,40 @@ export class WebsocketService {
 
     this.webSocket = new WebSocketChatClient(webSocketUrl, this.webSocketStore);
 
-    this.getMessagesEventListeners(this.webSocket);
+    this.getMessagesEventListeners();
+    this.getRoomsEventListeners();
+    this.getUserEventListeners();
   }
 
-  private getMessagesEventListeners(websocket: WebSocket) {
-    websocket.addEventListener('NEW_MESSAGE', (event: any) => {
+  private getMessagesEventListeners() {
+    this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
       this.messagesStore.setMessages([...this.messagesStore.messages(), event.detail.data.message]);
     });
 
-    websocket.addEventListener('GET_MESSAGE', (event: any) => {
+    this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
       this.messagesStore.setMessages(event.detail.data.messages);
       this.chatStore.setConversationalist(event.detail.data.user);
     });
 
-    // websocket.addEventListener('UPDATE_MESSAGE', (event: any) => {
+    // this.webSocket?.addEventListener('UPDATE_MESSAGE', (event: any) => {
     // });
 
-    websocket.addEventListener('DELETE_MESSAGE', (event: any) => {
+    this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
       this.messagesStore.setMessages(
         [...this.messagesStore.messages().filter((message) => message._id !== event.detail.data.message)],
       );
     });
+  }
 
-
-    websocket.addEventListener('GET_ROOMS', (event: any) => {
+  getRoomsEventListeners() {
+    this.webSocket?.addEventListener('GET_ROOMS', (event: any) => {
       this.roomsStore.setRooms(event.detail.data.rooms);
       this.messagesStore.setMessages(event.detail.data.messages);
     });
+  }
 
-
-    websocket.addEventListener('GET_USER', (event: any) => {
+  getUserEventListeners() {
+    this.webSocket?.addEventListener('GET_USER', (event: any) => {
       this.chatStore.setConversationalist(event.detail.data.user);
     });
   }
