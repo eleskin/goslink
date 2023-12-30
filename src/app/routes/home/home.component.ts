@@ -3,6 +3,7 @@ import {RoomsListComponent} from '../../components/rooms-list/rooms-list.compone
 import {ChatComponent} from '../../components/chat/chat.component';
 import {NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
+import {WebsocketService} from '../../services/websocket/websocket.service';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,8 @@ import {ActivatedRoute} from '@angular/router';
 export class HomeComponent {
   protected visibleChat: boolean = Boolean(this.route.snapshot.paramMap.get('_id'));
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private websocketService: WebsocketService) {
+    this.websocketService.webSocket?.addEventListener('open', () => {
+    });
   }
 }

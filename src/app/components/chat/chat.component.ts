@@ -77,14 +77,12 @@ export class ChatComponent {
   ngOnInit() {
     this.updateMessage.subscribe((value) => this.message = value);
 
-    this.websocketService.webSocket?.addEventListener('open', () => {
-      this.websocketService.webSocket?.send(JSON.stringify({
-        type: 'GET_MESSAGE',
-        data: {
-          conversationalistId: this.conversationalistId,
-        },
-      }));
-    });
+    this.websocketService.webSocket?.send(JSON.stringify({
+      type: 'GET_MESSAGE',
+      data: {
+        conversationalistId: this.conversationalistId,
+      },
+    }));
 
     this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
   }
