@@ -20,20 +20,22 @@ export class WebsocketService {
     const {_id} = this.userStore.user();
     const webSocketUrl = `ws://localhost:8000/api/websocket/?_id=${_id}`;
 
-    this.webSocket = new WebSocketChatClient(webSocketUrl);
+    this.webSocket = new WebSocketChatClient(webSocketUrl, this.webSocketStore);
 
-    if (this.webSocket?.readyState === 1) this.webSocketStore.setReadyState(1);
-    else this.webSocketStore.setReadyState(0);
-
-    this.getMessagesEventListeners();
+    effect(() => {
+      this.getMessagesEventListeners();
+    });
   }
 
   private getMessagesEventListeners() {
     // this.webSocket.addEventListener('NEW_MESSAGE', (event) => {
     // });
-    this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
-      this.messagesStore.setMessages(event.detail.data.messages);
-    });
+    if (this.webSocketStore.readyState() === 1) {
+      this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
+        console.log(event.detail.data.messages)
+        this.messagesStore.setMessages(event.detail.data.messages);
+      });
+    }
     // this.webSocket.addEventListener('UPDATE_MESSAGE', (event) => {
     // });
     // this.webSocket.addEventListener('DELETE_MESSAGE', (event) => {

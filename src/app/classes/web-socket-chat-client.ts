@@ -1,6 +1,10 @@
+import {AddEventListenerOptions} from 'rxjs/internal/observable/fromEvent';
+
 class WebSocketChatClient extends WebSocket {
-  constructor(url: string) {
+  constructor(url: string, webSocketStore: any) {
     super(url);
+
+    super.addEventListener('open', () => webSocketStore.setReadyState(1));
 
     super.addEventListener('message', (event) => {
       const payload = JSON.parse(event.data);

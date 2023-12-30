@@ -27,7 +27,6 @@ export class HomeComponent {
   constructor(private route: ActivatedRoute, private chatService: ChatService, private webSocketService: WebsocketService) {
 
     this.webSocketService.webSocket?.addEventListener('open', () => {
-      console.log(123);
       // this.chatService.createNewUserRequest(this.route.snapshot.paramMap.get('username') ?? '');
     });
 
