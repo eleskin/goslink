@@ -8,7 +8,6 @@ import {MessageComponent} from '../message/message.component';
 import ChatStore from '../../store/chat/chat.store';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
-import WebsocketStore from '../../store/websocket/websocket.store';
 import MessagesStore from '../../store/messages/messages.store';
 
 @Component({
@@ -31,7 +30,6 @@ export class ChatComponent {
   protected conversationalistName: string = '';
   protected messages: Message[] = [];
   private readonly chatStore = inject(ChatStore);
-  private readonly websocketStore = inject(WebsocketStore);
   private readonly messagesStore = inject(MessagesStore);
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
@@ -41,6 +39,15 @@ export class ChatComponent {
     private route: ActivatedRoute,
     private websocketService: WebsocketService,
   ) {
+    console.log(this.websocketService.webSocket);
+    this.websocketService.webSocket?.addEventListener('open', () => {
+      this.websocketService.webSocket?.send(JSON.stringify({
+        type: 'GET_MESSAGE',
+        data: {
+          conversationalistId: this.conversationalistId,
+        },
+      }));
+    });
     this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
@@ -49,17 +56,6 @@ export class ChatComponent {
       this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
       this.conversationalistName = this.chatStore.conversationalist().name;
       this.messages = this.messagesStore.messages();
-    });
-
-    effect(() => {
-      if (this.websocketStore.readyState() === 1) {
-        this.websocketService.webSocket?.send(JSON.stringify({
-          type: 'GET_MESSAGE',
-          data: {
-            conversationalistId: this.conversationalistId,
-          },
-        }));
-      }
     });
   }
 

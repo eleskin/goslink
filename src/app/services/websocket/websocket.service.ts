@@ -1,4 +1,4 @@
-import {effect, inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import UserStore from '../../store/user/user.store';
 import MessagesStore from '../../store/messages/messages.store';
@@ -23,41 +23,36 @@ export class WebsocketService {
 
     this.webSocket = new WebSocketChatClient(webSocketUrl, this.webSocketStore);
 
-    effect(() => {
-      this.getMessagesEventListeners();
-    });
+    this.getMessagesEventListeners(this.webSocket);
   }
 
-  private getMessagesEventListeners() {
+  private getMessagesEventListeners(websocket: WebSocket) {
+    websocket.addEventListener('NEW_MESSAGE', (event: any) => {
+      this.messagesStore.setMessages([...this.messagesStore.messages(), event.detail.data.message]);
+    });
 
-    if (this.webSocketStore.readyState() === 1) {
-      this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
-        this.messagesStore.setMessages([...this.messagesStore.messages(), event.detail.data.message]);
-      });
+    websocket.addEventListener('GET_MESSAGE', (event: any) => {
+      this.messagesStore.setMessages(event.detail.data.messages);
+      this.chatStore.setConversationalist(event.detail.data.user);
+    });
 
-      this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
-        this.messagesStore.setMessages(event.detail.data.messages);
-        this.chatStore.setConversationalist(event.detail.data.user);
-      });
+    // websocket.addEventListener('UPDATE_MESSAGE', (event: any) => {
+    // });
 
-      // this.webSocket?.addEventListener('UPDATE_MESSAGE', (event: any) => {
-      // });
-
-      this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
-        this.messagesStore.setMessages(
-          [...this.messagesStore.messages().filter((message) => message._id !== event.detail.data.message)],
-        );
-      });
+    websocket.addEventListener('DELETE_MESSAGE', (event: any) => {
+      this.messagesStore.setMessages(
+        [...this.messagesStore.messages().filter((message) => message._id !== event.detail.data.message)],
+      );
+    });
 
 
-      this.webSocket?.addEventListener('GET_ROOMS', (event: any) => {
-        this.roomsStore.setRooms(event.detail.data.rooms);
-      });
+    websocket.addEventListener('GET_ROOMS', (event: any) => {
+      this.roomsStore.setRooms(event.detail.data.rooms);
+    });
 
 
-      this.webSocket?.addEventListener('GET_USER', (event: any) => {
-        this.chatStore.setConversationalist(event.detail.data.user);
-      });
-    }
+    websocket.addEventListener('GET_USER', (event: any) => {
+      this.chatStore.setConversationalist(event.detail.data.user);
+    });
   }
 }
