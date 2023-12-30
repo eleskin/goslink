@@ -39,11 +39,6 @@ export class MessageComponent {
   }
 
   protected handleClickDelete(message: Message) {
-    // this.chatService.deleteMessageRequest({
-    //   _id: message._id,
-    //   username: this.user.username,
-    //   conversationalist: this.route.snapshot.paramMap.get('username') ?? '',
-    // });
     this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'DELETE_MESSAGE',
       data: {

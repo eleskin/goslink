@@ -45,8 +45,5 @@ export class WebsocketService {
         );
       });
     }
-
-    // this.webSocket.addEventListener('DELETE_MESSAGE', (event) => {
-    // });
   }
 }
