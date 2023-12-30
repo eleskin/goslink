@@ -19,21 +19,21 @@ export class WebsocketService {
       const {_id} = this.userStore.user();
       const webSocketUrl = `ws://localhost:8000/api/websocket/?_id=${_id}`;
 
+
       this.webSocket = new WebSocketChatClient(webSocketUrl);
       this.getMessagesEventListeners();
-
     });
   }
 
   private getMessagesEventListeners() {
     // this.webSocket.addEventListener('NEW_MESSAGE', (event) => {
     // });
-    this.webSocket?.addEventListener('GET_MESSAGES', (event: any) => {
+    this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
       this.messagesStore.setMessages(event.detail.data.messages);
     });
     // this.webSocket.addEventListener('UPDATE_MESSAGE', (event) => {
     // });
-    // this.webSocket.addEventListener('DELETE_MESSAGES', (event) => {
+    // this.webSocket.addEventListener('DELETE_MESSAGE', (event) => {
     // });
   }
 }

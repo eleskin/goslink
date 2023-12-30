@@ -41,8 +41,16 @@ export class ChatComponent {
   constructor(
     private route: ActivatedRoute,
     // private chatService: ChatService,
-    // private webSocketService: WebsocketService,
+    private webSocketService: WebsocketService,
   ) {
+      if (this.webSocketService.webSocket?.readyState === 1) {
+        this.webSocketService.webSocket?.send(JSON.stringify({
+          type: 'NEW_MESSAGE',
+          data: {
+            roomId: '65901d5badce6702ec49a270',
+          },
+        }));
+    }
     // if (!this.webSocketService.webSocket) return;
 
     // this.webSocketService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
