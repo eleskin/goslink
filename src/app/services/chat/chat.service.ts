@@ -1,79 +1,32 @@
-import {inject, Injectable} from '@angular/core';
-import UserStore from '../../store/user/user.store';
-import ChatStore from '../../store/chat/chat.store';
+import {effect, inject, Injectable} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
-import WebSocketChatClient from '../../classes/web-socket-chat-client';
+import {WebsocketService} from '../websocket/websocket.service';
+import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  public webSocket: WebSocketChatClient | undefined;
-  private readonly chatStore = inject(ChatStore);
-  private readonly userStore = inject(UserStore);
+  private readonly websocketStore = inject(WebsocketStore);
 
-  constructor(private router: Router) {
-    // this.webSocket = new WebSocketChatClient(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
+  constructor(private router: Router, private websocketService: WebsocketService) {
+    effect(() => {
+      this.router.events.subscribe(async (value) => {
+        if (value instanceof NavigationEnd && this.websocketStore.readyState() === 1 && /\/chat\/[a-zA-z0-9]*$/gm.test(value.url)) {
+          const conversationalistIdPosition = value.url.search(/chat\/[a-zA-z0-9]*$/gm);
 
-    // this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
+          if (conversationalistIdPosition === -1) return;
 
-    this.router.events.subscribe(async (value) => {
-      if (value instanceof NavigationEnd) {
-        this.createNewUserRequest(this.chatStore.conversationalist());
-      }
+          const conversationalistId = value.url.slice(conversationalistIdPosition).split('/').at(-1);
+
+          this.websocketService.webSocket?.send(JSON.stringify({
+            type: 'GET_USER',
+            data: {
+              conversationalistId: conversationalistId,
+            },
+          }));
+        }
+      });
     });
-  }
-
-  public createNewMessageRequest(data: {
-    username: string;
-    name: string;
-    conversationalist: string;
-    message: string;
-  }) {
-    this.webSocket?.send(JSON.stringify({
-      type: 'NEW_MESSAGE',
-      ...data,
-    }));
-  }
-
-  public deleteMessageRequest(data: {
-    _id: string;
-    username: string;
-    conversationalist: string;
-  }) {
-    this.webSocket?.send(JSON.stringify({
-      type: 'DELETE_MESSAGE',
-      ...data,
-    }));
-  }
-
-  private async handleMessageWebSocket(event: any) {
-    const data = JSON.parse(event.data);
-    if (data?.type === 'NEW_USER') {
-      this.chatStore.setConversationalistName(data.conversationalistName);
-    } else if (data.type === 'NEW_MESSAGE') {
-      this.chatStore.setMessages(data.messages);
-    } else if (data.type === 'NEW_MESSAGES') {
-      this.chatStore.setMessages(data.messages);
-    } else if (data.type === 'SET_ONLINE') {
-      if (data.data?.conversationalist) {
-        this.chatStore.setOnlineUsers([...new Set([...this.chatStore.onlineUsers(), data.data.conversationalist])]);
-      } else if (data.data?.conversationalists) {
-        this.chatStore.setOnlineUsers([...new Set([...this.chatStore.onlineUsers(), ...data.data.conversationalists])]);
-      }
-    } else if (data.type === 'SET_OFFLINE') {
-      this.chatStore.setOnlineUsers(this.chatStore.onlineUsers().filter((user) => user !== data.data.conversationalist));
-    }
-  }
-
-  public createNewUserRequest(conversationalist: string) {
-    if (this.webSocket?.readyState === 1) {
-      this.webSocket.send(JSON.stringify({
-        type: 'NEW_USER',
-        username: this.userStore.user().username,
-        online: Boolean(conversationalist),
-        conversationalist,
-      }));
-    }
   }
 }

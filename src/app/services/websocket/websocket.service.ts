@@ -4,6 +4,7 @@ import UserStore from '../../store/user/user.store';
 import MessagesStore from '../../store/messages/messages.store';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import RoomsStore from '../../store/rooms/rooms.store';
+import ChatStore from '../../store/chat/chat.store';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import RoomsStore from '../../store/rooms/rooms.store';
 export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly userStore = inject(UserStore);
+  private readonly chatStore = inject(ChatStore);
   private readonly messagesStore = inject(MessagesStore);
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly roomsStore = inject(RoomsStore);
@@ -48,9 +50,13 @@ export class WebsocketService {
 
 
       this.webSocket?.addEventListener('GET_ROOMS', (event: any) => {
-        console.log(event.detail.data.rooms)
         this.roomsStore.setRooms(event.detail.data.rooms);
-      })
+      });
+
+
+      this.webSocket?.addEventListener('GET_USER', (event: any) => {
+        this.chatStore.setConversationalist(event.detail.data.user);
+      });
     }
   }
 }

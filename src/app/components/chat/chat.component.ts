@@ -47,7 +47,7 @@ export class ChatComponent {
 
     effect(() => {
       this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
-      this.conversationalistName = this.chatStore.conversationalistName();
+      this.conversationalistName = this.chatStore.conversationalist().name;
       this.messages = this.messagesStore.messages();
     });
 

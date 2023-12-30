@@ -1,15 +1,22 @@
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
 import Message from '../../interfaces/message';
+import User from '../../interfaces/user';
 
 const initialStateMessages: Message[] = [];
-const initialStateConversationalistName: string = '';
-const initialStateConversationalist: string = '';
+const initialStateConversationalist: User = {
+  _id: '',
+  name: '',
+  username: '',
+  email: '',
+  conversationalist: '',
+  conversationalistName: '',
+  lastMessage: '',
+};
 const initialStateOnlineUsers: string[] = [];
 
 const ChatStore = signalStore(
   withState({
     messages: initialStateMessages,
-    conversationalistName: initialStateConversationalistName,
     conversationalist: initialStateConversationalist,
     onlineUsers: initialStateOnlineUsers,
   }),
@@ -17,10 +24,7 @@ const ChatStore = signalStore(
     setMessages(state: Message[] = initialStateMessages) {
       patchState(store, {messages: state});
     },
-    setConversationalistName(state: string = initialStateConversationalistName) {
-      patchState(store, {conversationalistName: state});
-    },
-    setConversationalist(state: string = initialStateConversationalist) {
+    setConversationalist(state: User = initialStateConversationalist) {
       patchState(store, {conversationalist: state});
     },
     setOnlineUsers(state: string[] = initialStateOnlineUsers) {
