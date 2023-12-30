@@ -3,8 +3,6 @@ import {RoomsListComponent} from '../../components/rooms-list/rooms-list.compone
 import {ChatComponent} from '../../components/chat/chat.component';
 import {NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
-import {ChatService} from '../../services/chat/chat.service';
-import ChatStore from '../../store/chat/chat.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import RoomsStore from '../../store/rooms/rooms.store';
 
@@ -21,16 +19,10 @@ import RoomsStore from '../../store/rooms/rooms.store';
 })
 export class HomeComponent {
   protected visibleChat: boolean = Boolean(this.route.snapshot.paramMap.get('_id'));
-  private chatStore = inject(ChatStore);
   private roomsStore = inject(RoomsStore);
 
-  constructor(private route: ActivatedRoute, private chatService: ChatService, private webSocketService: WebsocketService) {
-
-    this.webSocketService.webSocket?.addEventListener('open', () => {
-      // this.chatService.createNewUserRequest(this.route.snapshot.paramMap.get('username') ?? '');
-    });
-
-    // this.chatStore.setConversationalist(this.route.snapshot.paramMap.get('username') ?? '');
+  constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
+    this.webSocketService.webSocket?.addEventListener('open', () => {});
   }
 
   ngOnInit() {

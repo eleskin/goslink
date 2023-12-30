@@ -1,8 +1,6 @@
 import {Component, effect, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import Message from '../../interfaces/message';
-import {ChatService} from '../../services/chat/chat.service';
-import {ActivatedRoute} from '@angular/router';
 import UserStore from '../../store/user/user.store';
 import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
@@ -28,7 +26,7 @@ export class MessageComponent {
   private readonly userStore = inject(UserStore);
   private user: User = this.userStore.user();
 
-  constructor(private chatService: ChatService, private route: ActivatedRoute, private webSocketService: WebsocketService) {
+  constructor(private webSocketService: WebsocketService) {
     effect(() => {
       this.user = this.userStore.user();
     });

@@ -37,6 +37,7 @@ export class WebsocketService {
 
       this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
         this.messagesStore.setMessages(event.detail.data.messages);
+        this.chatStore.setConversationalist(event.detail.data.user);
       });
 
       // this.webSocket?.addEventListener('UPDATE_MESSAGE', (event: any) => {

@@ -39,9 +39,9 @@ export class ChatComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private webSocketService: WebsocketService,
+    private websocketService: WebsocketService,
   ) {
-    this.webSocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
+    this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
 
@@ -53,7 +53,7 @@ export class ChatComponent {
 
     effect(() => {
       if (this.websocketStore.readyState() === 1) {
-        this.webSocketService.webSocket?.send(JSON.stringify({
+        this.websocketService.webSocket?.send(JSON.stringify({
           type: 'GET_MESSAGE',
           data: {
             conversationalistId: this.conversationalistId,
@@ -72,7 +72,7 @@ export class ChatComponent {
 
     if (!this.message) return;
 
-    this.webSocketService.webSocket?.send(JSON.stringify({
+    this.websocketService.webSocket?.send(JSON.stringify({
       type: 'NEW_MESSAGE',
       data: {
         conversationalistId: this.conversationalistId,
