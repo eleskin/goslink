@@ -16,7 +16,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  public searchUser(value: string): Promise<Pick<User, 'name' | 'username'>> {
+  public searchUser(value: string): Promise<User> {
     return new Promise((resolve) => {
       if (value.length > 1 && value.search(/^@[a-zA-Z0-9]*/) !== -1) {
         this.http.get('http://localhost:3000/api/user/search', {

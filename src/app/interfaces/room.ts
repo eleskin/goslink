@@ -1,4 +1,5 @@
 interface Room {
+  _id: string;
   conversationalist: string;
   conversationalistName: string;
   lastMessage: string;

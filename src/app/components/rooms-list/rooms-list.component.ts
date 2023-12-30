@@ -23,9 +23,9 @@ import ChatStore from '../../store/chat/chat.store';
   styleUrl: './rooms-list.component.css',
 })
 export class RoomsListComponent {
-  protected searchedUsers: Pick<User, 'name' | 'username'>[] = [];
+  protected searchedUsers: User[] = [];
   protected readonly truncate = truncate;
-  protected conversationalist: string = this.route.snapshot.paramMap.get('username') ?? '';
+  protected conversationalist: string = this.route.snapshot.paramMap.get('_id') ?? '';
   private readonly roomsStore = inject(RoomsStore);
   private readonly chatStore = inject(ChatStore);
   protected rooms: Room[] = this.roomsStore.rooms();
@@ -40,7 +40,7 @@ export class RoomsListComponent {
   }
 
   protected async handleInputSearch(event: any) {
-    const user: Pick<User, 'name' | 'username'> = await this.userService.searchUser(event.target.value);
+    const user: User = await this.userService.searchUser(event.target.value);
 
     if (Object.keys(user).length) {
       this.searchedUsers.length = 0;
