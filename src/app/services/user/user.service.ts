@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import setJWT from '../../utils/setJWT';
 import removeJWT from '../../utils/removeJWT';
 import UserStore from '../../store/user/user.store';
-import RoomsStore from '../../store/rooms/rooms.store';
 import User from '../../interfaces/user';
 
 @Injectable({
@@ -11,7 +10,6 @@ import User from '../../interfaces/user';
 })
 export class UserService {
   private readonly userStore = inject(UserStore);
-  private readonly roomsStore = inject(RoomsStore);
 
   constructor(private http: HttpClient) {
   }
@@ -39,7 +37,6 @@ export class UserService {
       }).subscribe({
         next: (data: any) => {
           this.userStore.setUser(data.user);
-          this.roomsStore.setRooms(data.rooms);
           setJWT(data.accessToken);
           resolve(data.user);
         },

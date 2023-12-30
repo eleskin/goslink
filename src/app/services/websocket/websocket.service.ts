@@ -3,6 +3,7 @@ import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import UserStore from '../../store/user/user.store';
 import MessagesStore from '../../store/messages/messages.store';
 import WebsocketStore from '../../store/websocket/websocket.store';
+import RoomsStore from '../../store/rooms/rooms.store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class WebsocketService {
   private readonly userStore = inject(UserStore);
   private readonly messagesStore = inject(MessagesStore);
   private readonly webSocketStore = inject(WebsocketStore);
+  private readonly roomsStore = inject(RoomsStore);
 
   constructor() {
     const {_id} = this.userStore.user();
@@ -39,11 +41,16 @@ export class WebsocketService {
       // });
 
       this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
-        console.log(event.detail.data.message);
         this.messagesStore.setMessages(
           [...this.messagesStore.messages().filter((message) => message._id !== event.detail.data.message)],
         );
       });
+
+
+      this.webSocket?.addEventListener('GET_ROOMS', (event: any) => {
+        console.log(event.detail.data.rooms)
+        this.roomsStore.setRooms(event.detail.data.rooms);
+      })
     }
   }
 }
