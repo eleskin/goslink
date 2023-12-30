@@ -11,6 +11,7 @@ import UserStore from '../../store/user/user.store';
 import ChatStore from '../../store/chat/chat.store';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
+import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Component({
   selector: 'app-chat',

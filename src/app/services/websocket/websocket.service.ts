@@ -4,6 +4,7 @@ import UserStore from '../../store/user/user.store';
 import MessagesStore from '../../store/messages/messages.store';
 import {ActivatedRoute} from '@angular/router';
 import RoomsStore from '../../store/rooms/rooms.store';
+import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +13,19 @@ export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly userStore = inject(UserStore);
   private readonly messagesStore = inject(MessagesStore);
-  private roomsStore = inject(RoomsStore);
+  private readonly roomsStore = inject(RoomsStore);
+  private readonly webSocketStore = inject(WebsocketStore);
 
   constructor(private route: ActivatedRoute) {
-    effect(() => {
-      const {_id} = this.userStore.user();
-      const webSocketUrl = `ws://localhost:8000/api/websocket/?_id=${_id}`;
+    const {_id} = this.userStore.user();
+    const webSocketUrl = `ws://localhost:8000/api/websocket/?_id=${_id}`;
 
+    this.webSocket = new WebSocketChatClient(webSocketUrl);
 
-      this.webSocket = new WebSocketChatClient(webSocketUrl);
-      this.getMessagesEventListeners();
-    });
+    if (this.webSocket?.readyState === 1) this.webSocketStore.setReadyState(1);
+    else this.webSocketStore.setReadyState(0);
+
+    this.getMessagesEventListeners();
   }
 
   private getMessagesEventListeners() {
