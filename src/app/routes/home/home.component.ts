@@ -1,10 +1,8 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {RoomsListComponent} from '../../components/rooms-list/rooms-list.component';
 import {ChatComponent} from '../../components/chat/chat.component';
 import {NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
-import {WebsocketService} from '../../services/websocket/websocket.service';
-import RoomsStore from '../../store/rooms/rooms.store';
 
 @Component({
   selector: 'app-home',
@@ -19,15 +17,7 @@ import RoomsStore from '../../store/rooms/rooms.store';
 })
 export class HomeComponent {
   protected visibleChat: boolean = Boolean(this.route.snapshot.paramMap.get('_id'));
-  private roomsStore = inject(RoomsStore);
 
-  constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
-  }
-
-  ngOnInit() {
-    this.webSocketService.webSocket?.addEventListener('open', () => {});
-
-    const roomId = this.route.snapshot.paramMap.get('_id');
-    this.roomsStore.setCurrentRoomId(roomId ?? '')
+  constructor(private route: ActivatedRoute) {
   }
 }
