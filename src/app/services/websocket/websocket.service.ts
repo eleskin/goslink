@@ -34,6 +34,10 @@ export class WebsocketService {
       this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
         this.messagesStore.setMessages(event.detail.data.messages);
       });
+
+      this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
+        this.messagesStore.setMessages([...this.messagesStore.messages(), event.detail.data.message]);
+      });
     }
     // this.webSocket.addEventListener('UPDATE_MESSAGE', (event) => {
     // });

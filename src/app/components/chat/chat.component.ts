@@ -51,7 +51,7 @@ export class ChatComponent {
 
     // if (!this.webSocketService.webSocket) return;
 
-    // this.webSocketService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
+    this.webSocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
 
@@ -90,6 +90,13 @@ export class ChatComponent {
 
     if (!this.message) return;
 
+    this.webSocketService.webSocket?.send(JSON.stringify({
+      type: 'NEW_MESSAGE',
+      data: {
+        conversationalistId: this.conversationalistId,
+        text: this.message,
+      },
+    }));
     // this.webSocketService.createNewMessageRequest({
     //   ...this.getChatArgs(),
     //   name: this.user.name,
