@@ -6,12 +6,31 @@ import UserStore from '../../store/user/user.store';
   providedIn: 'root',
 })
 export class WebsocketService {
-  private userStore = inject(UserStore);
+  private webSocket = new WebSocket('ws://localhost:8000/api/websocket');
+  private readonly userStore = inject(UserStore);
 
   constructor() {
     const {_id} = this.userStore.user();
     const webSocketUrl = `ws://localhost:8000/api/websocket/?_id=${_id}`;
 
-    const webSocket = new WebSocketChatClient(webSocketUrl);
+    this.webSocket = new WebSocketChatClient(webSocketUrl);
+
+    this.getMessagesEventListeners();
+  }
+
+
+  private getMessagesEventListeners() {
+    this.webSocket.addEventListener('NEW_MESSAGE', (event) => {
+
+    });
+    this.webSocket.addEventListener('GET_MESSAGES', (event) => {
+
+    });
+    this.webSocket.addEventListener('UPDATE_MESSAGE', (event) => {
+
+    });
+    this.webSocket.addEventListener('DELETE_MESSAGES', (event) => {
+
+    });
   }
 }

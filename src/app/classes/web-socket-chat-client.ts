@@ -6,7 +6,13 @@ enum WebSocketChatClientEventMessageType {
 }
 
 class WebSocketChatClient extends WebSocket {
+  constructor(url: string) {
+    super(url);
 
+    super.addEventListener('message', (event) => {
+      super.dispatchEvent(new CustomEvent(event.type, {detail: {data: event.data}}));
+    });
+  }
 }
 
 export default WebSocketChatClient;
