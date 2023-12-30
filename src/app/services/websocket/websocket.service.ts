@@ -48,6 +48,7 @@ export class WebsocketService {
 
     websocket.addEventListener('GET_ROOMS', (event: any) => {
       this.roomsStore.setRooms(event.detail.data.rooms);
+      this.messagesStore.setMessages(event.detail.data.messages);
     });
 
 
