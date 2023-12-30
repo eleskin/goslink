@@ -3,11 +3,8 @@ import {NgForOf, NgOptimizedImage} from '@angular/common';
 import {InputComponent} from '../input/input.component';
 import {ButtonComponent} from '../button/button.component';
 import {FormsModule} from '@angular/forms';
-import User from '../../interfaces/user';
 import {ActivatedRoute} from '@angular/router';
 import {MessageComponent} from '../message/message.component';
-import {ChatService} from '../../services/chat/chat.service';
-import UserStore from '../../store/user/user.store';
 import ChatStore from '../../store/chat/chat.store';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
@@ -34,31 +31,22 @@ export class ChatComponent {
   protected conversationalistName: string = '';
   protected messages: Message[] = [];
   private readonly chatStore = inject(ChatStore);
-  private readonly userStore = inject(UserStore);
   private readonly websocketStore = inject(WebsocketStore);
   private readonly messagesStore = inject(MessagesStore);
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
-  private user: User = this.userStore.user();
   private conversationalistId: string = this.route.snapshot.paramMap.get('_id') ?? '';
 
   constructor(
     private route: ActivatedRoute,
-    // private chatService: ChatService,
     private webSocketService: WebsocketService,
   ) {
-
-
-    // if (!this.webSocketService.webSocket) return;
-
     this.webSocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
 
-
     effect(() => {
       this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
-      this.user = this.userStore.user();
       this.conversationalistName = this.chatStore.conversationalistName();
       this.messages = this.messagesStore.messages();
     });
@@ -71,12 +59,6 @@ export class ChatComponent {
             conversationalistId: this.conversationalistId,
           },
         }));
-        // this.webSocketService.webSocket?.send(JSON.stringify({
-        //   type: 'NEW_MESSAGE',
-        //   data: {
-        //     conversationalistId: this.conversationalistId,
-        //   },
-        // }));
       }
     });
   }
@@ -97,19 +79,8 @@ export class ChatComponent {
         text: this.message,
       },
     }));
-    // this.webSocketService.createNewMessageRequest({
-    //   ...this.getChatArgs(),
-    //   name: this.user.name,
-    //   message: this.message,
-    // });
-    this.updateMessage.emit('');
-  }
 
-  private getChatArgs() {
-    return {
-      username: this.user.username,
-      conversationalist: this.conversationalistId,
-    };
+    this.updateMessage.emit('');
   }
 
   private handleMessageWebSocket() {

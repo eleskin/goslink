@@ -5,6 +5,7 @@ import {ChatService} from '../../services/chat/chat.service';
 import {ActivatedRoute} from '@angular/router';
 import UserStore from '../../store/user/user.store';
 import User from '../../interfaces/user';
+import {WebsocketService} from '../../services/websocket/websocket.service';
 
 @Component({
   selector: 'app-message',
@@ -27,7 +28,7 @@ export class MessageComponent {
   private readonly userStore = inject(UserStore);
   private user: User = this.userStore.user();
 
-  constructor(private chatService: ChatService, private route: ActivatedRoute) {
+  constructor(private chatService: ChatService, private route: ActivatedRoute, private webSocketService: WebsocketService) {
     effect(() => {
       this.user = this.userStore.user();
     });
@@ -38,10 +39,16 @@ export class MessageComponent {
   }
 
   protected handleClickDelete(message: Message) {
-    this.chatService.deleteMessageRequest({
-      _id: message._id,
-      username: this.user.username,
-      conversationalist: this.route.snapshot.paramMap.get('username') ?? '',
-    });
+    // this.chatService.deleteMessageRequest({
+    //   _id: message._id,
+    //   username: this.user.username,
+    //   conversationalist: this.route.snapshot.paramMap.get('username') ?? '',
+    // });
+    this.webSocketService.webSocket?.send(JSON.stringify({
+      type: 'DELETE_MESSAGE',
+      data: {
+        _id: message._id,
+      },
+    }));
   }
 }
