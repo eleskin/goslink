@@ -9,6 +9,7 @@ import ChatStore from '../../store/chat/chat.store';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import MessagesStore from '../../store/messages/messages.store';
+import RoomsStore from '../../store/rooms/rooms.store';
 
 @Component({
   selector: 'app-chat',
@@ -31,6 +32,7 @@ export class ChatComponent {
   protected messages: Message[] = [];
   private readonly chatStore = inject(ChatStore);
   private readonly messagesStore = inject(MessagesStore);
+  private readonly roomsStore = inject(RoomsStore);
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   private conversationalistId: string = this.route.snapshot.paramMap.get('_id') ?? '';
@@ -43,6 +45,11 @@ export class ChatComponent {
       this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
       this.conversationalistName = this.chatStore.conversationalist().name;
       this.messages = this.messagesStore.messages();
+
+
+      const conversationalist = this.roomsStore.rooms()
+        .filter((room) => room.conversationalist === this.conversationalistId)?.[0];
+      this.conversationalistName = conversationalist?.conversationalistName ?? '';
     });
   }
 
@@ -85,6 +92,7 @@ export class ChatComponent {
         },
       }));
     });
+
 
     this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
   }
