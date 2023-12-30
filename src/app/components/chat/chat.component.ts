@@ -41,11 +41,11 @@ export class ChatComponent {
   constructor(
     private route: ActivatedRoute,
     // private chatService: ChatService,
-    private webSocketService: WebsocketService,
+    // private webSocketService: WebsocketService,
   ) {
-    if (!this.webSocketService.webSocket) return;
+    // if (!this.webSocketService.webSocket) return;
 
-    this.webSocketService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
+    // this.webSocketService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
 

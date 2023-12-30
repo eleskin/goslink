@@ -7,7 +7,7 @@ import {canActivateExternalRouteGuard} from './guards/can-activate-external-rout
 
 export const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [canActivateInternalRouteGuard]},
-  {path: 'chat/:username', component: HomeComponent, canActivate: [canActivateInternalRouteGuard]},
+  {path: 'chat/:_id', component: HomeComponent, canActivate: [canActivateInternalRouteGuard]},
   {path: 'login', component: LoginComponent, canActivate: [canActivateExternalRouteGuard]},
   {path: 'register', component: RegisterComponent, canActivate: [canActivateExternalRouteGuard]},
 ];

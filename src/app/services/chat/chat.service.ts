@@ -13,7 +13,7 @@ export class ChatService {
   private readonly userStore = inject(UserStore);
 
   constructor(private router: Router) {
-    this.webSocket = new WebSocketChatClient(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
+    // this.webSocket = new WebSocketChatClient(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
 
     // this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
 
