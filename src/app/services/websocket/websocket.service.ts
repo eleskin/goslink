@@ -32,7 +32,6 @@ export class WebsocketService {
     // });
     if (this.webSocketStore.readyState() === 1) {
       this.webSocket?.addEventListener('GET_MESSAGE', (event: any) => {
-        console.log(event.detail.data.messages)
         this.messagesStore.setMessages(event.detail.data.messages);
       });
     }
