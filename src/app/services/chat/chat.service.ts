@@ -15,7 +15,7 @@ export class ChatService {
   constructor(private router: Router) {
     this.webSocket = new WebSocketChatClient(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
 
-    this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
+    // this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
 
     this.router.events.subscribe(async (value) => {
       if (value instanceof NavigationEnd) {

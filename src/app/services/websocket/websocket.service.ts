@@ -7,7 +7,7 @@ import MessagesStore from '../../store/messages/messages.store';
   providedIn: 'root',
 })
 export class WebsocketService {
-  private webSocket = new WebSocketChatClient('ws://localhost:8000/api/websocket');
+  public webSocket;
   private readonly userStore = inject(UserStore);
   private readonly messagesStore = inject(MessagesStore);
 
@@ -23,27 +23,14 @@ export class WebsocketService {
 
   private getMessagesEventListeners() {
     // this.webSocket.addEventListener('NEW_MESSAGE', (event) => {
-    //   const payload: { type: string, data: { message: Partial<Message> } } = {
-    //     type: 'NEW_MESSAGE',
-    //     data: {
-    //       message: {
-    //         text: '',
-    //         userId: this.userStore.user()._id,
-    //       },
-    //     },
-    //   };
-    //
-    //   this.webSocket.send(JSON.stringify(payload));
     // });
     this.webSocket.addEventListener('GET_MESSAGES', (event: any) => {
       console.log(event);
       this.messagesStore.setMessages(event.detail.data.messages);
     });
     // this.webSocket.addEventListener('UPDATE_MESSAGE', (event) => {
-    //
     // });
     // this.webSocket.addEventListener('DELETE_MESSAGES', (event) => {
-    //
     // });
   }
 }

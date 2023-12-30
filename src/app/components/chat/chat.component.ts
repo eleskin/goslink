@@ -10,6 +10,7 @@ import {ChatService} from '../../services/chat/chat.service';
 import UserStore from '../../store/user/user.store';
 import ChatStore from '../../store/chat/chat.store';
 import Message from '../../interfaces/message';
+import {WebsocketService} from '../../services/websocket/websocket.service';
 
 @Component({
   selector: 'app-chat',
@@ -39,12 +40,12 @@ export class ChatComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private chatService: ChatService,
-    // private webSocketService: WebsocketService,
+    // private chatService: ChatService,
+    private webSocketService: WebsocketService,
   ) {
-    if (!this.chatService.webSocket) return;
+    if (!this.webSocketService.webSocket) return;
 
-    this.chatService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
+    this.webSocketService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
 
@@ -66,11 +67,11 @@ export class ChatComponent {
 
     if (!this.message) return;
 
-    this.chatService.createNewMessageRequest({
-      ...this.getChatArgs(),
-      name: this.user.name,
-      message: this.message,
-    });
+    // this.webSocketService.createNewMessageRequest({
+    //   ...this.getChatArgs(),
+    //   name: this.user.name,
+    //   message: this.message,
+    // });
     this.updateMessage.emit('');
   }
 
