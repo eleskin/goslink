@@ -2,17 +2,18 @@ import {inject, Injectable} from '@angular/core';
 import UserStore from '../../store/user/user.store';
 import ChatStore from '../../store/chat/chat.store';
 import {NavigationEnd, Router} from '@angular/router';
+import WebSocketChatClient from '../../classes/web-socket-chat-client';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  public webSocket: WebSocket | undefined;
+  public webSocket: WebSocketChatClient | undefined;
   private readonly chatStore = inject(ChatStore);
   private readonly userStore = inject(UserStore);
 
   constructor(private router: Router) {
-    this.webSocket = new WebSocket(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
+    this.webSocket = new WebSocketChatClient(`ws://localhost:8000/api/websocket/?_id=${this.userStore.user()._id}`);
 
     this.webSocket?.addEventListener('message', (event: any) => this.handleMessageWebSocket(event));
 

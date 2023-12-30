@@ -40,12 +40,14 @@ export class ChatComponent {
   constructor(
     private route: ActivatedRoute,
     private chatService: ChatService,
+    // private webSocketService: WebsocketService,
   ) {
     if (!this.chatService.webSocket) return;
 
     this.chatService.webSocket.addEventListener('message', () => this.handleMessageWebSocket());
 
     this.updateMessage.subscribe((value) => this.message = value);
+
 
     effect(() => {
       this.online = this.chatStore.onlineUsers().includes(this.conversationalist);
