@@ -14,6 +14,4 @@ import 'normalize.css';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor() {
-  }
 }

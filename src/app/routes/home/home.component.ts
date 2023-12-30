@@ -22,10 +22,11 @@ export class HomeComponent {
   private roomsStore = inject(RoomsStore);
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
-    this.webSocketService.webSocket?.addEventListener('open', () => {});
   }
 
   ngOnInit() {
+    this.webSocketService.webSocket?.addEventListener('open', () => {});
+
     const roomId = this.route.snapshot.paramMap.get('_id');
     this.roomsStore.setCurrentRoomId(roomId ?? '')
   }

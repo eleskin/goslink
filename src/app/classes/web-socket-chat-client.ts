@@ -1,5 +1,3 @@
-import {AddEventListenerOptions} from 'rxjs/internal/observable/fromEvent';
-
 class WebSocketChatClient extends WebSocket {
   constructor(url: string, webSocketStore: any) {
     super(url);

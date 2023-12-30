@@ -39,19 +39,6 @@ export class ChatComponent {
     private route: ActivatedRoute,
     private websocketService: WebsocketService,
   ) {
-    console.log(this.websocketService.webSocket);
-    this.websocketService.webSocket?.addEventListener('open', () => {
-      this.websocketService.webSocket?.send(JSON.stringify({
-        type: 'GET_MESSAGE',
-        data: {
-          conversationalistId: this.conversationalistId,
-        },
-      }));
-    });
-    this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
-
-    this.updateMessage.subscribe((value) => this.message = value);
-
     effect(() => {
       this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
       this.conversationalistName = this.chatStore.conversationalist().name;
@@ -85,5 +72,20 @@ export class ChatComponent {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
       }
     }, 0);
+  }
+
+  ngOnInit() {
+    this.updateMessage.subscribe((value) => this.message = value);
+
+    this.websocketService.webSocket?.addEventListener('open', () => {
+      this.websocketService.webSocket?.send(JSON.stringify({
+        type: 'GET_MESSAGE',
+        data: {
+          conversationalistId: this.conversationalistId,
+        },
+      }));
+    });
+
+    this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
   }
 }

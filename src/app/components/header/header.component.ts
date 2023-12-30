@@ -23,12 +23,6 @@ export class HeaderComponent {
   protected user: User = this.userStore.user();
 
   constructor(private userService: UserService, private router: Router) {
-    this.router.events.subscribe(async (value) => {
-      if (value instanceof NavigationEnd) {
-        this.disabledBackButton = value.url === '/';
-      }
-    });
-
     effect(() => {
       this.user = this.userStore.user();
     });
@@ -46,5 +40,13 @@ export class HeaderComponent {
 
   protected async handleClickBack() {
     await this.router.navigate(['/']);
+  }
+
+  ngOnInit() {
+    this.router.events.subscribe(async (value) => {
+      if (value instanceof NavigationEnd) {
+        this.disabledBackButton = value.url === '/';
+      }
+    });
   }
 }
