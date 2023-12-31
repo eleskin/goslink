@@ -31,12 +31,12 @@ export class RoomsListComponent {
   protected rooms: Room[] = this.roomsStore.rooms();
 
   constructor(protected route: ActivatedRoute, private userService: UserService) {
-    effect(() => {
-      this.rooms = this.roomsStore.rooms().map((room) => {
-        room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
-        return room;
-      });
-    });
+    // effect(() => {
+    //   this.rooms = this.roomsStore.rooms().map((room) => {
+    //     room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
+    //     return room;
+    //   });
+    // });
   }
 
   protected async handleInputSearch(event: any) {

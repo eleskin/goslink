@@ -41,16 +41,16 @@ export class ChatComponent {
     private route: ActivatedRoute,
     private websocketService: WebsocketService,
   ) {
-    effect(() => {
-      this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
-      this.conversationalistName = this.chatStore.conversationalist().name;
-      this.messages = this.messagesStore.messages();
-
-
-      const conversationalist = this.roomsStore.rooms()
-        .filter((room) => room.conversationalist === this.conversationalistId)?.[0];
-      this.conversationalistName = conversationalist?.conversationalistName ?? '';
-    });
+    // effect(() => {
+    //   this.online = this.chatStore.onlineUsers().includes(this.conversationalistId);
+    //   this.conversationalistName = this.chatStore.conversationalist().name;
+    //   this.messages = this.messagesStore.messages();
+    //
+    //
+    //   const conversationalist = this.roomsStore.rooms()
+    //     .filter((room) => room.conversationalist === this.conversationalistId)?.[0];
+    //   this.conversationalistName = conversationalist?.conversationalistName ?? '';
+    // });
   }
 
   protected handleInputMessage(event: any) {
@@ -81,19 +81,19 @@ export class ChatComponent {
     }, 0);
   }
 
-  ngOnInit() {
-    this.updateMessage.subscribe((value) => this.message = value);
-
-    this.websocketService.webSocket?.addEventListener('open', () => {
-      this.websocketService.webSocket?.send(JSON.stringify({
-        type: 'GET_MESSAGE',
-        data: {
-          conversationalistId: this.conversationalistId,
-        },
-      }));
-    });
-
-
-    this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
-  }
+  // ngOnInit() {
+  //   this.updateMessage.subscribe((value) => this.message = value);
+  //
+  //   this.websocketService.webSocket?.addEventListener('open', () => {
+  //     this.websocketService.webSocket?.send(JSON.stringify({
+  //       type: 'GET_MESSAGE',
+  //       data: {
+  //         conversationalistId: this.conversationalistId,
+  //       },
+  //     }));
+  //   });
+  //
+  //
+  //   this.websocketService.webSocket?.addEventListener('message', () => this.handleMessageWebSocket());
+  // }
 }

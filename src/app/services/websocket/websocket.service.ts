@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {effect, inject, Injectable} from '@angular/core';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import UserStore from '../../store/user/user.store';
 import MessagesStore from '../../store/messages/messages.store';
@@ -19,13 +19,21 @@ export class WebsocketService {
 
   constructor() {
     const {_id} = this.userStore.user();
-    const webSocketUrl = `ws://localhost:8000/api/websocket/?_id=${_id}`;
+    //
+    //
+    //
+    // this.getMessagesEventListeners();
+    // this.getRoomsEventListeners();
+    // this.getUserEventListeners();
+    effect(() => {
+      const contactId = this.webSocketStore.contactId();
 
-    this.webSocket = new WebSocketChatClient(webSocketUrl, this.webSocketStore);
+      const webSocketUrl = contactId ?
+        `ws://localhost:8000/api/websocket/?_id=${_id}&contact_id=${contactId}` :
+        `ws://localhost:8000/api/websocket/?_id=${_id}`;
 
-    this.getMessagesEventListeners();
-    this.getRoomsEventListeners();
-    this.getUserEventListeners();
+      this.webSocket = new WebSocketChatClient(webSocketUrl);
+    });
   }
 
   private getMessagesEventListeners() {

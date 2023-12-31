@@ -1,8 +1,8 @@
 class WebSocketChatClient extends WebSocket {
-  constructor(url: string, webSocketStore: any) {
+  constructor(url: string) {
     super(url);
 
-    super.addEventListener('open', () => webSocketStore.setReadyState(1));
+    // super.addEventListener('open', () => webSocketStore.setReadyState(1));
 
     super.addEventListener('message', (event) => {
       const payload = JSON.parse(event.data);
