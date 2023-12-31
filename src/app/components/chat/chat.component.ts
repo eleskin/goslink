@@ -62,13 +62,13 @@ export class ChatComponent {
 
     if (!this.message) return;
 
-    this.websocketService.webSocket?.send(JSON.stringify({
-      type: 'NEW_MESSAGE',
-      data: {
-        conversationalistId: this.conversationalistId,
-        text: this.message,
-      },
-    }));
+    // this.websocketService.webSocket?.send(JSON.stringify({
+    //   type: 'NEW_MESSAGE',
+    //   data: {
+    //     conversationalistId: this.conversationalistId,
+    //     text: this.message,
+    //   },
+    // }));
 
     this.updateMessage.emit('');
   }

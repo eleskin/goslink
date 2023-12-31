@@ -24,7 +24,7 @@ export class HomeComponent {
 
   constructor(private route: ActivatedRoute, private websocketService: WebsocketService) {
     this.webSocketStore.setContactId(this.contactId);
-    this.websocketService.webSocket?.addEventListener('open', () => {
-    });
+    // this.websocketService.webSocket?.addEventListener('open', () => {
+    // });
   }
 }

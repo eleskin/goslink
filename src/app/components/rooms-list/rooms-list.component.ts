@@ -9,6 +9,7 @@ import Room from '../../interfaces/room';
 import {UserService} from '../../services/user/user.service';
 import ChatStore from '../../store/chat/chat.store';
 import WebsocketStore from '../../store/websocket/websocket.store';
+import {WebsocketService} from '../../services/websocket/websocket.service';
 
 @Component({
   selector: 'app-rooms-list',
@@ -31,25 +32,30 @@ export class RoomsListComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   protected rooms: Room[] = [];
 
-  constructor(protected route: ActivatedRoute, private userService: UserService) {
-    effect(() => {
-      this.rooms = this.webSocketStore.rooms();
-      this.rooms = this.webSocketStore.rooms().map((room: any) => {
-        room.online = true;
-        // room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
-        return room;
-      });
-    });
+  constructor(
+    protected route: ActivatedRoute,
+    private userService: UserService,
+    private websocketService: WebsocketService
+   ) {
+    // effect(() => {
+    //   this.rooms = this.webSocketStore.rooms();
+    //   this.rooms = this.webSocketStore.rooms().map((room: any) => {
+    //     room.online = true;
+    //     room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
+        // return room;
+      // });
+    // });
   }
 
   protected async handleInputSearch(event: any) {
-    const user: User = await this.userService.searchUser(event.target.value);
-
-    if (Object.keys(user).length) {
-      this.searchedUsers.length = 0;
-      this.searchedUsers.push(user);
-    } else {
-      this.searchedUsers.length = 0;
-    }
+    // console.log(event.target.value);
+    // const user: User = await this.userService.searchUser(event.target.value);
+    //
+    // if (Object.keys(user).length) {
+    //   this.searchedUsers.length = 0;
+    //   this.searchedUsers.push(user);
+    // } else {
+    //   this.searchedUsers.length = 0;
+    // }
   }
 }
