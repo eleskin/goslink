@@ -9,11 +9,11 @@
       [routerLink]="'/chat/' + room.conversationalist"
     >
       <span>
-        {{ room.conversationalistName.slice(0, 1) }}
+        {{ room.contactName.slice(0, 1) }}
         <i *ngIf="room.online"></i>
       </span>
       <div>
-        <strong>{{ room.conversationalistName }}</strong>
+        <strong>{{ room.contactName }}</strong>
         <span>{{ truncate(room.lastMessage, 40) }}</span>
       </div>
     </a>

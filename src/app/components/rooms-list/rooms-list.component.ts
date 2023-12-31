@@ -8,6 +8,7 @@ import RoomsStore from '../../store/rooms/rooms.store';
 import Room from '../../interfaces/room';
 import {UserService} from '../../services/user/user.service';
 import ChatStore from '../../store/chat/chat.store';
+import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Component({
   selector: 'app-rooms-list',
@@ -26,17 +27,19 @@ export class RoomsListComponent {
   protected searchedUsers: User[] = [];
   protected readonly truncate = truncate;
   protected conversationalist: string = this.route.snapshot.paramMap.get('_id') ?? '';
-  private readonly roomsStore = inject(RoomsStore);
-  private readonly chatStore = inject(ChatStore);
-  protected rooms: Room[] = this.roomsStore.rooms();
+  // private readonly chatStore = inject(ChatStore);
+  private readonly webSocketStore = inject(WebsocketStore);
+  protected rooms: Room[] = [];
 
   constructor(protected route: ActivatedRoute, private userService: UserService) {
-    // effect(() => {
-    //   this.rooms = this.roomsStore.rooms().map((room) => {
-    //     room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
-    //     return room;
-    //   });
-    // });
+    effect(() => {
+      this.rooms = this.webSocketStore.rooms();
+      this.rooms = this.webSocketStore.rooms().map((room: any) => {
+        room.online = true;
+        // room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
+        return room;
+      });
+    });
   }
 
   protected async handleInputSearch(event: any) {

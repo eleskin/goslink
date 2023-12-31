@@ -4,6 +4,7 @@ const WebsocketStore = signalStore(
   withState({
     readyState: 0,
     contactId: '',
+    rooms: [],
   }),
   withMethods(({...store}) => ({
     setReadyState(state = 0) {
@@ -11,6 +12,9 @@ const WebsocketStore = signalStore(
     },
     setContactId(state = '') {
       patchState(store, {contactId: state});
+    },
+    setRooms(state = []) {
+      patchState(store, {rooms: state});
     },
   })),
 );

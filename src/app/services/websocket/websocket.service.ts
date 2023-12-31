@@ -23,7 +23,6 @@ export class WebsocketService {
     //
     //
     // this.getMessagesEventListeners();
-    // this.getRoomsEventListeners();
     // this.getUserEventListeners();
     effect(() => {
       const contactId = this.webSocketStore.contactId();
@@ -33,6 +32,8 @@ export class WebsocketService {
         `ws://localhost:8000/api/websocket/?_id=${_id}`;
 
       this.webSocket = new WebSocketChatClient(webSocketUrl);
+
+      this.getRoomsEventListeners();
     });
   }
 
@@ -58,8 +59,10 @@ export class WebsocketService {
 
   getRoomsEventListeners() {
     this.webSocket?.addEventListener('GET_ROOMS', (event: any) => {
-      this.roomsStore.setRooms(event.detail.data.rooms);
-      this.messagesStore.setMessages(event.detail.data.messages);
+      console.log(event.detail.data);
+      this.webSocketStore.setRooms(event.detail.data.rooms)
+      // this.roomsStore.setRooms(event.detail.data.rooms);
+      // this.messagesStore.setMessages(event.detail.data.messages);
     });
   }
 

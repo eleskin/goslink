@@ -1,7 +1,7 @@
 interface Room {
   _id: string;
   conversationalist: string;
-  conversationalistName: string;
+  contactName: string;
   lastMessage: string;
   online: boolean;
 }
