@@ -6,14 +6,14 @@
     <a
       *ngFor="let room of rooms"
       [class]="['app-rooms-list__chat', room.conversationalist === conversationalist ? 'app-rooms-list__chat--active' : '']"
-      [routerLink]="'/chat/' + room.conversationalist"
+      [routerLink]="'/chat/' + room._id"
     >
       <span>
-        {{ room.contactName.slice(0, 1) }}
-        <i *ngIf="room.online"></i>
+        {{ room.name.slice(0, 1) }}
+<!--        <i *ngIf="room.online"></i>-->
       </span>
       <div>
-        <strong>{{ room.contactName }}</strong>
+        <strong>{{ room.name }}</strong>
         <span>{{ truncate(room.lastMessage, 40) }}</span>
       </div>
     </a>

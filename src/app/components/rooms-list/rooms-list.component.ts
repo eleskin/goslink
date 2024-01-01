@@ -30,23 +30,24 @@ export class RoomsListComponent {
   // private readonly chatStore = inject(ChatStore);
   private readonly webSocketStore = inject(WebsocketStore);
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();
-  protected rooms: Room[] = [];
+  protected rooms: User[] = this.webSocketStore?.rooms();
 
   constructor(
     protected route: ActivatedRoute,
     private userService: UserService,
-    private websocketService: WebsocketService
-   ) {
+    private websocketService: WebsocketService,
+  ) {
     // effect(() => {
     //   this.rooms = this.webSocketStore.rooms();
     //   this.rooms = this.webSocketStore.rooms().map((room: any) => {
     //     room.online = true;
     //     room.online = this.chatStore.onlineUsers().includes(room.conversationalist);
-        // return room;
-      // });
+    // return room;
+    // });
     // });
     effect(() => {
       this.searchedUser = this.webSocketStore?.searchedUser();
+      this.rooms = this.webSocketStore?.rooms();
     });
   }
 

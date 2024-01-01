@@ -30,5 +30,9 @@ export class WebsocketService {
         return message._id !== event.detail.data.messageId;
       }));
     });
+    this.webSocket?.addEventListener('GET_ROOM', (event: any) => {
+      console.log(event.detail.data.rooms);
+      this.webSocketStore.setRooms(event.detail.data.rooms);
+    });
   }
 }
