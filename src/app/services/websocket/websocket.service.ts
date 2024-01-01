@@ -12,6 +12,11 @@ export class WebsocketService {
 
   private setLastRoomMessage(rooms: any, message: any) {
     for (const room of rooms) {
+      if (!message) {
+        this.webSocketStore.deleteRoom(room._id);
+        return;
+      }
+
       if (room._id === message.userId || room._id === message.contactId) {
         room.lastMessage = message.text;
       }

@@ -1,5 +1,4 @@
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
-import User from '../../interfaces/user';
 
 const WebsocketStore = signalStore(
   withState({
@@ -28,6 +27,10 @@ const WebsocketStore = signalStore(
     },
     setMessages(state = []) {
       patchState(store, {messages: state});
+    },
+    deleteRoom(state = '') {
+      const rooms = store.rooms().filter((room: any) => room._id !== state);
+      patchState(store, {rooms});
     }
   })),
 );
