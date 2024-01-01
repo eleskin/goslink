@@ -20,5 +20,8 @@ export class WebsocketService {
     this.webSocket?.addEventListener('GET_USER', (event: any) => {
       this.webSocketStore.setContact(event.detail.data.user);
     });
+    this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
+      console.log(event);
+    });
   }
 }

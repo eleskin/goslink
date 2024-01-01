@@ -13,7 +13,13 @@
   </div>
   <footer class="chat__footer">
     <form (submit)="handleFormSubmit($event)">
-      <app-input (input)="handleInputMessage($event)" [required]="true" [value]="message" placeholder="Your message"/>
+      <app-input
+        [required]="true"
+        [(ngModel)]="message"
+        placeholder="Your message"
+        ngDefaultControl
+        name="message"
+      />
       <app-button text="Send" type="submit"/>
     </form>
   </footer>

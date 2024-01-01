@@ -12,6 +12,7 @@ import MessagesStore from '../../store/messages/messages.store';
 import RoomsStore from '../../store/rooms/rooms.store';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
+import UserStore from '../../store/user/user.store';
 
 @Component({
   selector: 'app-chat',
@@ -35,6 +36,7 @@ export class ChatComponent {
   private readonly messagesStore = inject(MessagesStore);
   private readonly roomsStore = inject(RoomsStore);
   private readonly webSocketStore = inject(WebsocketStore);
+  private readonly userStore = inject(UserStore);
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   private contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
@@ -66,15 +68,16 @@ export class ChatComponent {
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
-    if (!this.message) return;
+    if (!this.message.trim()) return;
 
-    // this.websocketService.webSocket?.send(JSON.stringify({
-    //   type: 'NEW_MESSAGE',
-    //   data: {
-    //     conversationalistId: this.conversationalistId,
-    //     text: this.message,
-    //   },
-    // }));
+    this.websocketService.webSocket?.send(JSON.stringify({
+      type: 'NEW_MESSAGE',
+      data: {
+        userId: this.userStore.user()._id,
+        contactId: this.contactId,
+        text: this.message,
+      },
+    }));
 
     this.updateMessage.emit('');
   }
