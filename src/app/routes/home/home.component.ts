@@ -25,7 +25,7 @@ export class HomeComponent {
   protected visibleChat: boolean = Boolean(this.contactId);
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
-  private routerEventSubscription: Subscription;
+  private readonly routerEventSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
     this.webSocketService.webSocket =
@@ -35,7 +35,7 @@ export class HomeComponent {
       this.webSocketService.setHandlers();
     });
 
-    this. routerEventSubscription = this.router.events.subscribe(async (value) => {
+    this.routerEventSubscription = this.router.events.subscribe(async (value) => {
       const contactId = this.route.snapshot.paramMap.get('_id');
       if (value instanceof NavigationEnd) {
         if (contactId) {
