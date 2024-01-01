@@ -5,6 +5,7 @@ import MessagesStore from '../../store/messages/messages.store';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import RoomsStore from '../../store/rooms/rooms.store';
 import ChatStore from '../../store/chat/chat.store';
+import Message from '../../interfaces/message';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +19,16 @@ export class WebsocketService {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
     });
     this.webSocket?.addEventListener('GET_USER', (event: any) => {
-      console.log(event)
       this.webSocketStore.setContact(event.detail.data.user);
       this.webSocketStore.setMessages(event.detail.data.messages);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), event.detail.data.message]);
+    });
+    this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
+      this.webSocketStore.setMessages(this.webSocketStore.messages().filter((message: Message) => {
+        return message._id !== event.detail.data.messageId;
+      }));
     });
   }
 }
