@@ -32,11 +32,19 @@ export class WebsocketService {
       this.webSocketStore.setMessages(event.detail.data.messages);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
-      const rooms = this.webSocketStore.rooms();
       const {message} = event.detail.data;
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
 
+      const contact: any = this.webSocketStore.contact();
+      if (!this.webSocketStore.rooms().filter((room: any) => room._id === contact._id).length) {
+        this.webSocketStore.setRooms([
+          ...this.webSocketStore.rooms(),
+          this.webSocketStore.contact()
+        ]);
+      }
+
+      const rooms = this.webSocketStore.rooms();
       this.setLastRoomMessage(rooms, message);
     });
     this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
