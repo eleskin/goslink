@@ -1,10 +1,12 @@
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import User from '../../interfaces/user';
 
 const WebsocketStore = signalStore(
   withState({
     readyState: 0,
     contactId: '',
     rooms: [],
+    searchedUser: null,
   }),
   withMethods(({...store}) => ({
     setReadyState(state = 0) {
@@ -16,6 +18,9 @@ const WebsocketStore = signalStore(
     setRooms(state = []) {
       patchState(store, {rooms: state});
     },
+    setSearchedUser(state = null) {
+      patchState(store, {searchedUser: state});
+    }
   })),
 );
 

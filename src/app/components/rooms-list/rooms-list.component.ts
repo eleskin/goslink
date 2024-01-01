@@ -25,11 +25,11 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
   styleUrl: './rooms-list.component.css',
 })
 export class RoomsListComponent {
-  protected searchedUsers: User[] = [];
   protected readonly truncate = truncate;
   protected conversationalist: string = this.route.snapshot.paramMap.get('_id') ?? '';
   // private readonly chatStore = inject(ChatStore);
   private readonly webSocketStore = inject(WebsocketStore);
+  protected searchedUser: User | null = this.webSocketStore?.searchedUser();
   protected rooms: Room[] = [];
 
   constructor(
@@ -45,10 +45,12 @@ export class RoomsListComponent {
         // return room;
       // });
     // });
+    effect(() => {
+      this.searchedUser = this.webSocketStore?.searchedUser();
+    });
   }
 
   protected async handleInputSearch(event: any) {
-    console.log(this.websocketService.webSocket);
     if (!(event.target.value.trim().length > 1 && event.target.value.search(/^@[a-zA-Z0-9]*/) !== -1)) return;
 
     this.websocketService.webSocket?.send(JSON.stringify({
