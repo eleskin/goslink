@@ -26,7 +26,8 @@ export class HomeComponent {
   private readonly userStore = inject(UserStore);
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
-    this.webSocketService.webSocket = new WebSocketChatClient('ws://localhost:8000/api/websocket');
+    this.webSocketService.webSocket =
+      new WebSocketChatClient(`ws://localhost:8000/api/websocket?_id=${this.userStore.user()._id}`);
 
     this.webSocketService.webSocket.addEventListener('open', () => {
       this.webSocketService.setHandlers();
