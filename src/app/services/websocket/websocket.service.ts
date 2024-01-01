@@ -11,11 +11,14 @@ import ChatStore from '../../store/chat/chat.store';
 })
 export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
-  private readonly webSocketStore = inject(WebsocketStore)
+  private readonly webSocketStore = inject(WebsocketStore);
 
   public setHandlers() {
     this.webSocket?.addEventListener('SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
-    })
+    });
+    this.webSocket?.addEventListener('GET_USER', (event: any) => {
+      this.webSocketStore.setContact(event.detail.data.user);
+    });
   }
 }

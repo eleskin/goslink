@@ -10,6 +10,8 @@ import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import MessagesStore from '../../store/messages/messages.store';
 import RoomsStore from '../../store/rooms/rooms.store';
+import User from '../../interfaces/user';
+import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Component({
   selector: 'app-chat',
@@ -28,14 +30,15 @@ import RoomsStore from '../../store/rooms/rooms.store';
 export class ChatComponent {
   protected message: string = '';
   protected online: boolean = false;
-  protected conversationalistName: string = '';
   protected messages: Message[] = [];
   private readonly chatStore = inject(ChatStore);
   private readonly messagesStore = inject(MessagesStore);
   private readonly roomsStore = inject(RoomsStore);
+  private readonly webSocketStore = inject(WebsocketStore);
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
-  private conversationalistId: string = this.route.snapshot.paramMap.get('_id') ?? '';
+  private contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
+  protected contact: User | null  = this.webSocketStore.contact();
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +54,9 @@ export class ChatComponent {
     //     .filter((room) => room.conversationalist === this.conversationalistId)?.[0];
     //   this.conversationalistName = conversationalist?.conversationalistName ?? '';
     // });
+    effect(() => {
+      this.contact = this.webSocketStore.contact();
+    });
   }
 
   protected handleInputMessage(event: any) {
@@ -79,6 +85,25 @@ export class ChatComponent {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
       }
     }, 0);
+  }
+
+  ngOnInit() {
+    if (!this.contactId) return;
+
+    const request = JSON.stringify({
+      type: 'GET_USER',
+      data: {
+        contactId: this.contactId,
+      },
+    });
+
+    if (this.websocketService.webSocket?.readyState === 1) {
+      this.websocketService.webSocket.send(request);
+    } else {
+      this.websocketService.webSocket?.addEventListener('open', () => {
+        this.websocketService.webSocket?.send(request);
+      });
+    }
   }
 
   // ngOnInit() {
