@@ -34,9 +34,26 @@ export class HomeComponent {
     });
 
     this.router.events.subscribe(async (value) => {
+      const contactId = this.route.snapshot.paramMap.get('_id');
       if (value instanceof NavigationEnd) {
-        if (this.route.snapshot.paramMap.get('_id')) {
+        if (contactId) {
           this.webSocketStore.setSearchedUser(null);
+
+          const request = JSON.stringify({
+            type: 'GET_USER',
+            data: {
+              userId: this.userStore.user()._id,
+              contactId: contactId,
+            },
+          });
+
+          if (this.webSocketService.webSocket?.readyState === 1) {
+            this.webSocketService.webSocket.send(request);
+          } else {
+            this.webSocketService.webSocket?.addEventListener('open', () => {
+              this.webSocketService.webSocket?.send(request);
+            });
+          }
         }
       }
     });
