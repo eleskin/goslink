@@ -2,7 +2,7 @@ import {Component, effect, inject} from '@angular/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import truncate from '../../utils/truncate';
 import {InputComponent} from '../input/input.component';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
@@ -22,7 +22,7 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
 })
 export class RoomsListComponent {
   protected readonly truncate = truncate;
-  protected conversationalist: string = this.route.snapshot.paramMap.get('_id') ?? '';
+  protected contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
   private readonly webSocketStore = inject(WebsocketStore);
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();
   protected rooms: User[] = this.webSocketStore?.rooms();
@@ -30,7 +30,14 @@ export class RoomsListComponent {
   constructor(
     protected route: ActivatedRoute,
     private websocketService: WebsocketService,
+    private router: Router,
   ) {
+    this.router.events.subscribe(async (value) => {
+      if (value instanceof NavigationEnd) {
+        this.contactId = this.route.snapshot.paramMap.get('_id') ?? ''
+      }
+    });
+
     effect(() => {
       this.searchedUser = this.webSocketStore?.searchedUser();
       this.rooms = this.webSocketStore?.rooms();

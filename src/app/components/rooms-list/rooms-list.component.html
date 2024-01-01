@@ -5,7 +5,7 @@
   <div *ngIf="!searchedUser" class="app-rooms-list__rooms">
     <a
       *ngFor="let room of rooms"
-      [class]="['app-rooms-list__chat', room.conversationalist === conversationalist ? 'app-rooms-list__chat--active' : '']"
+      [class]="['app-rooms-list__chat', room._id === contactId ? 'app-rooms-list__chat--active' : '']"
       [routerLink]="'/chat/' + room._id"
     >
       <span>
