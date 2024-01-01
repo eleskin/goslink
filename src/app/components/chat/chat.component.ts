@@ -31,7 +31,6 @@ import UserStore from '../../store/user/user.store';
 export class ChatComponent {
   protected message: string = '';
   protected online: boolean = false;
-  protected messages: Message[] = [];
   private readonly chatStore = inject(ChatStore);
   private readonly messagesStore = inject(MessagesStore);
   private readonly roomsStore = inject(RoomsStore);
@@ -40,7 +39,8 @@ export class ChatComponent {
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   private contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
-  protected contact: User | null  = this.webSocketStore.contact();
+  protected contact: User | null = this.webSocketStore.contact();
+  protected messages: Message[] = this.webSocketStore.messages();
 
   constructor(
     private route: ActivatedRoute,
@@ -58,6 +58,7 @@ export class ChatComponent {
     // });
     effect(() => {
       this.contact = this.webSocketStore.contact();
+      this.messages = this.webSocketStore.messages();
     });
   }
 
@@ -79,7 +80,7 @@ export class ChatComponent {
       },
     }));
 
-    this.updateMessage.emit('');
+    this.message = '';
   }
 
   private handleMessageWebSocket() {

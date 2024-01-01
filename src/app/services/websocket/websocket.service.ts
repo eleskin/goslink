@@ -21,7 +21,7 @@ export class WebsocketService {
       this.webSocketStore.setContact(event.detail.data.user);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
-      console.log(event);
+      this.webSocketStore.setMessages([...this.webSocketStore.messages(), event.detail.data.message]);
     });
   }
 }

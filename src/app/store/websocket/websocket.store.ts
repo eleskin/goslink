@@ -8,6 +8,7 @@ const WebsocketStore = signalStore(
     rooms: [],
     searchedUser: null,
     contact: null,
+    messages: [],
   }),
   withMethods(({...store}) => ({
     setReadyState(state = 0) {
@@ -24,6 +25,9 @@ const WebsocketStore = signalStore(
     },
     setContact(state = null) {
       patchState(store, {contact: state});
+    },
+    setMessages(state = []) {
+      patchState(store, {messages: state});
     }
   })),
 );
