@@ -48,7 +48,15 @@ export class RoomsListComponent {
   }
 
   protected async handleInputSearch(event: any) {
-    // console.log(event.target.value);
+    console.log(this.websocketService.webSocket);
+    if (!(event.target.value.trim().length > 1 && event.target.value.search(/^@[a-zA-Z0-9]*/) !== -1)) return;
+
+    this.websocketService.webSocket?.send(JSON.stringify({
+      type: 'SEARCH_USER',
+      data: {
+        contactUsername: event.target.value.slice(1),
+      },
+    }));
     // const user: User = await this.userService.searchUser(event.target.value);
     //
     // if (Object.keys(user).length) {

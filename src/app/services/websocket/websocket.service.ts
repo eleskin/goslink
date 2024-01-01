@@ -10,4 +10,11 @@ import ChatStore from '../../store/chat/chat.store';
   providedIn: 'root',
 })
 export class WebsocketService {
+  public webSocket: WebSocketChatClient | undefined;
+
+  public setHandlers() {
+    this.webSocket?.addEventListener('SEARCH_USER', (event) => {
+      console.log(event);
+    })
+  }
 }
