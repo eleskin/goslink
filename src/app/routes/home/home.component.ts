@@ -6,6 +6,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
+import UserStore from '../../store/user/user.store';
 
 @Component({
   selector: 'app-home',
@@ -19,20 +20,18 @@ import WebSocketChatClient from '../../classes/web-socket-chat-client';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  private readonly roomId = this.route.snapshot.paramMap.get('_id') ?? '';
-  protected visibleChat: boolean = Boolean(this.roomId);
+  private readonly contactId = this.route.snapshot.paramMap.get('_id') ?? '';
+  protected visibleChat: boolean = Boolean(this.contactId);
   private readonly webSocketStore = inject(WebsocketStore);
+  private readonly userStore = inject(UserStore);
 
-  constructor(private route: ActivatedRoute, private websocketService: WebsocketService, private router: Router) {
-    console.log(this.roomId);
-    this.websocketService.webSocket = new WebSocketChatClient('ws://localhost:8000/api/websocket');
+  constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
+    this.webSocketService.webSocket = new WebSocketChatClient('ws://localhost:8000/api/websocket');
 
-    this.websocketService.webSocket.addEventListener('open', () => {
-      this.websocketService.setHandlers();
+    this.webSocketService.webSocket.addEventListener('open', () => {
+      this.webSocketService.setHandlers();
     });
-    // this.webSocketStore.setContactId(this.contactId);
-    // this.websocketService.webSocket?.addEventListener('open', () => {
-    // });
+
     this.router.events.subscribe(async (value) => {
       if (value instanceof NavigationEnd) {
         if (this.route.snapshot.paramMap.get('_id')) {
@@ -40,5 +39,22 @@ export class HomeComponent {
         }
       }
     });
+  }
+
+  ngOnInit() {
+    const request = JSON.stringify({
+      type: 'GET_ROOM',
+      data: {
+        userId: this.userStore.user()._id,
+      },
+    });
+
+    if (this.webSocketService.webSocket?.readyState === 1) {
+      this.webSocketService.webSocket.send(request);
+    } else {
+      this.webSocketService.webSocket?.addEventListener('open', () => {
+        this.webSocketService.webSocket?.send(request);
+      });
+    }
   }
 }
