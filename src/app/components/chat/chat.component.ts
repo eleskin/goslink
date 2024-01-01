@@ -54,7 +54,7 @@ export class ChatComponent {
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
-    if (!this.message.trim()) return;
+    if (!this.message?.trim()) return;
 
     this.websocketService.webSocket?.send(JSON.stringify({
       type: 'NEW_MESSAGE',

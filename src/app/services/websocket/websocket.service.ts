@@ -10,6 +10,14 @@ export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly webSocketStore = inject(WebsocketStore);
 
+  private setLastRoomMessage(rooms: any, message: any) {
+    for (const room of rooms) {
+      if (room._id === message.userId || room._id === message.contactId) {
+        room.lastMessage = message.text;
+      }
+    }
+  }
+
   public setHandlers() {
     this.webSocket?.addEventListener('SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
@@ -24,16 +32,17 @@ export class WebsocketService {
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
 
-      for (const room of rooms) {
-        if ((room as any)._id === message.userId || (room as any)._id === message.contactId) {
-          (room as any).lastMessage = message.text;
-        }
-      }
+      this.setLastRoomMessage(rooms, message);
     });
     this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
+      const rooms = this.webSocketStore.rooms();
+      const {lastMessage} = event.detail.data;
+
       this.webSocketStore.setMessages(this.webSocketStore.messages().filter((message: Message) => {
-        return message._id !== event.detail.data.messageId;
+        return message._id !== event.detail.data.removedMessageId;
       }));
+
+      this.setLastRoomMessage(rooms, lastMessage);
     });
     this.webSocket?.addEventListener('GET_ROOM', (event: any) => {
       this.webSocketStore.setRooms(event.detail.data.rooms);
