@@ -18,7 +18,9 @@ export class WebsocketService {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
     });
     this.webSocket?.addEventListener('GET_USER', (event: any) => {
+      console.log(event)
       this.webSocketStore.setContact(event.detail.data.user);
+      this.webSocketStore.setMessages(event.detail.data.messages);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), event.detail.data.message]);

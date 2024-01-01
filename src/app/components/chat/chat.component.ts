@@ -98,6 +98,7 @@ export class ChatComponent {
     const request = JSON.stringify({
       type: 'GET_USER',
       data: {
+        userId: this.userStore.user()._id,
         contactId: this.contactId,
       },
     });
