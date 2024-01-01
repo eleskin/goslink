@@ -34,12 +34,17 @@ export class ChatComponent {
   private readonly userStore = inject(UserStore);
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
-  private contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
 
   constructor(
     private route: ActivatedRoute,
     private websocketService: WebsocketService,
   ) {
+    this.websocketService.webSocket?.addEventListener('message', () => {
+      if (this.chatRef?.nativeElement) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      }
+    });
+
     effect(() => {
       this.contact = this.webSocketStore.contact();
       this.messages = this.webSocketStore.messages();
@@ -55,7 +60,7 @@ export class ChatComponent {
       type: 'NEW_MESSAGE',
       data: {
         userId: this.userStore.user()._id,
-        contactId: this.contactId,
+        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
         text: this.message,
       },
     }));
