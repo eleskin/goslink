@@ -38,6 +38,7 @@ export class ChatComponent {
   private readonly userStore = inject(UserStore);
   @Output() private updateMessage: EventEmitter<string> = new EventEmitter();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
+  @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
   private contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
   protected contact: User | null = this.webSocketStore.contact();
   protected messages: Message[] = this.webSocketStore.messages();
@@ -80,7 +81,7 @@ export class ChatComponent {
       },
     }));
 
-    this.message = '';
+    this.formRef?.nativeElement.reset();
   }
 
   private handleMessageWebSocket() {
