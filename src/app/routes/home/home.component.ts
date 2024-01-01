@@ -7,6 +7,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import UserStore from '../../store/user/user.store';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ export class HomeComponent {
   protected visibleChat: boolean = Boolean(this.contactId);
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
+  private routerEventSubscription: Subscription;
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
     this.webSocketService.webSocket =
@@ -33,7 +35,7 @@ export class HomeComponent {
       this.webSocketService.setHandlers();
     });
 
-    this.router.events.subscribe(async (value) => {
+    this. routerEventSubscription = this.router.events.subscribe(async (value) => {
       const contactId = this.route.snapshot.paramMap.get('_id');
       if (value instanceof NavigationEnd) {
         if (contactId) {
@@ -73,6 +75,12 @@ export class HomeComponent {
       this.webSocketService.webSocket?.addEventListener('open', () => {
         this.webSocketService.webSocket?.send(request);
       });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.routerEventSubscription) {
+      this.routerEventSubscription.unsubscribe();
     }
   }
 }
