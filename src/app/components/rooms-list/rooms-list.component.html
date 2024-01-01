@@ -5,16 +5,16 @@
   <div *ngIf="!searchedUser" class="app-rooms-list__rooms">
     <a
       *ngFor="let room of rooms"
-      [class]="['app-rooms-list__chat', room._id === contactId ? 'app-rooms-list__chat--active' : '']"
-      [routerLink]="'/chat/' + room._id"
+      [class]="['app-rooms-list__chat', room?._id === contactId ? 'app-rooms-list__chat--active' : '']"
+      [routerLink]="'/chat/' + room?._id"
     >
       <span>
-        {{ room.name.slice(0, 1) }}
+        {{ room?.name?.slice(0, 1) }}
 <!--        <i *ngIf="room.online"></i>-->
       </span>
       <div>
-        <strong>{{ room.name }}</strong>
-        <span>{{ truncate(room.lastMessage, 40) }}</span>
+        <strong>{{ room?.name }}</strong>
+        <span>{{ truncate(room?.lastMessage ?? '', 40) }}</span>
       </div>
     </a>
   </div>

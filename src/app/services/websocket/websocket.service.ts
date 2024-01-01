@@ -17,7 +17,7 @@ export class WebsocketService {
         return;
       }
 
-      if (room._id === message.userId || room._id === message.contactId) {
+      if (room?._id === message.userId || room?._id === message.contactId) {
         room.lastMessage = message.text;
       }
     }
@@ -32,15 +32,16 @@ export class WebsocketService {
       this.webSocketStore.setMessages(event.detail.data.messages);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
+      console.log(event);
       const {message} = event.detail.data;
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
 
       const contact: any = this.webSocketStore.contact();
-      if (!this.webSocketStore.rooms().filter((room: any) => room._id === contact._id).length) {
+      if (!this.webSocketStore.rooms().filter((room: any) => room?._id === contact?._id).length) {
         this.webSocketStore.setRooms([
           ...this.webSocketStore.rooms(),
-          this.webSocketStore.contact()
+          contact,
         ]);
       }
 
