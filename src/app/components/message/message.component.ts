@@ -37,11 +37,11 @@ export class MessageComponent {
   }
 
   protected handleClickDelete(message: Message) {
-    this.webSocketService.webSocket?.send(JSON.stringify({
-      type: 'DELETE_MESSAGE',
-      data: {
-        _id: message._id,
-      },
-    }));
+    // this.webSocketService.webSocket?.send(JSON.stringify({
+    //   type: 'DELETE_MESSAGE',
+    //   data: {
+    //     _id: message._id,
+    //   },
+    // }));
   }
 }

@@ -18,12 +18,13 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  private readonly contactId = this.route.snapshot.paramMap.get('_id');
-  protected visibleChat: boolean = Boolean(this.contactId);
+  private readonly roomId = this.route.snapshot.paramMap.get('_id') ?? '';
+  protected visibleChat: boolean = Boolean(this.roomId);
   private readonly webSocketStore = inject(WebsocketStore);
 
   constructor(private route: ActivatedRoute, private websocketService: WebsocketService) {
-    this.webSocketStore.setContactId(this.contactId);
+    console.log(this.roomId);
+    // this.webSocketStore.setContactId(this.contactId);
     // this.websocketService.webSocket?.addEventListener('open', () => {
     // });
   }
