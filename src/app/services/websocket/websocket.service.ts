@@ -19,7 +19,16 @@ export class WebsocketService {
       this.webSocketStore.setMessages(event.detail.data.messages);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
-      this.webSocketStore.setMessages([...this.webSocketStore.messages(), event.detail.data.message]);
+      const rooms = this.webSocketStore.rooms();
+      const {message} = event.detail.data;
+
+      this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
+
+      for (const room of rooms) {
+        if ((room as any)._id === message.userId || (room as any)._id === message.contactId) {
+          (room as any).lastMessage = message.text;
+        }
+      }
     });
     this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
       this.webSocketStore.setMessages(this.webSocketStore.messages().filter((message: Message) => {
