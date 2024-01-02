@@ -27,11 +27,11 @@ import UserStore from '../../store/user/user.store';
 })
 export class ChatComponent {
   protected message: string = '';
-  protected online: boolean = false;
   private readonly webSocketStore = inject(WebsocketStore);
   protected contact: User | null = this.webSocketStore.contact();
   protected messages: Message[] = this.webSocketStore.messages();
   private readonly userStore = inject(UserStore);
+  protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
 
@@ -50,6 +50,8 @@ export class ChatComponent {
     effect(() => {
       this.contact = this.webSocketStore.contact();
       this.messages = this.webSocketStore.messages();
+
+      this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
     });
   }
 
