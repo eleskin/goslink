@@ -60,5 +60,11 @@ export class WebsocketService {
     this.webSocket?.addEventListener('GET_ROOM', (event: any) => {
       this.webSocketStore.setRooms(event.detail.data.rooms);
     });
+    this.webSocket?.addEventListener('ONLINE_USER', (event: any) => {
+      this.webSocketStore.setOnlineUser(event.detail.data.userId);
+    });
+    this.webSocket?.addEventListener('OFFLINE_USER', (event: any) => {
+      this.webSocketStore.setOfflineUser(event.detail.data.userId);
+    });
   }
 }

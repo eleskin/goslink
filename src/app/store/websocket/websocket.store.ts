@@ -1,14 +1,29 @@
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import User from '../../interfaces/user';
+import Message from '../../interfaces/message';
+
+type WebsocketState = {
+  readyState: number,
+  contactId: string,
+  rooms: User[],
+  searchedUser: User | null,
+  contact: User | null,
+  messages: Message[],
+  onlineUsers: string[],
+};
+
+const initialState: WebsocketState = {
+  readyState: 0,
+  contactId: '',
+  rooms: [],
+  searchedUser: null,
+  contact: null,
+  messages: [],
+  onlineUsers: [],
+}
 
 const WebsocketStore = signalStore(
-  withState({
-    readyState: 0,
-    contactId: '',
-    rooms: [],
-    searchedUser: null,
-    contact: null,
-    messages: [],
-  }),
+  withState(initialState),
   withMethods(({...store}) => ({
     setReadyState(state = 0) {
       patchState(store, {readyState: state});
@@ -31,6 +46,13 @@ const WebsocketStore = signalStore(
     deleteRoom(state = '') {
       const rooms = store.rooms().filter((room: any) => room._id !== state);
       patchState(store, {rooms});
+    },
+    setOnlineUser(state = '') {
+      patchState(store, {onlineUsers: [...store.onlineUsers(), state]});
+    },
+    setOfflineUser(state = '') {
+      const onlineUsers = store.onlineUsers().filter((user) => user !== state);
+      patchState(store, {onlineUsers});
     }
   })),
 );
