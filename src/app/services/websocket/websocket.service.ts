@@ -36,11 +36,10 @@ export class WebsocketService {
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
 
-      const contact: any = this.webSocketStore.contact();
-      if (!this.webSocketStore.rooms().filter((room: any) => room?._id === contact?._id).length) {
+      if (!this.webSocketStore.rooms().filter((room: any) => room?._id === message.author?._id).length) {
         this.webSocketStore.setRooms([
           ...this.webSocketStore.rooms(),
-          contact,
+          message.author,
         ]);
       }
 

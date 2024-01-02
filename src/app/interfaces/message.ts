@@ -1,6 +1,8 @@
+import User from './user';
+
 interface Message {
   _id: string;
-  author: string;
+  author: User;
   text: string;
   userId: string;
 }

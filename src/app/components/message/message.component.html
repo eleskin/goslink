@@ -1,7 +1,7 @@
 <div [class]="['app-message', selfMessage ? 'app-message--self' : 'app-message--not-self']">
   <div class="app-message__content">
-    <em>{{ message.author }}</em>
-    <span>{{ message.text }}</span>
+    <em>{{ message?.author?.name }}</em>
+    <span>{{ message?.text }}</span>
     <div *ngIf="selfMessage" class="app-message__control">
       <button (click)="handleClickDelete(message)">
         <svg fill="none" height="16px" viewBox="0 0 24 24" width="16px" xmlns="http://www.w3.org/2000/svg">
@@ -12,5 +12,5 @@
       </button>
     </div>
   </div>
-  <i class="app-message__author">{{ message.author.slice(0, 1) }}</i>
+  <i class="app-message__author">{{ message?.author?.name?.slice(0, 1) }}</i>
 </div>

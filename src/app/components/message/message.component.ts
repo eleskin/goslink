@@ -17,12 +17,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrl: './message.component.css',
 })
 export class MessageComponent {
-  @Input() public message: Message = {
-    _id: '',
-    author: '',
-    text: '',
-    userId: '',
-  };
+  @Input() public message: Message | undefined;
   protected selfMessage: boolean = false;
   private readonly userStore = inject(UserStore);
   private user: User = this.userStore.user();
@@ -34,10 +29,12 @@ export class MessageComponent {
   }
 
   ngOnInit() {
-    this.selfMessage = this.message.userId === this.user._id;
+    this.selfMessage = this.message?.userId === this.user._id;
   }
 
-  protected handleClickDelete(message: Message) {
+  protected handleClickDelete(message: Message | undefined) {
+    if (!message) return;
+
     this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'DELETE_MESSAGE',
       data: {
