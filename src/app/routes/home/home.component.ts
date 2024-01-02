@@ -42,54 +42,30 @@ export class HomeComponent {
         if (contactId) {
           this.webSocketStore.setSearchedUser(null);
 
-          const requestGetUser = JSON.stringify({
+          this.webSocketService.webSocket?.send(JSON.stringify({
             type: 'GET_USER',
             data: {
               userId: this.userStore.user()._id,
               contactId: contactId,
             },
-          });
+          }));
 
-          if (this.webSocketService.webSocket?.readyState === 1) {
-            this.webSocketService.webSocket.send(requestGetUser);
-          } else {
-            this.webSocketService.webSocket?.addEventListener('open', () => {
-              this.webSocketService.webSocket?.send(requestGetUser);
-            });
-          }
-
-          const requestOnlineUser = JSON.stringify({
+          this.webSocketService.webSocket?.send(JSON.stringify({
             type: 'ONLINE_USER',
             data: {
               userId: this.userStore.user()._id,
               contactId: this.route.snapshot.paramMap.get('_id') ?? '',
             },
-          });
+          }));
 
-          if (this.webSocketService.webSocket?.readyState === 1) {
-            this.webSocketService.webSocket.send(requestOnlineUser);
-          } else {
-            this.webSocketService.webSocket?.addEventListener('open', () => {
-              this.webSocketService.webSocket?.send(requestOnlineUser);
-            });
-          }
-
-          const requestOfflineUser = JSON.stringify({
+          this.webSocketService.webSocket?.send(JSON.stringify({
             type: 'OFFLINE_USER',
             data: {
               userId: this.userStore.user()._id,
               contactId: this.previousUrl.slice(this.previousUrl.search(/\/[0-9a-z-A-Z]*$/gm) + 1),
             },
-          });
+          }));
 
-
-          if (this.webSocketService.webSocket?.readyState === 1) {
-            this.webSocketService.webSocket.send(requestOfflineUser);
-          } else {
-            this.webSocketService.webSocket?.addEventListener('open', () => {
-              this.webSocketService.webSocket?.send(requestOfflineUser);
-            });
-          }
           this.previousUrl = value.url;
         }
       }
@@ -97,20 +73,12 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    const request = JSON.stringify({
+    this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'GET_ROOM',
       data: {
         userId: this.userStore.user()._id,
       },
-    });
-
-    if (this.webSocketService.webSocket?.readyState === 1) {
-      this.webSocketService.webSocket.send(request);
-    } else {
-      this.webSocketService.webSocket?.addEventListener('open', () => {
-        this.webSocketService.webSocket?.send(request);
-      });
-    }
+    }));
   }
 
   ngOnDestroy() {

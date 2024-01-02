@@ -30,8 +30,8 @@ export class ChatComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   protected contact: User | null = this.webSocketStore.contact();
   protected messages: Message[] = this.webSocketStore.messages();
-  private readonly userStore = inject(UserStore);
   protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
+  private readonly userStore = inject(UserStore);
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
 
@@ -56,40 +56,23 @@ export class ChatComponent {
   }
 
   ngOnInit() {
-    const request = JSON.stringify({
+    this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'ONLINE_USER',
       data: {
         userId: this.userStore.user()._id,
         contactId: this.route.snapshot.paramMap.get('_id') ?? '',
       },
-    });
-
-    if (this.webSocketService.webSocket?.readyState === 1) {
-      this.webSocketService.webSocket.send(request);
-    } else {
-      this.webSocketService.webSocket?.addEventListener('open', () => {
-        this.webSocketService.webSocket?.send(request);
-      });
-    }
+    }));
   }
 
   ngOnDestroy() {
-    const request = JSON.stringify({
+    this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'OFFLINE_USER',
       data: {
         userId: this.userStore.user()._id,
         contactId: this.route.snapshot.paramMap.get('_id') ?? '',
       },
-    });
-
-
-    if (this.webSocketService.webSocket?.readyState === 1) {
-      this.webSocketService.webSocket.send(request);
-    } else {
-      this.webSocketService.webSocket?.addEventListener('open', () => {
-        this.webSocketService.webSocket?.send(request);
-      });
-    }
+    }));
   }
 
   protected async handleFormSubmit(event: any) {
