@@ -26,6 +26,7 @@ export class HomeComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
   private readonly routerEventSubscription: Subscription;
+  private previousUrl = '';
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
     this.webSocketService.webSocket =
@@ -41,7 +42,7 @@ export class HomeComponent {
         if (contactId) {
           this.webSocketStore.setSearchedUser(null);
 
-          const request = JSON.stringify({
+          const requestGetUser = JSON.stringify({
             type: 'GET_USER',
             data: {
               userId: this.userStore.user()._id,
@@ -50,12 +51,46 @@ export class HomeComponent {
           });
 
           if (this.webSocketService.webSocket?.readyState === 1) {
-            this.webSocketService.webSocket.send(request);
+            this.webSocketService.webSocket.send(requestGetUser);
           } else {
             this.webSocketService.webSocket?.addEventListener('open', () => {
-              this.webSocketService.webSocket?.send(request);
+              this.webSocketService.webSocket?.send(requestGetUser);
             });
           }
+
+          const requestOnlineUser = JSON.stringify({
+            type: 'ONLINE_USER',
+            data: {
+              userId: this.userStore.user()._id,
+              contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+            },
+          });
+
+          if (this.webSocketService.webSocket?.readyState === 1) {
+            this.webSocketService.webSocket.send(requestOnlineUser);
+          } else {
+            this.webSocketService.webSocket?.addEventListener('open', () => {
+              this.webSocketService.webSocket?.send(requestOnlineUser);
+            });
+          }
+
+          const requestOfflineUser = JSON.stringify({
+            type: 'OFFLINE_USER',
+            data: {
+              userId: this.userStore.user()._id,
+              contactId: this.previousUrl.slice(this.previousUrl.search(/\/[0-9a-z-A-Z]*$/gm) + 1),
+            },
+          });
+
+
+          if (this.webSocketService.webSocket?.readyState === 1) {
+            this.webSocketService.webSocket.send(requestOfflineUser);
+          } else {
+            this.webSocketService.webSocket?.addEventListener('open', () => {
+              this.webSocketService.webSocket?.send(requestOfflineUser);
+            });
+          }
+          this.previousUrl = value.url;
         }
       }
     });
