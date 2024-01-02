@@ -47,8 +47,8 @@ const WebsocketStore = signalStore(
       const rooms = store.rooms().filter((room: any) => room._id !== state);
       patchState(store, {rooms});
     },
-    setOnlineUser(state = '') {
-      patchState(store, {onlineUsers: [...store.onlineUsers(), state]});
+    setOnlineUser(state = []) {
+      patchState(store, {onlineUsers: [...store.onlineUsers(), ...state]});
     },
     setOfflineUser(state = '') {
       const onlineUsers = store.onlineUsers().filter((user) => user !== state);
