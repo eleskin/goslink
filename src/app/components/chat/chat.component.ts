@@ -40,9 +40,11 @@ export class ChatComponent {
     private websocketService: WebsocketService,
   ) {
     this.websocketService.webSocket?.addEventListener('message', () => {
-      if (this.chatRef?.nativeElement) {
-        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-      }
+      setTimeout(() => {
+        if (this.chatRef?.nativeElement) {
+          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+        }
+      }, 0);
     });
 
     effect(() => {

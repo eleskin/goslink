@@ -32,7 +32,6 @@ export class WebsocketService {
       this.webSocketStore.setMessages(event.detail.data.messages);
     });
     this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
-      console.log(event);
       const {message} = event.detail.data;
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
