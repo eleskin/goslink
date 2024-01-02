@@ -11,6 +11,7 @@ export class WebsocketService {
   private readonly webSocketStore = inject(WebsocketStore);
 
   private setLastRoomMessage(rooms: any, message: any) {
+    console.log(rooms)
     for (const room of rooms) {
       if (!message) {
         this.webSocketStore.deleteRoom(room._id);
@@ -36,21 +37,18 @@ export class WebsocketService {
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
 
-      const contact: any = this.webSocketStore.contact();
-      const rooms = this.webSocketStore.rooms();
-
-      const isExistRoom = !rooms.filter((room: any) => {
+      const isExistRoom = !this.webSocketStore.rooms().filter((room: any) => {
         return room?._id === message.author?._id || room?._id === message.contact?._id;
       }).length;
 
       if (isExistRoom) {
         this.webSocketStore.setRooms([
-          ...rooms,
-          contact?._id === message.contact._id ? message.contact : message.author,
+          ...this.webSocketStore.rooms(),
+          this.webSocketStore.contact()?._id === message.contact._id ? message.contact : message.author,
         ]);
       }
 
-      this.setLastRoomMessage(rooms, message);
+      this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     });
     this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
       const rooms = this.webSocketStore.rooms();
