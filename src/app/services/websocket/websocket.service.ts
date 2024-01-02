@@ -59,6 +59,7 @@ export class WebsocketService {
     });
     this.webSocket?.addEventListener('GET_ROOM', (event: any) => {
       this.webSocketStore.setRooms(event.detail.data.rooms);
+      this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
     });
     this.webSocket?.addEventListener('ONLINE_USER', (event: any) => {
       this.webSocketStore.setOnlineUser(event.detail.data.userId);
