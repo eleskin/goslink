@@ -37,9 +37,9 @@ export class ChatComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private websocketService: WebsocketService,
+    private webSocketService: WebsocketService,
   ) {
-    this.websocketService.webSocket?.addEventListener('message', () => {
+    this.webSocketService.webSocket?.addEventListener('message', () => {
       setTimeout(() => {
         if (this.chatRef?.nativeElement) {
           this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
@@ -53,12 +53,49 @@ export class ChatComponent {
     });
   }
 
+  ngOnInit() {
+    const request = JSON.stringify({
+      type: 'ONLINE_USER',
+      data: {
+        userId: this.userStore.user()._id,
+        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+      },
+    });
+
+    if (this.webSocketService.webSocket?.readyState === 1) {
+      this.webSocketService.webSocket.send(request);
+    } else {
+      this.webSocketService.webSocket?.addEventListener('open', () => {
+        this.webSocketService.webSocket?.send(request);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    const request = JSON.stringify({
+      type: 'OFFLINE_USER',
+      data: {
+        userId: this.userStore.user()._id,
+        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+      },
+    });
+
+
+    if (this.webSocketService.webSocket?.readyState === 1) {
+      this.webSocketService.webSocket.send(request);
+    } else {
+      this.webSocketService.webSocket?.addEventListener('open', () => {
+        this.webSocketService.webSocket?.send(request);
+      });
+    }
+  }
+
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
     if (!this.message?.trim()) return;
 
-    this.websocketService.webSocket?.send(JSON.stringify({
+    this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'NEW_MESSAGE',
       data: {
         userId: this.userStore.user()._id,
