@@ -26,6 +26,7 @@ export class RoomsListComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();
   protected rooms: User[] = this.webSocketStore?.rooms();
+  protected onlineUsers: string[] = this.webSocketStore.onlineUsers();
 
   constructor(
     protected route: ActivatedRoute,
@@ -41,6 +42,7 @@ export class RoomsListComponent {
     effect(() => {
       this.searchedUser = this.webSocketStore?.searchedUser();
       this.rooms = this.webSocketStore?.rooms();
+      this.onlineUsers = this.webSocketStore.onlineUsers();
     });
   }
 
