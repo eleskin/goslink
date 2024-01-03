@@ -93,7 +93,7 @@ export class ChatComponent {
       },
     }));
 
-    this.formRef?.nativeElement.reset();
+    this.message = '';
     this.edit = false;
     this.changedMessage = undefined;
   }
