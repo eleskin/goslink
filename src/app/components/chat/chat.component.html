@@ -20,6 +20,7 @@
         placeholder="Your message"
       />
       <app-button text="Send" type="submit"/>
+      <app-button *ngIf="edit" (click)="setEdit(false)" text="Cancel" type="button"/>
     </form>
   </footer>
 </div>

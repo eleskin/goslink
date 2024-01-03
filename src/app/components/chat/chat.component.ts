@@ -1,5 +1,5 @@
 import {Component, effect, ElementRef, inject, ViewChild} from '@angular/core';
-import {NgForOf, NgOptimizedImage} from '@angular/common';
+import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {InputComponent} from '../input/input.component';
 import {ButtonComponent} from '../button/button.component';
 import {FormsModule} from '@angular/forms';
@@ -21,6 +21,7 @@ import UserStore from '../../store/user/user.store';
     NgForOf,
     FormsModule,
     MessageComponent,
+    NgIf,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
@@ -35,6 +36,7 @@ export class ChatComponent {
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
   protected edit = false;
+  private changedMessage: Message | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -82,8 +84,9 @@ export class ChatComponent {
     if (!this.message?.trim()) return;
 
     this.webSocketService.webSocket?.send(JSON.stringify({
-      type: 'NEW_MESSAGE',
+      type: this.changedMessage ? 'EDIT_MESSAGE' : 'NEW_MESSAGE',
       data: {
+        _id: this.changedMessage ? this.changedMessage._id : null,
         userId: this.userStore.user()._id,
         contactId: this.route.snapshot.paramMap.get('_id') ?? '',
         text: this.message,
@@ -91,11 +94,20 @@ export class ChatComponent {
     }));
 
     this.formRef?.nativeElement.reset();
+    this.edit = false;
+    this.changedMessage = undefined;
   }
 
-  setEdit(data: boolean, message: Message) {
+  setEdit(data: boolean, message?: Message) {
     this.edit = data;
-    this.message = message.text;
+
+    if (message) {
+      this.message = message.text;
+      this.changedMessage = message;
+    } else {
+      this.message = '';
+      this.changedMessage = undefined;
+    }
   }
 
   setMessage(event: any) {
