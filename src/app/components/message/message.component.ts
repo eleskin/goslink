@@ -17,12 +17,13 @@ import {ActivatedRoute} from '@angular/router';
   styleUrl: './message.component.css',
 })
 export class MessageComponent {
-  @Input() public message: Message | undefined;
+  @Input() public message!: Message;
   protected selfMessage: boolean = false;
   private readonly userStore = inject(UserStore);
   private user: User = this.userStore.user();
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
+    console.log(new Date().getTimezoneOffset() / 60)
     effect(() => {
       this.user = this.userStore.user();
     });
@@ -32,9 +33,7 @@ export class MessageComponent {
     this.selfMessage = this.message?.userId === this.user._id;
   }
 
-  protected handleClickDelete(message: Message | undefined) {
-    if (!message) return;
-
+  protected handleClickDelete(message: Message) {
     this.webSocketService.webSocket?.send(JSON.stringify({
       type: 'DELETE_MESSAGE',
       data: {
@@ -43,5 +42,9 @@ export class MessageComponent {
         contactId: this.route.snapshot.paramMap.get('_id') ?? '',
       },
     }));
+  }
+
+  protected handleClickEdit(message: Message) {
+
   }
 }

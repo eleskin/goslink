@@ -63,6 +63,12 @@
   position: absolute;
   right: 0;
   transform: translate(-4px, 50%);
+  grid-column-gap: 8px;
+  display: none;
+}
+
+.app-message:hover .app-message__control {
+  display: flex;
 }
 
 .app-message__control > button {
