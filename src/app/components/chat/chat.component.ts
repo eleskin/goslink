@@ -1,40 +1,25 @@
-import {Component, effect, inject} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {InputComponent} from '../input/input.component';
-import {ButtonComponent} from '../button/button.component';
-import {FormsModule} from '@angular/forms';
+import {Component, inject} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {MessageComponent} from '../message/message.component';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
-import User from '../../interfaces/user';
-import WebsocketStore from '../../store/websocket/websocket.store';
 import UserStore from '../../store/user/user.store';
 import {ChatContainerComponent} from '../chat-container/chat-container.component';
 import {ChatFooterComponent} from '../chat-footer/chat-footer.component';
+import {ChatHeaderComponent} from '../chat-header/chat-header.component';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [
-    NgOptimizedImage,
-    InputComponent,
-    ButtonComponent,
-    NgForOf,
-    FormsModule,
-    MessageComponent,
-    NgIf,
     ChatContainerComponent,
     ChatFooterComponent,
+    ChatHeaderComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
 })
 export class ChatComponent {
   protected message: string = '';
-  private readonly webSocketStore = inject(WebsocketStore);
-  protected contact: User | null = this.webSocketStore.contact();
-  protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
   private readonly userStore = inject(UserStore);
   protected edit = false;
   protected changedMessage: Message | undefined;
@@ -43,11 +28,6 @@ export class ChatComponent {
     private route: ActivatedRoute,
     private webSocketService: WebsocketService,
   ) {
-    effect(() => {
-      this.contact = this.webSocketStore.contact();
-      this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
-    });
-
     this.setEdit = this.setEdit.bind(this);
   }
 

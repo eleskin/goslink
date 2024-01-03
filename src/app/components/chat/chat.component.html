@@ -1,11 +1,5 @@
 <div class="app-chat">
-  <header class="app-chat__header">
-    <i>{{ contact?.name?.slice(0, 1) ?? '' }}</i>
-    <div>
-      <span>{{ contact?.name ?? '' }}</span>
-      <i>{{ online ? 'Online' : 'Last seen recently' }}</i>
-    </div>
-  </header>
+  <app-chat-header/>
   <app-chat-container [setEdit]="setEdit"/>
   <app-chat-footer [setEdit]="setEdit" [edit]="edit" [message]="message" [changedMessage]="changedMessage"/>
 </div>
