@@ -52,7 +52,7 @@ export class WebsocketService {
         return message._id !== event.detail.data.removedMessageId;
       }));
 
-      this.setLastRoomMessage(rooms, lastMessage, event.detail.data.roomId);
+      this.setLastRoomMessage(rooms, lastMessage, event.detail.data.userId, event.detail.data.contactId);
     }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [
@@ -76,13 +76,15 @@ export class WebsocketService {
     }
   }
 
-  private setLastRoomMessage(rooms: Room[], message: Message, roomId?: string) {
-    if (!message && roomId) {
-      this.webSocketStore.deleteRoom(roomId);
+  private setLastRoomMessage(rooms: Room[], message: Message, userId?: string, contactId?: string) {
+    if (!message && userId && contactId) {
+      this.webSocketStore.deleteRoom(userId);
+      this.webSocketStore.deleteRoom(contactId);
       return;
     }
 
     for (const room of rooms) {
+      console.log(room);
       if (room?._id === message.userId || room?._id === message.contactId) {
         room.lastMessage = message.text;
       }

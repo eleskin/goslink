@@ -45,6 +45,8 @@ const WebsocketStore = signalStore(
       patchState(store, {messages: state});
     },
     deleteRoom(state = '') {
+      console.log(store.rooms());
+      console.log(state);
       const rooms = store.rooms().filter((room: any) => room._id !== state);
       patchState(store, {rooms});
     },
