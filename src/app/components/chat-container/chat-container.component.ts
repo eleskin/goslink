@@ -6,6 +6,7 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
 import Message from '../../interfaces/message';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import UserStore from '../../store/user/user.store';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-chat-container',
@@ -27,7 +28,7 @@ export class ChatContainerComponent {
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   private observer: IntersectionObserver | undefined;
 
-  constructor(private webSocketService: WebsocketService) {
+  constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
     this.webSocketService.webSocket?.addEventListener('message', () => {
       setTimeout(() => {
         if (this.chatRef?.nativeElement) {
@@ -45,16 +46,22 @@ export class ChatContainerComponent {
   }
 
   private markAsRead(messageId: string): void {
-    const id = messageId.split('-')[1];
+    const _id = messageId.split('-')[1];
     const messages = this.messagesByDates.map((item) => item.messages).flat();
     const uncheckedMessages = messages.find((message) => {
-      return message._id === id && !message.checked && message.contactId === this.userStore.user()._id;
+      return message._id === _id && !message.checked && message.contactId === this.userStore.user()._id;
     });
 
     if (uncheckedMessages) {
-      console.log(id);
+      this.webSocketService.webSocket?.send(JSON.stringify({
+        type: 'READ_MESSAGE',
+        data: {
+          _id,
+          userId: this.userStore.user()._id,
+          contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+        },
+      }));
     }
-
   }
 
   ngOnInit() {

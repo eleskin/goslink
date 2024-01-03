@@ -56,6 +56,18 @@ const WebsocketStore = signalStore(
 
       patchState(store, {messagesByDates});
     },
+    setRead(state = '') {
+      const messagesByDates = store.messagesByDates().map((item) => {
+        return {
+          date: item.date, messages: item.messages.map((message) => {
+            if (message._id === state._id) message.checked = true;
+            return message;
+          }),
+        };
+      });
+
+      patchState(store, {messagesByDates});
+    },
     deleteRoom(state = '') {
       const rooms = store.rooms().filter((room: any) => room._id !== state);
       patchState(store, {rooms});

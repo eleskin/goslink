@@ -68,6 +68,9 @@ export class WebsocketService {
     ['EDIT_MESSAGE', (event: any) => {
       this.webSocketStore.updateMessage(event.detail.data.message);
     }],
+    ['READ_MESSAGE', (event: any) => {
+      this.webSocketStore.setRead(event.detail.data._id);
+    }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [
     ['GET_ROOM', (event: any) => {
