@@ -5,16 +5,10 @@ import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideStore} from '@ngrx/store';
 import {authorizationInterceptor} from './interceptors/authorization.interceptor';
 import UserStore from './store/user/user.store';
-import RoomsStore from './store/rooms/rooms.store';
-import ChatStore from './store/chat/chat.store';
-import MessagesStore from './store/messages/messages.store';
 import WebsocketStore from './store/websocket/websocket.store';
 
 const store = [
   UserStore,
-  RoomsStore,
-  ChatStore,
-  MessagesStore,
   WebsocketStore,
 ];
 
