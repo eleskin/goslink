@@ -34,7 +34,6 @@ export class ChatComponent {
   protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
   private readonly userStore = inject(UserStore);
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
-  @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
   protected edit = false;
   private changedMessage: Message | undefined;
 
@@ -99,19 +98,13 @@ export class ChatComponent {
     this.changedMessage = undefined;
   }
 
-  setEdit(data: boolean, message?: Message) {
+  protected setEdit(data: boolean, message?: Message) {
     this.edit = data;
-
-    if (message) {
-      this.message = message.text;
-      this.changedMessage = message;
-    } else {
-      this.message = '';
-      this.changedMessage = undefined;
-    }
+    this.message = message ? message.text : '';
+    this.changedMessage = message;
   }
 
-  setMessage(event: any) {
+  protected setMessage(event: any) {
     this.message = event.target.value;
   }
 }
