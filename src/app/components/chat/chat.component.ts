@@ -53,7 +53,7 @@ export class ChatComponent {
 
   protected setEdit(data: boolean, message?: Message) {
     this.edit = data;
-    this.message = message ? message.text : '';
+    this.message = message?.text ?? '';
     this.changedMessage = message;
   }
 }

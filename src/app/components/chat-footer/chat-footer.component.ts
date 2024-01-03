@@ -48,7 +48,7 @@ export class ChatFooterComponent {
     }
 
     this.message = '';
-    this.edit = false;
+    // this.edit = false;
     this.changedMessage = undefined;
   }
 
