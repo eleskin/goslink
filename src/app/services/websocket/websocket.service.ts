@@ -10,19 +10,6 @@ export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly webSocketStore = inject(WebsocketStore);
 
-  private setLastRoomMessage(rooms: any, message: any, roomId?: string) {
-    if (!message && roomId) {
-      this.webSocketStore.deleteRoom(roomId);
-      return;
-    }
-
-    for (const room of rooms) {
-      if (room?._id === message.userId || room?._id === message.contactId) {
-        room.lastMessage = message.text;
-      }
-    }
-  }
-
   public setHandlers() {
     this.webSocket?.addEventListener('SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
@@ -69,5 +56,18 @@ export class WebsocketService {
     this.webSocket?.addEventListener('OFFLINE_USER', (event: any) => {
       this.webSocketStore.setOfflineUser(event.detail.data.userId);
     });
+  }
+
+  private setLastRoomMessage(rooms: any, message: any, roomId?: string) {
+    if (!message && roomId) {
+      this.webSocketStore.deleteRoom(roomId);
+      return;
+    }
+
+    for (const room of rooms) {
+      if (room?._id === message.userId || room?._id === message.contactId) {
+        room.lastMessage = message.text;
+      }
+    }
   }
 }

@@ -20,7 +20,7 @@ const initialState: WebsocketState = {
   contact: null,
   messages: [],
   onlineUsers: [],
-}
+};
 
 const WebsocketStore = signalStore(
   withState(initialState),
@@ -53,7 +53,7 @@ const WebsocketStore = signalStore(
     setOfflineUser(state = '') {
       const onlineUsers = store.onlineUsers().filter((user) => user !== state);
       patchState(store, {onlineUsers});
-    }
+    },
   })),
 );
 
