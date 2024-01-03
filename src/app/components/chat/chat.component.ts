@@ -11,6 +11,7 @@ import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import UserStore from '../../store/user/user.store';
 import {ChatContainerComponent} from '../chat-container/chat-container.component';
+import {ChatFooterComponent} from '../chat-footer/chat-footer.component';
 
 @Component({
   selector: 'app-chat',
@@ -24,6 +25,7 @@ import {ChatContainerComponent} from '../chat-container/chat-container.component
     MessageComponent,
     NgIf,
     ChatContainerComponent,
+    ChatFooterComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
@@ -35,7 +37,7 @@ export class ChatComponent {
   protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
   private readonly userStore = inject(UserStore);
   protected edit = false;
-  private changedMessage: Message | undefined;
+  protected changedMessage: Message | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,34 +71,9 @@ export class ChatComponent {
     }));
   }
 
-  protected async handleFormSubmit(event: any) {
-    event.preventDefault();
-
-    if (!this.message?.trim()) return;
-    if (this.message !== this.changedMessage?.text) {
-      this.webSocketService.webSocket?.send(JSON.stringify({
-        type: this.changedMessage ? 'EDIT_MESSAGE' : 'NEW_MESSAGE',
-        data: {
-          _id: this.changedMessage ? this.changedMessage._id : null,
-          userId: this.userStore.user()._id,
-          contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-          text: this.message,
-        },
-      }));
-    }
-
-    this.message = '';
-    this.edit = false;
-    this.changedMessage = undefined;
-  }
-
   protected setEdit(data: boolean, message?: Message) {
     this.edit = data;
     this.message = message ? message.text : '';
     this.changedMessage = message;
-  }
-
-  protected setMessage(event: any) {
-    this.message = event.target.value;
   }
 }

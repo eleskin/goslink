@@ -1,0 +1,14 @@
+.app-chat-footer {
+  padding: var(--main-padding);
+}
+
+.app-chat-footer form {
+  display: flex;
+  flex-direction: row;
+  grid-column-gap: 8px;
+  justify-content: space-between;
+}
+
+.app-chat-footer form app-input {
+  width: 100%;
+}

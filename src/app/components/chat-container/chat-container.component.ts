@@ -22,7 +22,7 @@ export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   protected messages: Message[] = this.webSocketStore.messages();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
-  @Input() public setEdit!: (event: boolean, message: Message) => void;
+  @Input() public setEdit!: (event: boolean, message?: Message) => void;
 
   constructor(private webSocketService: WebsocketService) {
     this.webSocketService.webSocket?.addEventListener('message', () => {

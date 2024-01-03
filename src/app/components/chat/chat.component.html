@@ -7,16 +7,5 @@
     </div>
   </header>
   <app-chat-container [setEdit]="setEdit"/>
-  <footer class="app-chat__footer">
-    <form name="form" (submit)="handleFormSubmit($event)">
-      <app-input
-        [required]="true"
-        [value]="message"
-        (input)="setMessage($event)"
-        placeholder="Your message"
-      />
-      <app-button text="Send" type="submit"/>
-      <app-button *ngIf="edit" (click)="setEdit(false)" text="Cancel" type="button"/>
-    </form>
-  </footer>
+  <app-chat-footer [setEdit]="setEdit" [edit]="edit" [message]="message" [changedMessage]="changedMessage"/>
 </div>
