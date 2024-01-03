@@ -6,11 +6,7 @@
       <i>{{ online ? 'Online' : 'Last seen recently' }}</i>
     </div>
   </header>
-  <div #chat class="chat__body" name="chat" ngDefaultControl ngModel>
-    <div *ngFor="let message of messages">
-      <app-message [message]="message" (edit)="setEdit($event, message)"/>
-    </div>
-  </div>
+  <app-chat-container/>
   <footer class="chat__footer">
     <form name="form" (submit)="handleFormSubmit($event)">
       <app-input

@@ -1,0 +1,5 @@
+<div #chat class="chat__body" name="chat" ngDefaultControl ngModel>
+  <div *ngFor="let message of messages">
+    <app-message [message]="message" (edit)="setEdit($event, message)"/>
+  </div>
+</div>

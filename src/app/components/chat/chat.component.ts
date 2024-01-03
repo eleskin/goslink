@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {InputComponent} from '../input/input.component';
 import {ButtonComponent} from '../button/button.component';
@@ -10,6 +10,7 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import UserStore from '../../store/user/user.store';
+import {ChatContainerComponent} from '../chat-container/chat-container.component';
 
 @Component({
   selector: 'app-chat',
@@ -22,6 +23,7 @@ import UserStore from '../../store/user/user.store';
     FormsModule,
     MessageComponent,
     NgIf,
+    ChatContainerComponent,
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css',
@@ -30,10 +32,8 @@ export class ChatComponent {
   protected message: string = '';
   private readonly webSocketStore = inject(WebsocketStore);
   protected contact: User | null = this.webSocketStore.contact();
-  protected messages: Message[] = this.webSocketStore.messages();
   protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
   private readonly userStore = inject(UserStore);
-  @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   protected edit = false;
   private changedMessage: Message | undefined;
 
@@ -41,18 +41,8 @@ export class ChatComponent {
     private route: ActivatedRoute,
     private webSocketService: WebsocketService,
   ) {
-    this.webSocketService.webSocket?.addEventListener('message', () => {
-      setTimeout(() => {
-        if (this.chatRef?.nativeElement) {
-          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-        }
-      }, 0);
-    });
-
     effect(() => {
       this.contact = this.webSocketStore.contact();
-      this.messages = this.webSocketStore.messages();
-
       this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
     });
   }
