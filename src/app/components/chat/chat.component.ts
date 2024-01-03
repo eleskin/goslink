@@ -97,4 +97,8 @@ export class ChatComponent {
     this.edit = data;
     this.message = message.text;
   }
+
+  setMessage(event: any) {
+    this.message = event.target.value;
+  }
 }

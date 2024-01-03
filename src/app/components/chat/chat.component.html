@@ -15,10 +15,9 @@
     <form #form name="form" ngDefaultControl ngModel (submit)="handleFormSubmit($event)">
       <app-input
         [required]="true"
-        [(ngModel)]="message"
+        [value]="message"
+        (input)="setMessage($event)"
         placeholder="Your message"
-        ngDefaultControl
-        name="message"
       />
       <app-button text="Send" type="submit"/>
     </form>
