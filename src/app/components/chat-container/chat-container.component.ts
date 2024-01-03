@@ -29,7 +29,7 @@ export class ChatContainerComponent {
     this.webSocketService.webSocket?.addEventListener('message', () => {
       setTimeout(() => {
         if (this.chatRef?.nativeElement) {
-          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+          // this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
         }
       }, 0);
     });
@@ -43,7 +43,7 @@ export class ChatContainerComponent {
   }
 
   private markAsRead(messageId: string): void {
-    // console.log(messageId);
+    console.log(messageId);
   }
 
   ngOnInit() {
@@ -76,8 +76,10 @@ export class ChatContainerComponent {
     }, options);
 
     this.messages.forEach((message) => {
-      // const element = document.querySelector(`#message-${message._id}`);
-      // element && this.observer?.observe(element);
-    });
+      message.messages.forEach((message) => {
+        const element = document.querySelector(`#message-${message._id}`);
+        element && this.observer?.observe(element);
+      });
+    })
   }
 }
