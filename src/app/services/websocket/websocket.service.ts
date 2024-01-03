@@ -10,14 +10,13 @@ export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly webSocketStore = inject(WebsocketStore);
 
-  private setLastRoomMessage(rooms: any, message: any) {
-    console.log(rooms)
-    for (const room of rooms) {
-      if (!message) {
-        this.webSocketStore.deleteRoom(room._id);
-        return;
-      }
+  private setLastRoomMessage(rooms: any, message: any, authorId?: string) {
+    if (!message && authorId) {
+      this.webSocketStore.deleteRoom(authorId);
+      return;
+    }
 
+    for (const room of rooms) {
       if (room?._id === message.userId || room?._id === message.contactId) {
         room.lastMessage = message.text;
       }
@@ -58,7 +57,7 @@ export class WebsocketService {
         return message._id !== event.detail.data.removedMessageId;
       }));
 
-      this.setLastRoomMessage(rooms, lastMessage);
+      this.setLastRoomMessage(rooms, lastMessage, event.detail.data.authorId);
     });
     this.webSocket?.addEventListener('GET_ROOM', (event: any) => {
       this.webSocketStore.setRooms(event.detail.data.rooms);
