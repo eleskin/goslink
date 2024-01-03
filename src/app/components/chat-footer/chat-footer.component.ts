@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../button/button.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputComponent} from '../input/input.component';
@@ -24,9 +24,10 @@ import UserStore from '../../store/user/user.store';
 export class ChatFooterComponent {
   private readonly userStore = inject(UserStore);
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
-  @Input() public edit!: boolean;
   @Input() public message!: string;
   @Input() public changedMessage!: Message | undefined;
+  @Output() public edit = new EventEmitter<boolean>();
+  @Input() public editValue: boolean = false;
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
   }
@@ -48,7 +49,7 @@ export class ChatFooterComponent {
     }
 
     this.message = '';
-    // this.edit = false;
+    this.edit.emit(false);
     this.changedMessage = undefined;
   }
 
