@@ -1,4 +1,4 @@
-import {Component, effect, inject, Input} from '@angular/core';
+import {Component, effect, EventEmitter, inject, Input, Output} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import Message from '../../interfaces/message';
 import UserStore from '../../store/user/user.store';
@@ -18,6 +18,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class MessageComponent {
   @Input() public message!: Message;
+  @Output() edit = new EventEmitter<boolean>();
   protected selfMessage: boolean = false;
   private readonly userStore = inject(UserStore);
   private user: User = this.userStore.user();
@@ -46,7 +47,7 @@ export class MessageComponent {
     }));
   }
 
-  protected handleClickEdit(message: Message) {
-
+  protected handleClickEdit() {
+    this.edit.emit(true);
   }
 }

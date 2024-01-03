@@ -34,6 +34,7 @@ export class ChatComponent {
   private readonly userStore = inject(UserStore);
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('form') private formRef: ElementRef<HTMLFormElement> | undefined;
+  protected edit = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -90,5 +91,10 @@ export class ChatComponent {
     }));
 
     this.formRef?.nativeElement.reset();
+  }
+
+  setEdit(data: boolean, message: Message) {
+    this.edit = data;
+    this.message = message.text;
   }
 }
