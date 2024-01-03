@@ -5,6 +5,7 @@ import {NgForOf} from '@angular/common';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import Message from '../../interfaces/message';
 import WebsocketStore from '../../store/websocket/websocket.store';
+import UserStore from '../../store/user/user.store';
 
 @Component({
   selector: 'app-chat-container',
@@ -20,6 +21,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 })
 export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
+  private readonly userStore = inject(UserStore);
   protected messagesByDates: {date: string, messages: Message[]}[] = this.webSocketStore.messagesByDates();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
@@ -43,7 +45,16 @@ export class ChatContainerComponent {
   }
 
   private markAsRead(messageId: string): void {
-    console.log(messageId);
+    const id = messageId.split('-')[1];
+    const messages = this.messagesByDates.map((item) => item.messages).flat();
+    const uncheckedMessages = messages.find((message) => {
+      return message._id === id && !message.checked && message.contactId === this.userStore.user()._id;
+    });
+
+    if (uncheckedMessages) {
+      console.log(id);
+    }
+
   }
 
   ngOnInit() {
