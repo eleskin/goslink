@@ -9,7 +9,7 @@ type WebsocketState = {
   rooms: Room[],
   searchedUser: User | null,
   contact: User | null,
-  messages: Message[],
+  messages: { date: string, messages: Message[] }[],
   onlineUsers: string[],
 };
 
@@ -46,8 +46,12 @@ const WebsocketStore = signalStore(
     },
     updateMessage(state = null) {
       const messages = store.messages().map((message) => {
-        if (message._id === state._id) message.text = state.text;
-        return message;
+        return {
+          date: message.date, messages: message.messages.map((message) => {
+            if (message._id === state._id) message.text = state.text;
+            return message;
+          }),
+        };
       });
 
       patchState(store, {messages});

@@ -20,7 +20,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 })
 export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
-  protected messages: Message[] = this.webSocketStore.messages();
+  protected messages: {date: string, messages: Message[]}[] = this.webSocketStore.messages();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   private observer: IntersectionObserver | undefined;
@@ -43,7 +43,7 @@ export class ChatContainerComponent {
   }
 
   private markAsRead(messageId: string): void {
-    console.log(messageId);
+    // console.log(messageId);
   }
 
   ngOnInit() {
@@ -76,8 +76,8 @@ export class ChatContainerComponent {
     }, options);
 
     this.messages.forEach((message) => {
-      const element = document.querySelector(`#message-${message._id}`);
-      element && this.observer?.observe(element);
+      // const element = document.querySelector(`#message-${message._id}`);
+      // element && this.observer?.observe(element);
     });
   }
 }

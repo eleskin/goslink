@@ -1,5 +1,8 @@
 <div #chat class="app-chat-container" name="chat" ngDefaultControl ngModel>
-  <div *ngFor="let message of messages" [id]="'message-' + message._id">
-    <app-message [message]="message" (edit)="setEdit($event, message)"/>
+  <div *ngFor="let message of messages">
+    {{ message.date }}
+    <div *ngFor="let message of message.messages" [id]="'message-' + message._id">
+      <app-message [message]="message" (edit)="setEdit($event, message)"/>
+    </div>
   </div>
 </div>

@@ -16,7 +16,7 @@ export class WebsocketService {
     }],
     ['GET_USER', (event: any) => {
       this.webSocketStore.setContact(event.detail.data.user);
-      this.webSocketStore.setMessages(event.detail.data.messages);
+      this.webSocketStore.setMessages(this.groupMessagesByDate(event.detail.data.messages));
     }],
     ['ONLINE_USER', (event: any) => {
       this.webSocketStore.setOnlineUser([event.detail.data.userId]);
@@ -29,7 +29,7 @@ export class WebsocketService {
     ['NEW_MESSAGE', (event: any) => {
       const {message} = event.detail.data;
 
-      this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
+     this.webSocketStore.setMessages(this.groupMessagesByDate([...this.webSocketStore.messages().map((message) => message.messages).flat(), message]));
 
       const isExistRoom = !this.webSocketStore.rooms().filter((room: any) => {
         return room?._id === message.author?._id || room?._id === message.contact?._id;
@@ -48,8 +48,8 @@ export class WebsocketService {
       const rooms = this.webSocketStore.rooms();
       const {lastMessage} = event.detail.data;
 
-      this.webSocketStore.setMessages(this.webSocketStore.messages().filter((message: Message) => {
-        return message._id !== event.detail.data.removedMessageId;
+      this.webSocketStore.setMessages(this.webSocketStore.messages().map((message: {date: string, messages: Message[]}) => {
+        return {date: message.date, messages: message.messages.filter((message: Message) => message._id !== event.detail.data.removedMessageId)}
       }));
 
       this.setLastRoomMessage(rooms, lastMessage, event.detail.data.userId, event.detail.data.contactId);
@@ -91,5 +91,24 @@ export class WebsocketService {
         room.lastMessage = message.text;
       }
     }
+  }
+
+  private groupMessagesByDate(messages: Message[]): {date: string, messages: Message[]}[] {
+    const tempStorage: {[key: string]: {date: string, messages: Message[]}} = {};
+
+    messages.forEach((item: Message) => {
+      const dateKey = new Date(item.dateObject).toDateString();
+
+      if (!tempStorage[dateKey]) {
+        tempStorage[dateKey] = {
+          date: dateKey,
+          messages: []
+        };
+      }
+
+      tempStorage[dateKey].messages.push(item);
+    });
+
+    return Object.values(tempStorage)
   }
 }
