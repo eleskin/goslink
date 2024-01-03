@@ -30,10 +30,14 @@ export class MessageComponent {
   }
 
   ngOnInit() {
-    const date = new Date(this.message.dateObject);
     this.message.dateObject = new Date(this.message.dateObject);
-    this.message.time = `${date.getHours()}:${date.getMinutes()}`;
     this.selfMessage = this.message?.userId === this.user._id;
+
+
+    const date = new Date(this.message.dateObject);
+    const hours = date.getHours().toString().length > 1 ? date.getHours().toString() : `0${date.getHours()}`;
+    const minutes = date.getMinutes().toString().length > 1 ? date.getMinutes() : `0${date.getMinutes()}`;
+    this.message.time = `${hours}:${minutes}`;
   }
 
   protected handleClickDelete(message: Message) {
