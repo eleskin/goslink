@@ -1,13 +1,13 @@
-<div class="chat">
-  <header class="chat__header">
+<div class="app-chat">
+  <header class="app-chat__header">
     <i>{{ contact?.name?.slice(0, 1) ?? '' }}</i>
     <div>
       <span>{{ contact?.name ?? '' }}</span>
       <i>{{ online ? 'Online' : 'Last seen recently' }}</i>
     </div>
   </header>
-  <app-chat-container/>
-  <footer class="chat__footer">
+  <app-chat-container [setEdit]="setEdit"/>
+  <footer class="app-chat__footer">
     <form name="form" (submit)="handleFormSubmit($event)">
       <app-input
         [required]="true"

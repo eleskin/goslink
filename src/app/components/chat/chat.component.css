@@ -1,4 +1,4 @@
-.chat {
+.app-chat {
   border-left: 1px solid var(--main-color-hover-2);
   border-radius: var(--main-border-radius) 0 0 0;
   display: flex;
@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-.chat__header {
+.app-chat__header {
   align-items: flex-start;
   background-color: var(--main-color-hover-2);
   border-radius: var(--main-border-radius) 0 0 0;
@@ -18,7 +18,7 @@
   padding: var(--main-padding);
 }
 
-.chat__header > i {
+.app-chat__header > i {
   align-items: center;
   background-color: #eeeeee;
   border-radius: var(--main-border-radius);
@@ -31,43 +31,34 @@
   width: 44px;
 }
 
-.chat__header > div {
+.app-chat__header > div {
   display: flex;
   flex-direction: column;
   height: 80%;
   justify-content: space-between;
 }
 
-.chat__header > div > span {
+.app-chat__header > div > span {
   font-size: 16px;
   font-weight: 500;
 }
 
-.chat__header > div > i {
+.app-chat__header > div > i {
   font-size: 12px;
   font-style: normal;
 }
 
-.chat__body {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  grid-row-gap: 16px;
-  overflow-y: auto;
+.app-chat__footer {
   padding: var(--main-padding);
 }
 
-.chat__footer {
-  padding: var(--main-padding);
-}
-
-.chat__footer form {
+.app-chat__footer form {
   display: flex;
   flex-direction: row;
   grid-column-gap: 8px;
   justify-content: space-between;
 }
 
-.chat__footer form app-input {
+.app-chat__footer form app-input {
   width: 100%;
 }

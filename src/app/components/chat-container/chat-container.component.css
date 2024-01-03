@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.app-chat-container {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 16px;
+  padding: var(--main-padding);
+}

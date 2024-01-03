@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, inject, Input, ViewChild} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
@@ -22,6 +22,7 @@ export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   protected messages: Message[] = this.webSocketStore.messages();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
+  @Input() public setEdit!: (event: boolean, message: Message) => void;
 
   constructor(private webSocketService: WebsocketService) {
     this.webSocketService.webSocket?.addEventListener('message', () => {
