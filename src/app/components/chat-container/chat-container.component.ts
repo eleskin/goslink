@@ -31,9 +31,10 @@ export class ChatContainerComponent {
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
     this.webSocketService.webSocket?.addEventListener('message', () => {
+      if (this.firstUnreadMessage) return;
       setTimeout(() => {
         if (this.chatRef?.nativeElement) {
-          // this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
         }
       }, 0);
     });
@@ -50,7 +51,6 @@ export class ChatContainerComponent {
       if (!this.firstUnreadMessage) {
         const allMessages = this.webSocketStore.messagesByDates().map((item) => item.messages).flat();
         this.firstUnreadMessage = allMessages.find((message) => !message.checked && (message.contactId === this.userStore.user()._id))?._id ?? '';
-        console.log(document.querySelector(`#message-${this.firstUnreadMessage}`));
         setTimeout(() => {
           document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
             behavior: 'instant',
