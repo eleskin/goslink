@@ -18,15 +18,16 @@ import {ActivatedRoute} from '@angular/router';
     ReactiveFormsModule,
   ],
   templateUrl: './chat-container.component.html',
-  styleUrl: './chat-container.component.css'
+  styleUrl: './chat-container.component.css',
 })
 export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
-  protected messagesByDates: {date: string, messages: Message[]}[] = this.webSocketStore.messagesByDates();
+  protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   private observer: IntersectionObserver | undefined;
+  private firstUnreadMessage = '';
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
     this.webSocketService.webSocket?.addEventListener('message', () => {
@@ -39,9 +40,24 @@ export class ChatContainerComponent {
 
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
+
       setTimeout(() => {
         this.setupIntersectionObserver();
-      }, 0)
+      }, 0);
+    });
+
+    effect(() => {
+      if (!this.firstUnreadMessage) {
+        const allMessages = this.webSocketStore.messagesByDates().map((item) => item.messages).flat();
+        this.firstUnreadMessage = allMessages.find((message) => !message.checked && (message.contactId === this.userStore.user()._id))?._id ?? '';
+        console.log(document.querySelector(`#message-${this.firstUnreadMessage}`));
+        setTimeout(() => {
+          document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
+            behavior: 'instant',
+            block: 'start',
+          });
+        }, 0);
+      }
     });
   }
 
@@ -66,8 +82,11 @@ export class ChatContainerComponent {
 
   ngOnInit() {
     setTimeout(() => {
+
       this.setupIntersectionObserver();
-    }, 0)
+      // console.log(document.querySelector(`#message-${firstUnreadMessage?._id}`));
+      // document.querySelector(`#message-${firstUnreadMessage?._id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
   }
 
   ngOnDestroy() {
@@ -80,7 +99,7 @@ export class ChatContainerComponent {
     const options = {
       root: this.chatRef?.nativeElement,
       rootMargin: '0px',
-      threshold: 1.0
+      threshold: 1.0,
     };
 
     this.observer = new IntersectionObserver((entries, observer) => {
@@ -98,6 +117,6 @@ export class ChatContainerComponent {
         const element = document.querySelector(`#message-${message._id}`);
         element && this.observer?.observe(element);
       });
-    })
+    });
   }
 }
