@@ -30,34 +30,44 @@ export class ChatContainerComponent {
   private firstUnreadMessage = '';
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
-    this.webSocketService.webSocket?.addEventListener('message', () => {
-      if (this.firstUnreadMessage) return;
+    effect(() => {
+      this.messagesByDates = this.webSocketStore.messagesByDates();
+
       setTimeout(() => {
-        if (this.chatRef?.nativeElement) {
+        this.setupIntersectionObserver();
+
+        if (this.chatRef?.nativeElement && !this.firstUnreadMessage) {
           this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
         }
       }, 0);
     });
 
     effect(() => {
-      this.messagesByDates = this.webSocketStore.messagesByDates();
+      const allMessages = this.webSocketStore.messagesByDates().map((item) => item.messages).flat();
+      this.firstUnreadMessage = allMessages.find((message) => !message.checked && (message.contactId === this.userStore.user()._id))?._id ?? '';
 
-      setTimeout(() => {
-        this.setupIntersectionObserver();
-      }, 0);
-    });
-
-    effect(() => {
+      // console.log(this.firstUnreadMessage)
       if (!this.firstUnreadMessage) {
-        const allMessages = this.webSocketStore.messagesByDates().map((item) => item.messages).flat();
-        this.firstUnreadMessage = allMessages.find((message) => !message.checked && (message.contactId === this.userStore.user()._id))?._id ?? '';
-        setTimeout(() => {
-          document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
-            behavior: 'instant',
-            block: 'start',
-          });
-        }, 0);
+
+        // setTimeout(() => {
+        //   document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
+        //     behavior: 'instant',
+        //     block: 'start',
+        //   });
+        //
+        //   this.firstUnreadMessage = '';
+        // }, 0);
       }
+      // if (!this.firstUnreadMessage) {
+      //   setTimeout(() => {
+      //     document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
+      //       behavior: 'instant',
+      //       block: 'start',
+      //     });
+      //
+      //     this.firstUnreadMessage = '';
+      //   }, 0);
+      // }
     });
   }
 
@@ -81,12 +91,9 @@ export class ChatContainerComponent {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-
+    // setTimeout(() => {
       this.setupIntersectionObserver();
-      // console.log(document.querySelector(`#message-${firstUnreadMessage?._id}`));
-      // document.querySelector(`#message-${firstUnreadMessage?._id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 0);
+    // }, 0);
   }
 
   ngOnDestroy() {
