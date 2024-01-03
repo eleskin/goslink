@@ -8,7 +8,7 @@ interface Message {
   contactId: string;
   dateObject: Date | string;
   time: string;
-
+  checked: boolean;
 }
 
 export default Message;
