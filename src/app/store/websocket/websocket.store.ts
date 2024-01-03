@@ -60,7 +60,7 @@ const WebsocketStore = signalStore(
       const messagesByDates = store.messagesByDates().map((item) => {
         return {
           date: item.date, messages: item.messages.map((message) => {
-            if (message._id === state._id) message.checked = true;
+            if (message._id === state) message.checked = true;
             return message;
           }),
         };
