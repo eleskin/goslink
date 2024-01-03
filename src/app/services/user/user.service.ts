@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import setJWT from '../../utils/setJWT';
 import removeJWT from '../../utils/removeJWT';
 import UserStore from '../../store/user/user.store';
+import User from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  public getUser() {
+  public getUser(): Promise<User> {
     return new Promise((resolve, reject) => {
       this.http.post('http://localhost:3000/api/user/auth', {
         refreshToken: localStorage.getItem('refreshToken'),
@@ -31,7 +32,7 @@ export class UserService {
     });
   }
 
-  public logout() {
+  public logout(): Promise<{}> {
     return new Promise((resolve, reject) => {
       this.http.post('http://localhost:3000/api/user/auth/logout', {
         accessToken: localStorage.getItem('accessToken'),
