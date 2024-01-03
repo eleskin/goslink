@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import Message from '../../interfaces/message';
+import Room from '../../interfaces/room';
 
 @Injectable({
   providedIn: 'root',
@@ -9,16 +10,23 @@ import Message from '../../interfaces/message';
 export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly webSocketStore = inject(WebsocketStore);
-
-  public setHandlers() {
-    this.webSocket?.addEventListener('SEARCH_USER', (event: any) => {
+  private readonly userHandlers: [string, (event: any) => void][] = [
+    ['SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
-    });
-    this.webSocket?.addEventListener('GET_USER', (event: any) => {
+    }],
+    ['GET_USER', (event: any) => {
       this.webSocketStore.setContact(event.detail.data.user);
       this.webSocketStore.setMessages(event.detail.data.messages);
-    });
-    this.webSocket?.addEventListener('NEW_MESSAGE', (event: any) => {
+    }],
+    ['ONLINE_USER', (event: any) => {
+      this.webSocketStore.setOnlineUser([event.detail.data.userId]);
+    }],
+    ['OFFLINE_USER', (event: any) => {
+      this.webSocketStore.setOfflineUser(event.detail.data.userId);
+    }],
+  ];
+  private readonly messageHandlers: [string, (event: any) => void][] = [
+    ['NEW_MESSAGE', (event: any) => {
       const {message} = event.detail.data;
 
       this.webSocketStore.setMessages([...this.webSocketStore.messages(), message]);
@@ -35,8 +43,8 @@ export class WebsocketService {
       }
 
       this.setLastRoomMessage(this.webSocketStore.rooms(), message);
-    });
-    this.webSocket?.addEventListener('DELETE_MESSAGE', (event: any) => {
+    }],
+    ['DELETE_MESSAGE', (event: any) => {
       const rooms = this.webSocketStore.rooms();
       const {lastMessage} = event.detail.data;
 
@@ -45,20 +53,30 @@ export class WebsocketService {
       }));
 
       this.setLastRoomMessage(rooms, lastMessage, event.detail.data.roomId);
-    });
-    this.webSocket?.addEventListener('GET_ROOM', (event: any) => {
+    }],
+  ];
+  private readonly roomHandlers: [string, (event: any) => void][] = [
+    ['GET_ROOM', (event: any) => {
       this.webSocketStore.setRooms(event.detail.data.rooms);
       this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
-    });
-    this.webSocket?.addEventListener('ONLINE_USER', (event: any) => {
-      this.webSocketStore.setOnlineUser([event.detail.data.userId]);
-    });
-    this.webSocket?.addEventListener('OFFLINE_USER', (event: any) => {
-      this.webSocketStore.setOfflineUser(event.detail.data.userId);
-    });
+    }],
+  ];
+
+  public setHandlers() {
+    for (const [key, value] of this.userHandlers) {
+      this.webSocket?.addEventListener(String(key), value);
+    }
+
+    for (const [key, value] of this.messageHandlers) {
+      this.webSocket?.addEventListener(String(key), value);
+    }
+
+    for (const [key, value] of this.roomHandlers) {
+      this.webSocket?.addEventListener(String(key), value);
+    }
   }
 
-  private setLastRoomMessage(rooms: any, message: any, roomId?: string) {
+  private setLastRoomMessage(rooms: Room[], message: Message, roomId?: string) {
     if (!message && roomId) {
       this.webSocketStore.deleteRoom(roomId);
       return;

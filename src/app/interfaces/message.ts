@@ -5,6 +5,7 @@ interface Message {
   author: User;
   text: string;
   userId: string;
+  contactId: string;
 }
 
 export default Message;
