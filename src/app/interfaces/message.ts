@@ -6,6 +6,9 @@ interface Message {
   text: string;
   userId: string;
   contactId: string;
+  dateObject: Date | string;
+  time: string;
+
 }
 
 export default Message;

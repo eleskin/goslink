@@ -23,13 +23,15 @@ export class MessageComponent {
   private user: User = this.userStore.user();
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
-    console.log(new Date().getTimezoneOffset() / 60)
     effect(() => {
       this.user = this.userStore.user();
     });
   }
 
   ngOnInit() {
+    const date = new Date(this.message.dateObject);
+    this.message.dateObject = new Date(this.message.dateObject);
+    this.message.time = `${date.getHours()}:${date.getMinutes()}`;
     this.selfMessage = this.message?.userId === this.user._id;
   }
 

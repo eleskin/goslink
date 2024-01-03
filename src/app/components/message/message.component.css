@@ -59,10 +59,10 @@
 }
 
 .app-message__control {
-  bottom: 0;
+  top: 0;
   position: absolute;
   right: 0;
-  transform: translate(-4px, 50%);
+  transform: translate(-4px, 4px);
   grid-column-gap: 8px;
   display: none;
 }
@@ -71,11 +71,15 @@
   display: flex;
 }
 
+.app-message__time {
+  text-align: right;
+}
+
 .app-message__control > button {
   align-items: center;
   background-color: #e0e0e0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--main-border-radius);
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
