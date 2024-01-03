@@ -92,6 +92,7 @@ export class ChatComponent {
     this.edit = data;
     this.message = message ? message.text : '';
     this.changedMessage = message;
+    console.log(this.message)
   }
 
   protected setMessage(event: any) {
