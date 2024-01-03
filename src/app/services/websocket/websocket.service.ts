@@ -54,6 +54,9 @@ export class WebsocketService {
 
       this.setLastRoomMessage(rooms, lastMessage, event.detail.data.userId, event.detail.data.contactId);
     }],
+    ['EDIT_MESSAGE', (event: any) => {
+      this.webSocketStore.updateMessage(event.detail.data.message);
+    }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [
     ['GET_ROOM', (event: any) => {

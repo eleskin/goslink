@@ -55,6 +55,9 @@ const WebsocketStore = signalStore(
       const onlineUsers = store.onlineUsers().filter((user) => user !== state);
       patchState(store, {onlineUsers});
     },
+    updateMessage(state = null) {
+      console.log(state);
+    },
   })),
 );
 
