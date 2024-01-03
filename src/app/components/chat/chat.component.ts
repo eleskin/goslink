@@ -45,6 +45,8 @@ export class ChatComponent {
       this.contact = this.webSocketStore.contact();
       this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
     });
+
+    this.setEdit = this.setEdit.bind(this);
   }
 
   ngOnInit() {
@@ -92,7 +94,6 @@ export class ChatComponent {
     this.edit = data;
     this.message = message ? message.text : '';
     this.changedMessage = message;
-    console.log(this.message)
   }
 
   protected setMessage(event: any) {
