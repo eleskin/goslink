@@ -84,7 +84,6 @@ export class WebsocketService {
     }
 
     for (const room of rooms) {
-      console.log(room);
       if (room?._id === message.userId || room?._id === message.contactId) {
         room.lastMessage = message.text;
       }
