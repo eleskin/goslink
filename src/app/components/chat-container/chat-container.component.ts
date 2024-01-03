@@ -20,7 +20,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 })
 export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
-  protected messages: {date: string, messages: Message[]}[] = this.webSocketStore.messages();
+  protected messagesByDates: {date: string, messages: Message[]}[] = this.webSocketStore.messagesByDates();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   private observer: IntersectionObserver | undefined;
@@ -35,7 +35,7 @@ export class ChatContainerComponent {
     });
 
     effect(() => {
-      this.messages = this.webSocketStore.messages();
+      this.messagesByDates = this.webSocketStore.messagesByDates();
       setTimeout(() => {
         this.setupIntersectionObserver();
       }, 0)
@@ -75,8 +75,8 @@ export class ChatContainerComponent {
       });
     }, options);
 
-    this.messages.forEach((message) => {
-      message.messages.forEach((message) => {
+    this.messagesByDates.forEach((item) => {
+      item.messages.forEach((message) => {
         const element = document.querySelector(`#message-${message._id}`);
         element && this.observer?.observe(element);
       });

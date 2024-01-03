@@ -9,7 +9,7 @@ type WebsocketState = {
   rooms: Room[],
   searchedUser: User | null,
   contact: User | null,
-  messages: { date: string, messages: Message[] }[],
+  messagesByDates: { date: string, messages: Message[] }[],
   onlineUsers: string[],
 };
 
@@ -19,7 +19,7 @@ const initialState: WebsocketState = {
   rooms: [],
   searchedUser: null,
   contact: null,
-  messages: [],
+  messagesByDates: [],
   onlineUsers: [],
 };
 
@@ -41,20 +41,20 @@ const WebsocketStore = signalStore(
     setContact(state = null) {
       patchState(store, {contact: state});
     },
-    setMessages(state = []) {
-      patchState(store, {messages: state});
+    setMessagesByDate(state = []) {
+      patchState(store, {messagesByDates: state});
     },
     updateMessage(state = null) {
-      const messages = store.messages().map((message) => {
+      const messagesByDates = store.messagesByDates().map((item) => {
         return {
-          date: message.date, messages: message.messages.map((message) => {
+          date: item.date, messages: item.messages.map((message) => {
             if (message._id === state._id) message.text = state.text;
             return message;
           }),
         };
       });
 
-      patchState(store, {messages});
+      patchState(store, {messagesByDates});
     },
     deleteRoom(state = '') {
       const rooms = store.rooms().filter((room: any) => room._id !== state);
