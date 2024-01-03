@@ -82,16 +82,17 @@ export class ChatComponent {
     event.preventDefault();
 
     if (!this.message?.trim()) return;
-
-    this.webSocketService.webSocket?.send(JSON.stringify({
-      type: this.changedMessage ? 'EDIT_MESSAGE' : 'NEW_MESSAGE',
-      data: {
-        _id: this.changedMessage ? this.changedMessage._id : null,
-        userId: this.userStore.user()._id,
-        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-        text: this.message,
-      },
-    }));
+    if (this.message !== this.changedMessage?.text) {
+      this.webSocketService.webSocket?.send(JSON.stringify({
+        type: this.changedMessage ? 'EDIT_MESSAGE' : 'NEW_MESSAGE',
+        data: {
+          _id: this.changedMessage ? this.changedMessage._id : null,
+          userId: this.userStore.user()._id,
+          contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+          text: this.message,
+        },
+      }));
+    }
 
     this.message = '';
     this.edit = false;
