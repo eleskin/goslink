@@ -6,6 +6,7 @@ import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
+import Room from '../../interfaces/room';
 
 @Component({
   selector: 'app-rooms-list',
@@ -25,7 +26,7 @@ export class RoomsListComponent {
   protected contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
   private readonly webSocketStore = inject(WebsocketStore);
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();
-  protected rooms: User[] = this.webSocketStore?.rooms();
+  protected rooms: Room[] = this.webSocketStore?.rooms();
   protected onlineUsers: string[] = this.webSocketStore.onlineUsers();
 
   constructor(

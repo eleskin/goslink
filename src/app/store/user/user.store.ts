@@ -4,11 +4,6 @@ import User from '../../interfaces/user';
 const initialState: User = {
   _id: '',
   name: '',
-  username: '',
-  email: '',
-  conversationalist: '',
-  conversationalistName: '',
-  lastMessage: '',
 };
 
 const UserStore = signalStore(
