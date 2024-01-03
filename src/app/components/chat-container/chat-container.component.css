@@ -5,9 +5,22 @@
 }
 
 .app-chat-container {
+  overflow-y: auto;
+}
+
+.app-chat-container > div {
   display: flex;
   flex-direction: column;
-  grid-row-gap: 16px;
-  overflow-y: auto;
   padding: var(--main-padding);
+  grid-row-gap: 16px;
+}
+
+.app-chat-container > div > span {
+  display: block;
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+  background-color: var(--main-color-hover-2);
+  padding: var(--main-padding);
+  border-radius: var(--main-border-radius);
 }
