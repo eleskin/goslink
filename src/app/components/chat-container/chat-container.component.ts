@@ -38,9 +38,15 @@ export class ChatContainerComponent {
       });
 
       setTimeout(() => {
-        const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
+        if (allMessages.at(-1)?.userId === this.userStore.user()._id) {
+          if (this.chatRef?.nativeElement) {
+            this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+          }
+        } else {
+          const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
 
-        firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
+          firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
+        }
       }, 0);
 
       this.messagesByDates = messagesByDates;
