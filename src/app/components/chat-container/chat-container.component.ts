@@ -35,7 +35,15 @@ export class ChatContainerComponent {
     private intersectionObserverService: IntersectionObserverService,
   ) {
     effect(() => {
-      this.messagesByDates = this.webSocketStore.messagesByDates();
+      const messagesByDates = this.webSocketStore.messagesByDates();
+      this.messagesByDates = messagesByDates;
+
+      setTimeout(() => {
+        if (this.chatRef) {
+          const allMessages = messagesByDates.map((item) => item.messages).flat();
+          this.intersectionObserverService.setupIntersectionObserver(this.chatRef?.nativeElement, allMessages);
+        }
+      })
     });
     // effect(() => {
     //   const messagesByDates = this.webSocketStore.messagesByDates();
@@ -68,10 +76,6 @@ export class ChatContainerComponent {
     //
     //   this.setupIntersectionObserver();
     // });
-  }
-
-  ngOnInit() {
-
   }
 
   ngOnDestroy() {

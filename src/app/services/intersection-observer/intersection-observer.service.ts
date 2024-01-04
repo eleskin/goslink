@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import Message from '../../interfaces/message';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IntersectionObserverService {
   private observer: IntersectionObserver | undefined;
@@ -18,11 +19,11 @@ export class IntersectionObserverService {
     // Отметьте сообщение как прочитанное в интерфейсе, если нужно
   }
 
-  public setupIntersectionObserver(messageContainerElement: HTMLElement) {
+  public setupIntersectionObserver(messageContainerElement: HTMLElement, messages: Message[]) {
     const options = {
       root: messageContainerElement,
       rootMargin: '0px',
-      threshold: 1.0
+      threshold: 1.0,
     };
 
     this.observer = new IntersectionObserver((entries, observer) => {
@@ -33,6 +34,11 @@ export class IntersectionObserverService {
           observer.unobserve(entry.target);
         }
       }, options);
+    });
+
+    messages.forEach((message) => {
+      const element = document.querySelector(`#message-${message._id}`);
+      element && this.observer?.observe(element);
     });
   }
 }
