@@ -7,6 +7,7 @@ import Message from '../../interfaces/message';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import UserStore from '../../store/user/user.store';
 import {ActivatedRoute} from '@angular/router';
+import {IntersectionObserverService} from '../../services/intersection-observer/intersection-observer.service';
 
 @Component({
   selector: 'app-chat-container',
@@ -28,7 +29,11 @@ export class ChatContainerComponent {
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   private observer: IntersectionObserver | undefined;
 
-  constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
+  constructor(
+    private webSocketService: WebsocketService,
+    private route: ActivatedRoute,
+    private intersectionObserverService: IntersectionObserverService,
+  ) {
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
     });
@@ -65,61 +70,11 @@ export class ChatContainerComponent {
     // });
   }
 
-  private markAsRead(messageId: string): void {
-    const _id = messageId.split('-')[1];
-    const messages = this.messagesByDates.map((item) => item.messages).flat();
-    const uncheckedMessage = messages.find((message) => {
-      return message._id === _id && !message.checked && message.contactId === this.userStore.user()._id;
-    });
-    // console.log(uncheckedMessage);
-
-    if (uncheckedMessage) {
-      console.log(uncheckedMessage)
-      this.webSocketService.webSocket?.send(JSON.stringify({
-        type: uncheckedMessage._id === messages.at(-1)?._id ? 'READ_ALL_MESSAGE' : 'READ_MESSAGE',
-        data: {
-          _id: uncheckedMessage._id,
-          userId: this.route.snapshot.paramMap.get('_id') ?? '',
-          contactId: this.userStore.user()._id,
-        },
-      }));
-    }
-  }
-
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.setupIntersectionObserver();
-    // }, 0);
+
   }
 
   ngOnDestroy() {
-    // if (this.observer) {
-    //   this.observer.disconnect();
-    // }
-  }
 
-  private setupIntersectionObserver(): void {
-    const options = {
-      root: this.chatRef?.nativeElement,
-      rootMargin: '0px',
-      threshold: 1.0,
-    };
-
-    this.observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const messageElement = entry.target as HTMLElement;
-          messageElement.getAttribute('id') && this.markAsRead(messageElement.getAttribute('id') ?? '');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    this.messagesByDates.forEach((item) => {
-      item.messages.forEach((message) => {
-        const element = document.querySelector(`#message-${message._id}`);
-        element && this.observer?.observe(element);
-      });
-    });
   }
 }
