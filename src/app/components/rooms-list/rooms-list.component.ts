@@ -1,6 +1,5 @@
 import {Component, effect, inject} from '@angular/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import truncate from '../../utils/truncate';
 import {InputComponent} from '../input/input.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
@@ -23,7 +22,6 @@ import GetGradientFromChar from '../../utils/getGradientFromChar';
   styleUrl: './rooms-list.component.css',
 })
 export class RoomsListComponent {
-  protected readonly truncate = truncate;
   protected contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
   private readonly webSocketStore = inject(WebsocketStore);
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();

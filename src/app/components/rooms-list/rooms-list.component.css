@@ -71,7 +71,7 @@
   flex-direction: column;
   grid-row-gap: 4px;
   width: 100%;
-  /*overflow: auto*/
+  overflow: hidden;
 }
 
 .app-rooms-list__chat > div > strong {
@@ -84,7 +84,6 @@
   color: #616161;
   font-size: 14px;
   width: 100%;
-  word-break: break-all;
 }
 
 .app-rooms-list__search-results {
