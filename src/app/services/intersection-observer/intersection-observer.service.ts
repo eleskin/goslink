@@ -5,7 +5,7 @@ import Message from '../../interfaces/message';
   providedIn: 'root',
 })
 export class IntersectionObserverService {
-  private observer: IntersectionObserver | undefined;
+  public observer: IntersectionObserver | undefined;
 
   constructor() {
   }

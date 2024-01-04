@@ -27,7 +27,6 @@ export class ChatContainerComponent {
   protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
-  private observer: IntersectionObserver | undefined;
 
   constructor(
     private webSocketService: WebsocketService,
@@ -83,6 +82,8 @@ export class ChatContainerComponent {
   }
 
   ngOnDestroy() {
-
+    if (this.intersectionObserverService.observer) {
+      this.intersectionObserverService.observer.disconnect();
+    }
   }
 }
