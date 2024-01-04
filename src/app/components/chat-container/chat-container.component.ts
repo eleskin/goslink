@@ -48,7 +48,8 @@ export class ChatContainerComponent {
         .filter((message) => message.contactId === this.userStore.user()._id);
 
       const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
-      if (isLastSelfMessage || isInitial) {
+      const isLastCheckedMessage = allMessages.at(-1)?.checked;
+      if ((isLastSelfMessage || isLastCheckedMessage) && !isInitial) {
         setTimeout(() => {
           if (!this.chatRef) return;
           this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
