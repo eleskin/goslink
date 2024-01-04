@@ -27,7 +27,6 @@ export class ChatContainerComponent {
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   private observer: IntersectionObserver | undefined;
-  private firstUnreadMessage = '';
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
     effect(() => {
@@ -37,12 +36,14 @@ export class ChatContainerComponent {
         return !message.checked && message.contactId === this.userStore.user()._id;
       });
 
-      setTimeout(() => {
-        if (allMessages.at(-1)?.userId === this.userStore.user()._id) {
+      if (allMessages.at(-1)?.userId === this.userStore.user()._id) {
+        setTimeout(() => {
           if (this.chatRef?.nativeElement) {
             this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
           }
-        } else {
+        }, 0);
+      } else {
+        setTimeout(() => {
           const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
 
           if (!firstUnreadMessageElement) {
@@ -52,13 +53,12 @@ export class ChatContainerComponent {
           } else {
             firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
           }
-        }
-
-        this.setupIntersectionObserver();
-      }, 0);
-
+        });
+      }
 
       this.messagesByDates = messagesByDates;
+
+      this.setupIntersectionObserver();
     });
   }
 
