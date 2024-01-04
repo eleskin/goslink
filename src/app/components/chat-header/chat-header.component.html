@@ -1,5 +1,5 @@
 <header class="app-chat-header">
-  <i>{{ contact?.name?.slice(0, 1) ?? '' }}</i>
+  <i [style]="getGradientFromChar(contact?.name?.[0] ?? '')">{{ contact?.name?.[0] ?? '' }}</i>
   <div>
     <span>{{ contact?.name ?? '' }}</span>
     <i>{{ online ? 'Online' : 'Last seen recently' }}</i>

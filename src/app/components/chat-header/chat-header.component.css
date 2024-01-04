@@ -12,7 +12,7 @@
 .app-chat-header > i {
   align-items: center;
   background-color: #eeeeee;
-  border-radius: var(--main-border-radius);
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   font-style: normal;
@@ -20,6 +20,7 @@
   height: 44px;
   justify-content: center;
   width: 44px;
+  color: #ffffff;
 }
 
 .app-chat-header > div {

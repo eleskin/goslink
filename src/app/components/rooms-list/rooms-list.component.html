@@ -8,8 +8,8 @@
       [class]="['app-rooms-list__chat', room?._id === contactId ? 'app-rooms-list__chat--active' : '']"
       [routerLink]="'/chat/' + room?._id"
     >
-      <span [style]="room.gradient">
-        {{ room?.name?.slice(0, 1) }}
+      <span [style]="getGradientFromChar(room?.name?.[0] ?? '')">
+        {{ room?.name?.[0] }}
         <i *ngIf="onlineUsers.includes(room._id)"></i>
       </span>
       <div>

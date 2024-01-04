@@ -2,6 +2,7 @@ import {Component, effect, inject} from '@angular/core';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {ActivatedRoute} from '@angular/router';
+import getGradientFromChar from '../../utils/getGradientFromChar';
 
 @Component({
   selector: 'app-chat-header',
@@ -21,4 +22,6 @@ export class ChatHeaderComponent {
       this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
     });
   }
+
+  protected readonly getGradientFromChar = getGradientFromChar;
 }

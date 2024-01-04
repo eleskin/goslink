@@ -5,6 +5,7 @@ import UserStore from '../../store/user/user.store';
 import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import {ActivatedRoute} from '@angular/router';
+import getGradientFromChar from '../../utils/getGradientFromChar';
 
 @Component({
   selector: 'app-message',
@@ -54,4 +55,6 @@ export class MessageComponent {
   protected handleClickEdit() {
     this.edit.emit(true);
   }
+
+  protected readonly getGradientFromChar = getGradientFromChar;
 }

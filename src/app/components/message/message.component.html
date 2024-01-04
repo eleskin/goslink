@@ -39,5 +39,7 @@
       </div>
     </footer>
   </div>
-  <i class="app-message__author">{{ message.author.name.slice(0, 1) }}</i>
+  <i class="app-message__author" [style]="getGradientFromChar(message.author.name[0])">
+    {{ message.author.name[0] }}
+  </i>
 </div>
