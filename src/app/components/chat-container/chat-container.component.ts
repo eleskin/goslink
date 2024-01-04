@@ -29,7 +29,6 @@ export class ChatContainerComponent {
     private route: ActivatedRoute,
     private intersectionObserverService: IntersectionObserverService,
   ) {
-
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
 
