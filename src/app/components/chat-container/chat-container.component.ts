@@ -25,7 +25,6 @@ export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
   protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
-  private allMessages: Message[] = [];
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
 
@@ -42,8 +41,6 @@ export class ChatContainerComponent {
         .map((item) => item.messages)
         .flat()
         .filter((message) => message.contactId === this.userStore.user()._id);
-
-      this.allMessages = allMessages;
 
       setTimeout(() => {
         this.scrollToFirstUnreadMessage(allMessages);
