@@ -31,43 +31,19 @@ export class ChatContainerComponent {
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
     effect(() => {
-      this.messagesByDates = this.webSocketStore.messagesByDates();
+      const messagesByDates = this.webSocketStore.messagesByDates();
+      const allMessages = messagesByDates.map((item) => item.messages).flat();
+      const firstUnreadMessage = allMessages.find((message) => {
+        return !message.checked && message.contactId === this.userStore.user()._id;
+      });
 
       setTimeout(() => {
-        this.setupIntersectionObserver();
+        const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
 
-        if (this.chatRef?.nativeElement && !this.firstUnreadMessage) {
-          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-        }
+        firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
       }, 0);
-    });
 
-    effect(() => {
-      const allMessages = this.webSocketStore.messagesByDates().map((item) => item.messages).flat();
-      this.firstUnreadMessage = allMessages.find((message) => !message.checked && (message.contactId === this.userStore.user()._id))?._id ?? '';
-
-      // console.log(this.firstUnreadMessage)
-      if (!this.firstUnreadMessage) {
-
-        // setTimeout(() => {
-        //   document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
-        //     behavior: 'instant',
-        //     block: 'start',
-        //   });
-        //
-        //   this.firstUnreadMessage = '';
-        // }, 0);
-      }
-      // if (!this.firstUnreadMessage) {
-      //   setTimeout(() => {
-      //     document.querySelector(`#message-${this.firstUnreadMessage}`)?.scrollIntoView({
-      //       behavior: 'instant',
-      //       block: 'start',
-      //     });
-      //
-      //     this.firstUnreadMessage = '';
-      //   }, 0);
-      // }
+      this.messagesByDates = messagesByDates;
     });
   }
 
@@ -79,20 +55,20 @@ export class ChatContainerComponent {
     });
 
     if (uncheckedMessages) {
-      this.webSocketService.webSocket?.send(JSON.stringify({
-        type: 'READ_MESSAGE',
-        data: {
-          _id,
-          userId: this.userStore.user()._id,
-          contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-        },
-      }));
+      // this.webSocketService.webSocket?.send(JSON.stringify({
+      //   type: 'READ_MESSAGE',
+      //   data: {
+      //     _id,
+      //     userId: this.userStore.user()._id,
+      //     contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+      //   },
+      // }));
     }
   }
 
   ngOnInit() {
     // setTimeout(() => {
-      this.setupIntersectionObserver();
+    this.setupIntersectionObserver();
     // }, 0);
   }
 
