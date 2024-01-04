@@ -1,8 +1,9 @@
-import {inject, Injectable} from '@angular/core';
+import {effect, inject, Injectable} from '@angular/core';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
 import {ActivatedRoute} from '@angular/router';
+import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,22 @@ export class IntersectionObserverService {
   private messages: Message[] = [];
   private contactId = '';
   private userStore = inject(UserStore);
+  private webSocketStore = inject(WebsocketStore);
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
+    effect(() => {
+      this.messages = this.webSocketStore.messagesByDates()
+        .map((item) => item.messages)
+        .flat()
+        .filter((message) => message.contactId === this.userStore.user()._id);
+
+      setTimeout(() => {
+        this.messages.forEach((message, index) => {
+          const element = document.querySelector(`#message-${message._id}`);
+          element && this.observer?.observe(element);
+        });
+      })
+    });
   }
 
   private markAsRead(messageId: string): void {
@@ -29,11 +44,19 @@ export class IntersectionObserverService {
           contactId: this.contactId,
         },
       }));
+    } else {
+      this.webSocketService.webSocket?.send(JSON.stringify({
+        type: 'READ_MESSAGE',
+        data: {
+          _id: _id,
+          userId: this.userStore.user()._id,
+          contactId: this.contactId,
+        },
+      }));
     }
   }
 
-  public setupIntersectionObserver(messageContainerElement: HTMLElement, messages: Message[], contactId: string) {
-    this.messages = messages;
+  public setupIntersectionObserver(messageContainerElement: HTMLElement, contactId: string) {
     this.contactId = contactId;
 
     const options = {
@@ -46,15 +69,10 @@ export class IntersectionObserverService {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const messageElement = entry.target as HTMLElement;
-          this.markAsRead(messageElement.getAttribute('id') ?? '');
+          // this.markAsRead(messageElement.getAttribute('id') ?? '');
           observer.unobserve(entry.target);
         }
       }, options);
-    });
-
-    messages.forEach((message) => {
-      const element = document.querySelector(`#message-${message._id}`);
-      element && this.observer?.observe(element);
     });
   }
 }

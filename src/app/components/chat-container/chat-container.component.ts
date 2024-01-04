@@ -34,76 +34,51 @@ export class ChatContainerComponent {
     private intersectionObserverService: IntersectionObserverService,
   ) {
     effect(() => {
-      const messagesByDates = this.webSocketStore.messagesByDates();
-      this.messagesByDates = messagesByDates;
-
-      const allMessages = messagesByDates
-        .map((item) => item.messages)
-        .flat();
-
-      const allContactMessages = allMessages
-        .filter((message) => message.contactId === this.userStore.user()._id);
-
-      const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
-
-      setTimeout(() => {
-        if (!this.chatRef) return;
-
-        if (isLastSelfMessage) {
-          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-        } else {
-          this.scrollToFirstUnreadMessage(allContactMessages);
-        }
-
-
-        this.intersectionObserverService.setupIntersectionObserver(
-          this.chatRef?.nativeElement,
-          allContactMessages,
-          this.route.snapshot.paramMap.get('_id') ?? ''
-        );
-      })
+      this.messagesByDates = this.webSocketStore.messagesByDates();
     });
-    // effect(() => {
-    //   const messagesByDates = this.webSocketStore.messagesByDates();
-    //   const allMessages = messagesByDates.map((item) => item.messages).flat();
-    //   const firstUnreadMessage = allMessages.find((message) => {
-    //     return !message.checked && message.contactId === this.userStore.user()._id;
-    //   });
-    //
-    //   if (allMessages.at(-1)?.userId === this.userStore.user()._id) {
-    //     setTimeout(() => {
-    //       if (this.chatRef?.nativeElement) {
-    //         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-    //       }
-    //     }, 0);
-    //   } else {
-    //     setTimeout(() => {
-    //       const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
-    //
-    //       if (!firstUnreadMessageElement) {
-    //         if (this.chatRef?.nativeElement) {
-    //           this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-    //         }
-    //       } else {
-    //         firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
-    //       }
-    //     });
-    //   }
-    //
-    //   this.messagesByDates = messagesByDates;
-    //
-    //   this.setupIntersectionObserver();
-    // });
   }
 
-  private scrollToFirstUnreadMessage(messages: Message[]) {
-    const firstUnreadMessageId = messages.filter((message) => !message.checked)[0]?._id;
+  private scrollToFirstUnreadMessage() {
+    const allContactMessages = this.webSocketStore.messagesByDates()
+      .map((item) => item.messages)
+      .flat()
+      .filter((message) => message.contactId === this.userStore.user()._id);
+
+    const firstUnreadMessageId = allContactMessages.filter((message) => !message.checked)[0]?._id;
 
     if (firstUnreadMessageId) {
       const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessageId}`);
 
       firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
     }
+  }
+
+  ngOnInit() {
+    // const messagesByDates = this.webSocketStore.messagesByDates();
+
+    // const allMessages = messagesByDates
+    //   .map((item) => item.messages)
+    //   .flat();
+
+    // const allContactMessages = allMessages
+    //   .filter((message) => message.contactId === this.userStore.user()._id);
+
+    // const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
+
+    setTimeout(() => {
+      if (!this.chatRef) return;
+
+      this.intersectionObserverService.setupIntersectionObserver(
+        this.chatRef?.nativeElement,
+        this.route.snapshot.paramMap.get('_id') ?? '',
+      );
+
+      // if (isLastSelfMessage) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      // } else {
+      //   this.scrollToFirstUnreadMessage(allContactMessages);
+      // }
+    });
   }
 
   ngOnDestroy() {
