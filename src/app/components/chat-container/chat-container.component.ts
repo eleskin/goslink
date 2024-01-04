@@ -30,36 +30,39 @@ export class ChatContainerComponent {
 
   constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
     effect(() => {
-      const messagesByDates = this.webSocketStore.messagesByDates();
-      const allMessages = messagesByDates.map((item) => item.messages).flat();
-      const firstUnreadMessage = allMessages.find((message) => {
-        return !message.checked && message.contactId === this.userStore.user()._id;
-      });
-
-      if (allMessages.at(-1)?.userId === this.userStore.user()._id) {
-        setTimeout(() => {
-          if (this.chatRef?.nativeElement) {
-            this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-          }
-        }, 0);
-      } else {
-        setTimeout(() => {
-          const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
-
-          if (!firstUnreadMessageElement) {
-            if (this.chatRef?.nativeElement) {
-              this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-            }
-          } else {
-            firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
-          }
-        });
-      }
-
-      this.messagesByDates = messagesByDates;
-
-      this.setupIntersectionObserver();
+      this.messagesByDates = this.webSocketStore.messagesByDates();
     });
+    // effect(() => {
+    //   const messagesByDates = this.webSocketStore.messagesByDates();
+    //   const allMessages = messagesByDates.map((item) => item.messages).flat();
+    //   const firstUnreadMessage = allMessages.find((message) => {
+    //     return !message.checked && message.contactId === this.userStore.user()._id;
+    //   });
+    //
+    //   if (allMessages.at(-1)?.userId === this.userStore.user()._id) {
+    //     setTimeout(() => {
+    //       if (this.chatRef?.nativeElement) {
+    //         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+    //       }
+    //     }, 0);
+    //   } else {
+    //     setTimeout(() => {
+    //       const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
+    //
+    //       if (!firstUnreadMessageElement) {
+    //         if (this.chatRef?.nativeElement) {
+    //           this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+    //         }
+    //       } else {
+    //         firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
+    //       }
+    //     });
+    //   }
+    //
+    //   this.messagesByDates = messagesByDates;
+    //
+    //   this.setupIntersectionObserver();
+    // });
   }
 
   private markAsRead(messageId: string): void {
@@ -84,15 +87,15 @@ export class ChatContainerComponent {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.setupIntersectionObserver();
-    }, 0);
+    // setTimeout(() => {
+    //   this.setupIntersectionObserver();
+    // }, 0);
   }
 
   ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
+    // if (this.observer) {
+    //   this.observer.disconnect();
+    // }
   }
 
   private setupIntersectionObserver(): void {
