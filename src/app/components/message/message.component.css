@@ -45,7 +45,8 @@
   justify-content: space-between;
   padding: var(--main-padding);
   position: relative;
-  width: 60%;
+  max-width: 60%;
+  min-width: 40%;
 }
 
 .app-message__content em {
@@ -56,6 +57,7 @@
 
 .app-message__content > span {
   font-size: 16px;
+  word-wrap: break-word;
 }
 
 .app-message__footer {
