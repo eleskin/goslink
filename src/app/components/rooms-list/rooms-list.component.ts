@@ -7,6 +7,7 @@ import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import Room from '../../interfaces/room';
+import getGradientFromChar from '../../utils/getGradientFromChar';
 
 @Component({
   selector: 'app-rooms-list',
@@ -42,7 +43,10 @@ export class RoomsListComponent {
 
     effect(() => {
       this.searchedUser = this.webSocketStore?.searchedUser();
-      this.rooms = this.webSocketStore?.rooms();
+      this.rooms = this.webSocketStore?.rooms().map((room) => {
+        room.gradient = getGradientFromChar(room.name[0])
+        return room;
+      });
       this.onlineUsers = this.webSocketStore.onlineUsers();
     });
   }
