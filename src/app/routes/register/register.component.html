@@ -2,7 +2,7 @@
   <app-form (submit)="handleFormSubmit($event)">
     <h2 class="app-title--2">Sign up</h2>
 
-    <label>
+    <div>
       <app-input
         [(ngModel)]="nameValue"
         [required]="true"
@@ -11,8 +11,8 @@
         type="text"
       />
       <em>{{ registerFormErrors.nameValue }}</em>
-    </label>
-    <label>
+    </div>
+    <div>
       <app-input
         [(ngModel)]="usernameValue"
         [required]="true"
@@ -21,8 +21,8 @@
         type="text"
       />
       <em>{{ registerFormErrors.usernameValue }}</em>
-    </label>
-    <label>
+    </div>
+    <div>
       <app-input
         [(ngModel)]="emailValue"
         [required]="true"
@@ -31,8 +31,8 @@
         type="email"
       />
       <em>{{ registerFormErrors.emailValue }}</em>
-    </label>
-    <label>
+    </div>
+    <div>
       <app-input
         [(ngModel)]="passwordValue"
         [required]="true"
@@ -41,8 +41,7 @@
         type="password"
       />
       <em>{{ registerFormErrors.passwordValue }}</em>
-    </label>
-    <!--    <label>-->
+    </div>
     <!--      <app-input-->
     <!--        [(ngModel)]="repeatPasswordValue"-->
     <!--        [required]="true"-->
@@ -51,7 +50,6 @@
     <!--        type="password"-->
     <!--      />-->
     <!--      <em>{{ registerFormErrors.repeatPasswordValue }}</em>-->
-    <!--    </label>-->
     <app-button text="Sign up" type="submit"/>
     <footer class="app-register__footer">
       <a routerLink="/login">Log in</a>
