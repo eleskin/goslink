@@ -35,15 +35,29 @@ export class ChatContainerComponent {
   ) {
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
+
+
+      if (!this.chatRef) return;
+
+      const messagesByDates = this.webSocketStore.messagesByDates();
+
+      const allMessages = messagesByDates
+        .map((item) => item.messages)
+        .flat();
+
+      const allContactMessages = allMessages
+        .filter((message) => message.contactId === this.userStore.user()._id);
+
+      const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
+      if (isLastSelfMessage) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      } else {
+        this.scrollToFirstUnreadMessage(allContactMessages);
+      }
     });
   }
 
-  private scrollToFirstUnreadMessage() {
-    const allContactMessages = this.webSocketStore.messagesByDates()
-      .map((item) => item.messages)
-      .flat()
-      .filter((message) => message.contactId === this.userStore.user()._id);
-
+  private scrollToFirstUnreadMessage(allContactMessages: Message[]) {
     const firstUnreadMessageId = allContactMessages.filter((message) => !message.checked)[0]?._id;
 
     if (firstUnreadMessageId) {
@@ -54,17 +68,6 @@ export class ChatContainerComponent {
   }
 
   ngOnInit() {
-    // const messagesByDates = this.webSocketStore.messagesByDates();
-
-    // const allMessages = messagesByDates
-    //   .map((item) => item.messages)
-    //   .flat();
-
-    // const allContactMessages = allMessages
-    //   .filter((message) => message.contactId === this.userStore.user()._id);
-
-    // const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
-
     setTimeout(() => {
       if (!this.chatRef) return;
 
@@ -72,12 +75,6 @@ export class ChatContainerComponent {
         this.chatRef?.nativeElement,
         this.route.snapshot.paramMap.get('_id') ?? '',
       );
-
-      // if (isLastSelfMessage) {
-        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-      // } else {
-      //   this.scrollToFirstUnreadMessage(allContactMessages);
-      // }
     });
   }
 
