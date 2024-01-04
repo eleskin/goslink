@@ -2,10 +2,8 @@ import {Component, effect, ElementRef, inject, Input, ViewChild} from '@angular/
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
-import {WebsocketService} from '../../services/websocket/websocket.service';
 import Message from '../../interfaces/message';
 import WebsocketStore from '../../store/websocket/websocket.store';
-import UserStore from '../../store/user/user.store';
 import {ActivatedRoute} from '@angular/router';
 import {IntersectionObserverService} from '../../services/intersection-observer/intersection-observer.service';
 
@@ -23,53 +21,23 @@ import {IntersectionObserverService} from '../../services/intersection-observer/
 })
 export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
-  private readonly userStore = inject(UserStore);
   protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
 
   constructor(
-    private webSocketService: WebsocketService,
     private route: ActivatedRoute,
     private intersectionObserverService: IntersectionObserverService,
   ) {
-    let isInitial = true;
 
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
 
-      const messagesByDates = this.webSocketStore.messagesByDates();
-
-      const allMessages = messagesByDates
-        .map((item) => item.messages)
-        .flat();
-
-      const allContactMessages = allMessages
-        .filter((message) => message.contactId === this.userStore.user()._id);
-
-      const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
-      const isLastCheckedMessage = allMessages.at(-1)?.checked;
-      if ((isLastSelfMessage || isLastCheckedMessage) || (isLastSelfMessage && !isLastCheckedMessage)) {
-        setTimeout(() => {
-          if (!this.chatRef) return;
-          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-        });
-      } else {
-        isInitial && this.scrollToFirstUnreadMessage(allContactMessages);
-      }
-
-      isInitial = false;
+      setTimeout(() => {
+        if (!this.chatRef) return;
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      });
     });
-  }
-
-  private scrollToFirstUnreadMessage(allContactMessages: Message[]) {
-    const firstUnreadMessageId = allContactMessages.filter((message) => !message.checked)[0]?._id;
-
-    if (firstUnreadMessageId) {
-      const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessageId}`);
-
-      firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
-    }
   }
 
   ngOnInit() {
