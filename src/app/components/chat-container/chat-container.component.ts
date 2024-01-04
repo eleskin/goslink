@@ -45,7 +45,13 @@ export class ChatContainerComponent {
         } else {
           const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessage?._id}`);
 
-          firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
+          if (!firstUnreadMessageElement) {
+            if (this.chatRef?.nativeElement) {
+              this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+            }
+          } else {
+            firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
+          }
         }
 
         this.setupIntersectionObserver();
