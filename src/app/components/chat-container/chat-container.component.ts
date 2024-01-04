@@ -52,6 +52,7 @@ export class ChatContainerComponent {
       if (isLastSelfMessage) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
       } else {
+        console.log(allContactMessages);
         this.scrollToFirstUnreadMessage(allContactMessages);
       }
     });
