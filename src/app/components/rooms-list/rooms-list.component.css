@@ -31,7 +31,8 @@
   padding: var(--main-padding);
   text-decoration: none;
   transition: var(--main-transition);
-  width: calc(100% - 16px);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .app-rooms-list__chat:hover, .app-rooms-list__chat--active {
@@ -70,6 +71,7 @@
   flex-direction: column;
   grid-row-gap: 4px;
   width: 100%;
+  /*overflow: auto*/
 }
 
 .app-rooms-list__chat > div > strong {
@@ -81,6 +83,8 @@
 .app-rooms-list__chat > div > span {
   color: #616161;
   font-size: 14px;
+  width: 100%;
+  word-break: break-all;
 }
 
 .app-rooms-list__search-results {
