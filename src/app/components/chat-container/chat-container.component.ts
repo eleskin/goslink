@@ -47,7 +47,10 @@ export class ChatContainerComponent {
 
           firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
         }
+
+        this.setupIntersectionObserver();
       }, 0);
+
 
       this.messagesByDates = messagesByDates;
     });
@@ -56,26 +59,20 @@ export class ChatContainerComponent {
   private markAsRead(messageId: string): void {
     const _id = messageId.split('-')[1];
     const messages = this.messagesByDates.map((item) => item.messages).flat();
-    const uncheckedMessages = messages.find((message) => {
+    const uncheckedMessage = messages.find((message) => {
       return message._id === _id && !message.checked && message.contactId === this.userStore.user()._id;
     });
 
-    if (uncheckedMessages) {
-      // this.webSocketService.webSocket?.send(JSON.stringify({
-      //   type: 'READ_MESSAGE',
-      //   data: {
-      //     _id,
-      //     userId: this.userStore.user()._id,
-      //     contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-      //   },
-      // }));
+    if (uncheckedMessage) {
+      this.webSocketService.webSocket?.send(JSON.stringify({
+        type: uncheckedMessage._id === messages.at(-1)?._id ? 'READ_ALL_MESSAGE' : 'READ_MESSAGE',
+        data: {
+          _id,
+          userId: this.route.snapshot.paramMap.get('_id') ?? '',
+          contactId: this.userStore.user()._id,
+        },
+      }));
     }
-  }
-
-  ngOnInit() {
-    // setTimeout(() => {
-    this.setupIntersectionObserver();
-    // }, 0);
   }
 
   ngOnDestroy() {
