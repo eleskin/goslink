@@ -40,7 +40,11 @@ export class ChatContainerComponent {
 
       setTimeout(() => {
         if (this.chatRef) {
-          const allMessages = messagesByDates.map((item) => item.messages).flat();
+          const allMessages = messagesByDates
+            .map((item) => item.messages)
+            .flat()
+            .filter((message) => message.contactId === this.userStore.user()._id);
+
           this.intersectionObserverService.setupIntersectionObserver(this.chatRef?.nativeElement, allMessages);
         }
       })
