@@ -56,7 +56,11 @@ export class ChatContainerComponent {
         }
 
 
-        this.intersectionObserverService.setupIntersectionObserver(this.chatRef?.nativeElement, allContactMessages);
+        this.intersectionObserverService.setupIntersectionObserver(
+          this.chatRef?.nativeElement,
+          allContactMessages,
+          this.route.snapshot.paramMap.get('_id') ?? ''
+        );
       })
     });
     // effect(() => {

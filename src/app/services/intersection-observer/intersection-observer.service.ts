@@ -1,25 +1,41 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import Message from '../../interfaces/message';
+import {WebsocketService} from '../websocket/websocket.service';
+import UserStore from '../../store/user/user.store';
+import {ActivatedRoute} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IntersectionObserverService {
   public observer: IntersectionObserver | undefined;
+  private messages: Message[] = [];
+  private contactId = '';
+  private userStore = inject(UserStore);
 
-  constructor() {
+  constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
   }
 
   private markAsRead(messageId: string): void {
     if (!messageId) return;
 
-    console.log(messageId);
+    const _id = messageId.split('-')[1];
 
-    // this.webSocketService.sendMessage({type: 'message_read', id: messageId});
-    // Отметьте сообщение как прочитанное в интерфейсе, если нужно
+    if (this.messages.at(-1)?._id === _id) {
+      this.webSocketService.webSocket?.send(JSON.stringify({
+        type: 'READ_ALL_MESSAGE',
+        data: {
+          userId: this.userStore.user()._id,
+          contactId: this.contactId,
+        },
+      }));
+    }
   }
 
-  public setupIntersectionObserver(messageContainerElement: HTMLElement, messages: Message[]) {
+  public setupIntersectionObserver(messageContainerElement: HTMLElement, messages: Message[], contactId: string) {
+    this.messages = messages;
+    this.contactId = contactId;
+
     const options = {
       root: messageContainerElement,
       rootMargin: '0px',
