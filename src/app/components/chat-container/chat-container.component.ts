@@ -39,15 +39,24 @@ export class ChatContainerComponent {
 
       const allMessages = messagesByDates
         .map((item) => item.messages)
-        .flat()
+        .flat();
+
+      const allContactMessages = allMessages
         .filter((message) => message.contactId === this.userStore.user()._id);
 
-      setTimeout(() => {
-        this.scrollToFirstUnreadMessage(allMessages);
+      const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
 
-        if (this.chatRef) {
-          this.intersectionObserverService.setupIntersectionObserver(this.chatRef?.nativeElement, allMessages);
+      setTimeout(() => {
+        if (!this.chatRef) return;
+
+        if (isLastSelfMessage) {
+          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+        } else {
+          this.scrollToFirstUnreadMessage(allContactMessages);
         }
+
+
+        this.intersectionObserverService.setupIntersectionObserver(this.chatRef?.nativeElement, allContactMessages);
       })
     });
     // effect(() => {
