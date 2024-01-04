@@ -25,6 +25,7 @@ export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
   protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
+  private allMessages: Message[] = [];
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
 
@@ -37,13 +38,17 @@ export class ChatContainerComponent {
       const messagesByDates = this.webSocketStore.messagesByDates();
       this.messagesByDates = messagesByDates;
 
-      setTimeout(() => {
-        if (this.chatRef) {
-          const allMessages = messagesByDates
-            .map((item) => item.messages)
-            .flat()
-            .filter((message) => message.contactId === this.userStore.user()._id);
+      const allMessages = messagesByDates
+        .map((item) => item.messages)
+        .flat()
+        .filter((message) => message.contactId === this.userStore.user()._id);
 
+      this.allMessages = allMessages;
+
+      setTimeout(() => {
+        this.scrollToFirstUnreadMessage(allMessages);
+
+        if (this.chatRef) {
           this.intersectionObserverService.setupIntersectionObserver(this.chatRef?.nativeElement, allMessages);
         }
       })
@@ -79,6 +84,16 @@ export class ChatContainerComponent {
     //
     //   this.setupIntersectionObserver();
     // });
+  }
+
+  private scrollToFirstUnreadMessage(messages: Message[]) {
+    const firstUnreadMessageId = messages.filter((message) => !message.checked)[0]?._id;
+
+    if (firstUnreadMessageId) {
+      const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessageId}`);
+
+      firstUnreadMessageElement?.scrollIntoView({behavior: 'auto', block: 'start'});
+    }
   }
 
   ngOnDestroy() {
