@@ -38,9 +38,6 @@ export class ChatContainerComponent {
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
 
-
-      if (!this.chatRef) return;
-
       const messagesByDates = this.webSocketStore.messagesByDates();
 
       const allMessages = messagesByDates
@@ -51,8 +48,11 @@ export class ChatContainerComponent {
         .filter((message) => message.contactId === this.userStore.user()._id);
 
       const isLastSelfMessage = allMessages.at(-1)?.userId === this.userStore.user()._id;
-      if (isLastSelfMessage) {
-        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      if (isLastSelfMessage || isInitial) {
+        setTimeout(() => {
+          if (!this.chatRef) return;
+          this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+        });
       } else {
         isInitial && this.scrollToFirstUnreadMessage(allContactMessages);
       }
