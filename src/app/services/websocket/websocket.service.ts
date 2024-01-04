@@ -69,7 +69,12 @@ export class WebsocketService {
       this.webSocketStore.updateMessage(event.detail.data.message);
     }],
     ['READ_MESSAGE', (event: any) => {
+      console.log('READ_MESSAGE');
       this.webSocketStore.setRead(event.detail.data._id);
+    }],
+    ['READ_ALL_MESSAGE', () => {
+      console.log('READ_ALL_MESSAGE');
+      this.webSocketStore.setAllRead();
     }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [

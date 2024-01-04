@@ -68,17 +68,25 @@ export class ChatContainerComponent {
     const uncheckedMessage = messages.find((message) => {
       return message._id === _id && !message.checked && message.contactId === this.userStore.user()._id;
     });
+    // console.log(uncheckedMessage);
 
     if (uncheckedMessage) {
+      console.log(uncheckedMessage)
       this.webSocketService.webSocket?.send(JSON.stringify({
         type: uncheckedMessage._id === messages.at(-1)?._id ? 'READ_ALL_MESSAGE' : 'READ_MESSAGE',
         data: {
-          _id,
+          _id: uncheckedMessage._id,
           userId: this.route.snapshot.paramMap.get('_id') ?? '',
           contactId: this.userStore.user()._id,
         },
       }));
     }
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.setupIntersectionObserver();
+    }, 0);
   }
 
   ngOnDestroy() {
