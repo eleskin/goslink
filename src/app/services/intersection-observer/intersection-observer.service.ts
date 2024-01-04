@@ -20,7 +20,7 @@ export class IntersectionObserverService {
       this.messages = this.webSocketStore.messagesByDates()
         .map((item) => item.messages)
         .flat()
-        .filter((message) => message.contactId === this.userStore.user()._id);
+        .filter((message) => message.contactId === this.userStore.user()._id && !message.checked);
 
       setTimeout(() => {
         this.messages.forEach((message, index) => {
@@ -69,7 +69,7 @@ export class IntersectionObserverService {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const messageElement = entry.target as HTMLElement;
-          // this.markAsRead(messageElement.getAttribute('id') ?? '');
+          this.markAsRead(messageElement.getAttribute('id') ?? '');
           observer.unobserve(entry.target);
         }
       }, options);
