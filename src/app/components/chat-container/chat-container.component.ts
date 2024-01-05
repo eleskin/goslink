@@ -67,7 +67,7 @@ export class ChatContainerComponent {
 
       this.isInitial = false;
     } else {
-      if ((this.isScrolledToNearEnd && isAddedMessage) && this.chatRef) {
+      if (isAddedMessage && this.chatRef) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight + 4;
       }
     }
@@ -97,7 +97,7 @@ export class ChatContainerComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['onFormSubmit'] && this.chatRef) {
-      this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      // this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
     }
   }
 
