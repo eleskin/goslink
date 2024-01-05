@@ -38,11 +38,11 @@ export class ChatFooterComponent {
     if (!this.message?.trim()) return;
     if (this.message !== this.changedMessage?.text) {
       this.webSocketService.webSocket?.sendJSON(this.changedMessage ? 'EDIT_MESSAGE' : 'NEW_MESSAGE', {
-            _id: this.changedMessage ? this.changedMessage._id : null,
+        _id: this.changedMessage ? this.changedMessage._id : null,
         userId: this.userStore.user()._id,
         contactId: this.route.snapshot.paramMap.get('_id') ?? '',
         text: this.message,
-      })
+      });
     }
 
     this.message = '';
