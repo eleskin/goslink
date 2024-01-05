@@ -49,6 +49,7 @@ export class ChatContainerComponent {
     this.allMessagesList = this.webSocketStore.allMessagesList();
     const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userStore.user()._id;
 
+    console.log(this.allMessagesList.at(-1));
     const isCheckedLastMessage = this.allMessagesList.at(-1)?.checked;
 
     if (isSelfNewMessage) {
@@ -57,7 +58,13 @@ export class ChatContainerComponent {
       if (isCheckedLastMessage) {
         this.scrollContainerToBottom();
       } else {
-        if (this.onScrollContainer({target: this.chatRef} as unknown as Event)) this.scrollContainerToBottom();
+        // this.scrollContainerToFirstUnread();
+      //   setTimeout(() => {
+      //     if (!this.chatRef) return;
+      //     const isScrolled = this.onScrollContainer({target: this.chatRef.nativeElement} as unknown as Event);
+      //     console.log(isScrolled);
+      //     if (!isScrolled) this.scrollContainerToBottom();
+      //   });
       }
     }
 
