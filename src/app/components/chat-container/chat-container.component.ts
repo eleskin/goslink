@@ -62,7 +62,7 @@ export class ChatContainerComponent {
         this.chatRef?.nativeElement?.scrollBy(0, -4);
       } else if (this.chatRef) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-        this.isScrolledToNearEnd = true;
+        // this.isScrolledToNearEnd = true;
       }
 
       this.isInitial = false;
