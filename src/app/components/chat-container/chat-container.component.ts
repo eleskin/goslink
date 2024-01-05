@@ -55,7 +55,6 @@ export class ChatContainerComponent {
 
       const firstUnreadMessageId = allMessages.filter((message) => !message.checked)?.[0]?._id;
       const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${firstUnreadMessageId}`) as HTMLElement;
-      console.log(firstUnreadMessageElement);
       this.firstUnreadMessageId = firstUnreadMessageId;
 
       if (firstUnreadMessageElement) {

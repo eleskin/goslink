@@ -3,7 +3,6 @@
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-  padding-top: 12px;
 }
 
 .app-chat-container {
