@@ -64,7 +64,7 @@ export class ChatContainerComponent {
 
       this.isInitial = false;
     } else {
-      if (this.isScrolledToNearEnd && this.chatRef && isAddedMessage) {
+      if ((this.isScrolledToNearEnd || isAddedMessage) && this.chatRef) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
       }
     }
