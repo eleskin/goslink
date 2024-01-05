@@ -54,7 +54,11 @@ export class ChatContainerComponent {
     if (isSelfNewMessage) {
       if (isAddedMessage) this.scrollContainerToBottom();
     } else {
-
+      if (isCheckedLastMessage) {
+        this.scrollContainerToBottom();
+      } else {
+        if (this.onScrollContainer({target: this.chatRef} as unknown as Event)) this.scrollContainerToBottom();
+      }
     }
 
 
