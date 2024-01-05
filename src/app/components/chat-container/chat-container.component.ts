@@ -28,6 +28,7 @@ export class ChatContainerComponent {
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   protected firstUnreadMessageId = '';
+  protected userId = this.userStore.user()._id;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,10 @@ export class ChatContainerComponent {
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
       this.scrollContainer();
+    });
+
+    effect(() => {
+      this.userId = this.userStore.user()._id;
     });
   }
 
