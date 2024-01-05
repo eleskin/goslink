@@ -37,7 +37,6 @@
 
 .app-message__content {
   background-color: rgba(0, 0, 0, 0.04);
-  border-radius: var(--main-border-radius);
   color: #000000;
   display: flex;
   flex-direction: column;
@@ -47,6 +46,37 @@
   position: relative;
   max-width: 60%;
   min-width: 40%;
+}
+
+.app-message--self .app-message__content {
+  transform: translateX(-16px);
+  border-radius: var(--main-border-radius) var(--main-border-radius) 0 var(--main-border-radius);
+}
+
+.app-message--not-self .app-message__content {
+  transform: translateX(16px);
+  border-radius: var(--main-border-radius) var(--main-border-radius) var(--main-border-radius) 0;
+}
+
+.app-message__content::after {
+  content: '';
+  display: block;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="6" height="9" viewBox="0 0 6 9" fill="none"><path d="M0.485255 6.86626C2.83389 5.5528 6 3.19884 6 0.0533517V8.05335L0.758872 8.05336C0.202224 8.05336 -0.000580311 7.13796 0.485255 6.86626Z" fill="black" fill-opacity="0.04"/></svg>') center center no-repeat;
+  background-size: cover;
+}
+
+.app-message--self > .app-message__content::after {
+  transform: rotateZ(90deg) translate(0, -16px);
+  right: 0;
+}
+
+.app-message--not-self > .app-message__content::after {
+  transform: translate(-16px, 0);
+  left: 0;
 }
 
 .app-message__content em {
