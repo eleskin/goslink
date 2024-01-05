@@ -31,7 +31,7 @@ export class WebsocketService {
 
       this.webSocketStore.setMessagesByDate(
         this.groupMessagesByDate([
-          ...this.webSocketStore.messagesByDates().map((item) => item.messages).flat(),
+          ...this.webSocketStore.allMessagesList(),
           message,
         ]),
       );

@@ -1,7 +1,8 @@
-import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
+import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
 import User from '../../interfaces/user';
 import Message from '../../interfaces/message';
 import Room from '../../interfaces/room';
+import {computed} from '@angular/core';
 
 type WebsocketState = {
   readyState: number,
@@ -25,6 +26,11 @@ const initialState: WebsocketState = {
 
 const WebsocketStore = signalStore(
   withState(initialState),
+  withComputed((store) => ({
+    allMessagesList: computed(() => {
+      return store.messagesByDates().map((item) => item.messages).flat();
+    }),
+  })),
   withMethods(({...store}) => ({
     setReadyState(state = 0) {
       patchState(store, {readyState: state});
