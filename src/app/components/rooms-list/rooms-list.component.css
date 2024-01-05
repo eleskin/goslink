@@ -9,10 +9,37 @@
 
 .app-rooms-list__search {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  grid-column-gap: 8px;
+  box-sizing: border-box;
 }
 
-.app-rooms-list__search input {
+.app-rooms-list__search app-input {
   width: 100%;
+}
+
+.app-rooms-list__search button {
+  height: 38px;
+  width: 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  transition: var(--main-transition);
+  box-sizing: border-box;
+}
+
+.app-rooms-list__search button:hover {
+  background-color: #eeeeee;
+  border-color: #eeeeee;
 }
 
 .app-rooms-list__rooms {
