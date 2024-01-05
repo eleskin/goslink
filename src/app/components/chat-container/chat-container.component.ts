@@ -35,13 +35,17 @@ export class ChatContainerComponent {
     private intersectionObserverService: IntersectionObserverService,
   ) {
     effect(() => {
+      const isAddedMessage =
+        this.webSocketStore.messagesByDates().map((item) => item.messages).flat() >
+        this.messagesByDates.map((item) => item.messages).flat();
+
       this.messagesByDates = this.webSocketStore.messagesByDates();
 
-      setTimeout(() => this.scrollToFirstUnread());
+      setTimeout(() => this.scrollToFirstUnread(isAddedMessage));
     });
   }
 
-  private scrollToFirstUnread() {
+  private scrollToFirstUnread(isAddedMessage: boolean) {
     if (this.isInitial && this.messagesByDates.length) {
       const allMessages = this.messagesByDates
         .map((item) => item.messages)
@@ -60,7 +64,7 @@ export class ChatContainerComponent {
 
       this.isInitial = false;
     } else {
-      if (this.isScrolledToNearEnd && this.chatRef) {
+      if (this.isScrolledToNearEnd && this.chatRef && isAddedMessage) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
       }
     }
