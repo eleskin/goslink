@@ -37,10 +37,6 @@ export class ChatContainerComponent {
       this.messagesByDates = this.webSocketStore.messagesByDates();
 
       setTimeout(() => this.scrollToFirstUnread());
-      // setTimeout(() => {
-      //   if (!this.chatRef) return;
-      //   this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-      // });
     });
   }
 
