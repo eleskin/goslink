@@ -8,7 +8,7 @@
       [class]="['app-rooms-list__chat', room._id === contactId ? 'app-rooms-list__chat--active' : '']"
       [routerLink]="'/chat/' + room._id"
     >
-      <span [style]="getGradientFromChar(room.name[0] ?? '')">
+      <span [style]="getGradientFromChar(room.name[0])">
         {{ room.name[0] }}
         <i *ngIf="onlineUsers.includes(room._id)"></i>
       </span>
@@ -21,7 +21,7 @@
   <div *ngIf="searchedUser" class="app-rooms-list__search-results">
     <span>Results: </span>
     <a [routerLink]="'/chat/' + searchedUser._id" class="app-rooms-list__chat">
-      <span [style]="getGradientFromChar(searchedUser.name[0] ?? '')">
+      <span [style]="getGradientFromChar(searchedUser.name[0])">
         {{ searchedUser.name[0] }}
       </span>
       <div>
