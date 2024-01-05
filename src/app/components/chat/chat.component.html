@@ -4,6 +4,7 @@
   <app-chat-footer
     [setEdit]="setEdit"
     (edit)="setEdit($event)"
+    (formSubmit)="handleFormSubmit()"
     [editValue]="edit"
     [message]="message"
     [changedMessage]="changedMessage"

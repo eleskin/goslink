@@ -45,6 +45,10 @@ export class ChatComponent {
     })
   }
 
+  protected handleFormSubmit() {
+    console.log(1);
+  }
+
   protected setEdit(data: boolean, message?: Message) {
     this.edit = data;
     this.message = message?.text ?? '';
