@@ -101,8 +101,6 @@ export class ChatContainerComponent {
     setTimeout(() => {
       if (!this.chatRef) return;
 
-      this.chatRef.nativeElement.addEventListener('scroll', this.onScrollContainer);
-
       this.scrollContainerToFirstUnread();
 
       this.intersectionObserverService.setupIntersectionObserver(
@@ -116,7 +114,5 @@ export class ChatContainerComponent {
     if (this.intersectionObserverService.observer) {
       this.intersectionObserverService.observer.disconnect();
     }
-
-    this.chatRef?.nativeElement.removeEventListener('scroll', this.onScrollContainer);
   }
 }
