@@ -47,10 +47,14 @@ export class ChatContainerComponent {
         .flat()
         .filter((message) => message.userId !== this.userStore.user()._id);
 
-      const firstUnreadMessageId = allMessages.filter((message) => !message.checked)[0]._id;
+      const firstUnreadMessageId = allMessages.filter((message) => !message.checked)?.[0]?._id;
       const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessageId}`);
 
-      firstUnreadMessageElement?.scrollIntoView({behavior: 'instant', block: 'start'});
+      if (firstUnreadMessageElement) {
+        firstUnreadMessageElement.scrollIntoView({behavior: 'instant', block: 'start'});
+      } else if (this.chatRef) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      }
 
       this.isInitial = false;
     }
