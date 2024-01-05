@@ -49,23 +49,19 @@ export class ChatContainerComponent {
     this.allMessagesList = this.webSocketStore.allMessagesList();
     const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userStore.user()._id;
 
-    if (!isSelfNewMessage) {
-      this.scrollContainerToFirstUnread();
-    } else {
-      this.scrollContainerToBottom();
-    }
-    // this.scrollContainerToBottom();
-    if (isAddedMessage) {
-      const isScrolledContainer = this.onScrollContainer({target: this.chatRef?.nativeElement} as unknown as Event);
+    const isCheckedLastMessage = this.allMessagesList.at(-1)?.checked;
 
-      if (isSelfNewMessage) {
-        this.scrollContainerToBottom();
-      } else {
-        if (isScrolledContainer) {
-          this.scrollContainerToBottom();
-        }
-      }
+    if (isSelfNewMessage) {
+      if (isAddedMessage) this.scrollContainerToBottom();
+    } else {
+
     }
+
+
+    // if (isCheckedLastMessage || isSelfNewMessage) {
+    //   this.scrollContainerToBottom();
+    // }
+
   }
 
   private scrollContainerToBottom() {
