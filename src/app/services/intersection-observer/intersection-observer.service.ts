@@ -2,7 +2,6 @@ import {effect, inject, Injectable} from '@angular/core';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
-import {ActivatedRoute} from '@angular/router';
 import WebsocketStore from '../../store/websocket/websocket.store';
 
 @Injectable({
@@ -15,7 +14,7 @@ export class IntersectionObserverService {
   private userStore = inject(UserStore);
   private webSocketStore = inject(WebsocketStore);
 
-  constructor(private webSocketService: WebsocketService, private route: ActivatedRoute) {
+  constructor(private webSocketService: WebsocketService) {
     effect(() => {
       this.messages = this.webSocketStore.messagesByDates()
         .map((item) => item.messages)
@@ -23,7 +22,7 @@ export class IntersectionObserverService {
         .filter((message) => message.contactId === this.userStore.user()._id && !message.checked);
 
       setTimeout(() => {
-        this.messages.forEach((message, index) => {
+        this.messages.forEach((message) => {
           const element = document.querySelector(`#message-${message._id}`);
           element && this.observer?.observe(element);
         });
@@ -37,22 +36,16 @@ export class IntersectionObserverService {
     const _id = messageId.split('-')[1];
 
     if (this.messages.at(-1)?._id === _id) {
-      this.webSocketService.webSocket?.send(JSON.stringify({
-        type: 'READ_ALL_MESSAGE',
-        data: {
-          userId: this.userStore.user()._id,
-          contactId: this.contactId,
-        },
-      }));
+      this.webSocketService.webSocket?.sendJSON('READ_ALL_MESSAGE', {
+        userId: this.userStore.user()._id,
+        contactId: this.contactId,
+      })
     } else {
-      this.webSocketService.webSocket?.send(JSON.stringify({
-        type: 'READ_MESSAGE',
-        data: {
-          _id: _id,
-          userId: this.userStore.user()._id,
-          contactId: this.contactId,
-        },
-      }));
+      this.webSocketService.webSocket?.sendJSON('READ_MESSAGE', {
+        _id: _id,
+        userId: this.userStore.user()._id,
+        contactId: this.contactId,
+      })
     }
   }
 

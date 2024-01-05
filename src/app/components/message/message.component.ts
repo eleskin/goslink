@@ -42,14 +42,11 @@ export class MessageComponent {
   }
 
   protected handleClickDelete(message: Message) {
-    this.webSocketService.webSocket?.send(JSON.stringify({
-      type: 'DELETE_MESSAGE',
-      data: {
-        _id: message._id,
-        userId: this.user._id,
-        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-      },
-    }));
+    this.webSocketService.webSocket?.sendJSON('DELETE_MESSAGE', {
+      _id: message._id,
+      userId: this.user._id,
+      contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+    });
   }
 
   protected handleClickEdit() {
