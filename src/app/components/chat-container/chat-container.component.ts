@@ -58,6 +58,17 @@ export class ChatContainerComponent {
         }
       }
     }
+
+    const allContactMessagesList = this.allMessagesList
+      .filter((message) => message.userId !== this.userStore.user()._id);
+    const firstUnreadMessageId = allContactMessagesList.filter((message) => !message.checked)?.[0]?._id;
+
+    setTimeout(() => {
+      const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${firstUnreadMessageId}`) as HTMLElement;
+      firstUnreadMessageElement?.scrollIntoView();
+      // firstUnreadMessageElement?.parentElement?.scrollBy(0, 16);
+      // console.log(firstUnreadMessageElement);
+    });
   }
 
   private scrollContainerToBottom() {
