@@ -53,7 +53,8 @@ export class ChatContainerComponent {
         .filter((message) => message.userId !== this.userStore.user()._id);
 
       const firstUnreadMessageId = allMessages.filter((message) => !message.checked)?.[0]?._id;
-      const firstUnreadMessageElement = document.querySelector(`#message-${firstUnreadMessageId}`);
+      const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${firstUnreadMessageId}`) as HTMLElement;
+      console.log(firstUnreadMessageElement);
 
       if (firstUnreadMessageElement) {
         firstUnreadMessageElement.scrollIntoView({behavior: 'instant', block: 'start'});
