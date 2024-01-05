@@ -28,6 +28,7 @@ export class ChatContainerComponent {
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   @Input() public onFormSubmit = {};
   private isInitial = true;
+  private isScrolledToNearEnd = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -54,15 +55,31 @@ export class ChatContainerComponent {
         firstUnreadMessageElement.scrollIntoView({behavior: 'instant', block: 'start'});
       } else if (this.chatRef) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+        this.isScrolledToNearEnd = true;
       }
 
       this.isInitial = false;
+    } else {
+      if (this.isScrolledToNearEnd && this.chatRef) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      }
     }
+  }
+
+  private onScrollContainer(event: Event) {
+    const element: HTMLElement | undefined = event.target as HTMLElement;
+    const totalHeight = element?.scrollHeight;
+    const scrollTop = element?.scrollTop;
+    const clientHeight = element?.clientHeight;
+
+    this.isScrolledToNearEnd = scrollTop + clientHeight >= totalHeight - 50;
   }
 
   ngOnInit() {
     setTimeout(() => {
       if (!this.chatRef) return;
+
+      this.chatRef.nativeElement.addEventListener('scroll', this.onScrollContainer);
 
       this.intersectionObserverService.setupIntersectionObserver(
         this.chatRef?.nativeElement,
@@ -81,5 +98,7 @@ export class ChatContainerComponent {
     if (this.intersectionObserverService.observer) {
       this.intersectionObserverService.observer.disconnect();
     }
+
+    this.chatRef?.nativeElement.removeEventListener('scroll', this.onScrollContainer);
   }
 }
