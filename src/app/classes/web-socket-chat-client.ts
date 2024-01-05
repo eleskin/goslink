@@ -17,6 +17,15 @@ class WebSocketChatClient extends WebSocket {
       });
     }
   }
+
+  public sendJSON(type: string, data: any) {
+    const payload = JSON.stringify({
+      type,
+      data,
+    });
+
+    this.send(payload);
+  }
 }
 
 export default WebSocketChatClient;
