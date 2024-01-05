@@ -26,3 +26,27 @@
   padding: var(--main-padding);
   border-radius: var(--main-border-radius);
 }
+
+.app-chat-container__message {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 16px;
+}
+
+.app-chat-container__message::before {
+  content: '';
+  height: 20px;
+  border-radius: 4px;
+  background-color: var(--main-color-hover-2);
+  display: none;
+  font-size: 14px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.app-chat-container__message--unread::before {
+  content: 'Unread messages';
+  display: flex;
+}

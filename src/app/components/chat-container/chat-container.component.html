@@ -1,7 +1,11 @@
 <div #chat class="app-chat-container" name="chat" ngDefaultControl ngModel>
   <div *ngFor="let item of messagesByDates">
     <span>{{ item.date }}</span>
-    <div *ngFor="let message of item.messages" [id]="'message-' + message._id">
+    <div
+      [class]="['app-chat-container__message', message._id === firstUnreadMessageId ? 'app-chat-container__message--unread' : '']"
+      *ngFor="let message of item.messages"
+      [id]="'message-' + message._id"
+    >
       <app-message [message]="message" (edit)="setEdit($event, message)"/>
     </div>
   </div>
