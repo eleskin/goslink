@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject, Input, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, inject, Input, ViewChild} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
@@ -27,9 +27,6 @@ export class ChatContainerComponent {
   protected allMessagesList: Message[] = this.webSocketStore.allMessagesList();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
-  @Input() public onFormSubmit = {};
-  private isInitial = true;
-  private isScrolledToNearEnd = false;
   protected firstUnreadMessageId = '';
 
   constructor(
@@ -47,6 +44,12 @@ export class ChatContainerComponent {
     this.allMessagesList = this.webSocketStore.allMessagesList();
     const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userStore.user()._id;
 
+    if (!isSelfNewMessage) {
+      this.scrollContainerToFirstUnread();
+    } else {
+      this.scrollContainerToBottom();
+    }
+    // this.scrollContainerToBottom();
     if (isAddedMessage) {
       const isScrolledContainer = this.onScrollContainer({target: this.chatRef?.nativeElement} as unknown as Event);
 
@@ -57,12 +60,6 @@ export class ChatContainerComponent {
           this.scrollContainerToBottom();
         }
       }
-    }
-
-    if (!isSelfNewMessage) {
-      this.scrollContainerToFirstUnread();
-    } else {
-      this.scrollContainerToBottom();
     }
   }
 
@@ -86,39 +83,6 @@ export class ChatContainerComponent {
     });
   }
 
-  // private scrollToFirstUnread(isAddedMessage: boolean) {
-  //   const isLastSelfMessage = this.messagesByDates
-  //     .map((item) => item.messages)
-  //     .flat()
-  //     .at(-1)?.userId === this.userStore.user()._id;
-  //
-  //   if (this.isInitial && this.messagesByDates.length) {
-  //
-  //     const allMessages = this.messagesByDates
-  //       .map((item) => item.messages)
-  //       .flat()
-  //       .filter((message) => message.userId !== this.userStore.user()._id);
-  //
-  //     const firstUnreadMessageId = allMessages.filter((message) => !message.checked)?.[0]?._id;
-  //     const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${firstUnreadMessageId}`) as HTMLElement;
-  //     this.firstUnreadMessageId = firstUnreadMessageId;
-  //
-  //     if (firstUnreadMessageElement) {
-  //       firstUnreadMessageElement.scrollIntoView();
-  //     } else if (this.chatRef) {
-  //       this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-  //       this.isScrolledToNearEnd = true;
-  //     }
-  //
-  //     this.isInitial = false;
-  //   } else {
-  //     console.log(this.isScrolledToNearEnd);
-  //     if ((isLastSelfMessage || this.isScrolledToNearEnd) && isAddedMessage && this.chatRef) {
-  //       this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-  //     }
-  //   }
-  // }
-
   private onScrollContainer(event: Event) {
     if (!event) return false;
 
@@ -141,12 +105,6 @@ export class ChatContainerComponent {
         this.route.snapshot.paramMap.get('_id') ?? '',
       );
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['onFormSubmit'] && this.chatRef) {
-      // this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-    }
   }
 
   ngOnDestroy() {

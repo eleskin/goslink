@@ -28,7 +28,6 @@ export class ChatFooterComponent {
   @Input() public changedMessage!: Message | undefined;
   @Input() public editValue: boolean = false;
   @Output() public edit = new EventEmitter<boolean>();
-  @Output() public formSubmit = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
   }
@@ -46,7 +45,6 @@ export class ChatFooterComponent {
       });
     }
 
-    this.formSubmit.emit();
     this.message = '';
     this.edit.emit(false);
     this.changedMessage = undefined;

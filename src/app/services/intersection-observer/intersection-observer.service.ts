@@ -35,18 +35,18 @@ export class IntersectionObserverService {
 
     const _id = messageId.split('-')[1];
 
-    // if (this.messages.at(-1)?._id === _id) {
-    //   this.webSocketService.webSocket?.sendJSON('READ_ALL_MESSAGE', {
-    //     userId: this.userStore.user()._id,
-    //     contactId: this.contactId,
-    //   })
-    // } else {
-    //   this.webSocketService.webSocket?.sendJSON('READ_MESSAGE', {
-    //     _id: _id,
-    //     userId: this.userStore.user()._id,
-    //     contactId: this.contactId,
-    //   });
-    // }
+    if (this.messages.at(-1)?._id === _id) {
+      this.webSocketService.webSocket?.sendJSON('READ_ALL_MESSAGE', {
+        userId: this.userStore.user()._id,
+        contactId: this.contactId,
+      })
+    } else {
+      this.webSocketService.webSocket?.sendJSON('READ_MESSAGE', {
+        _id: _id,
+        userId: this.userStore.user()._id,
+        contactId: this.contactId,
+      });
+    }
   }
 
   public setupIntersectionObserver(messageContainerElement: HTMLElement, contactId: string) {

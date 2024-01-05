@@ -1,10 +1,9 @@
 <div class="app-chat">
   <app-chat-header/>
-  <app-chat-container [onFormSubmit]="onFormSubmit" [setEdit]="setEdit"/>
+  <app-chat-container [setEdit]="setEdit"/>
   <app-chat-footer
     [setEdit]="setEdit"
     (edit)="setEdit($event)"
-    (formSubmit)="handleFormSubmit()"
     [editValue]="edit"
     [message]="message"
     [changedMessage]="changedMessage"
