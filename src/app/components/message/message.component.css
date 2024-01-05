@@ -36,7 +36,7 @@
 }
 
 .app-message__content {
-  background-color: #F3F3F3;
+  background-color: rgba(0, 0, 0, 0.04);
   border-radius: var(--main-border-radius);
   color: #000000;
   display: flex;
@@ -58,6 +58,8 @@
 .app-message__content > span {
   font-size: 16px;
   word-wrap: break-word;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .app-message__footer {
@@ -66,6 +68,12 @@
   justify-content: flex-end;
   align-items: center;
   grid-column-gap: 8px;
+  opacity: 0.6;
+}
+
+.app-message__footer > div {
+  height: 16px;
+  width: 16px;
 }
 
 .app-message__control {
