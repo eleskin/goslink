@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject, Input, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, inject, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
@@ -26,6 +26,7 @@ export class ChatContainerComponent {
   protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
+  @Input() public onFormSubmit = {};
   private isInitial = true;
 
   constructor(
@@ -68,6 +69,12 @@ export class ChatContainerComponent {
         this.route.snapshot.paramMap.get('_id') ?? '',
       );
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['onFormSubmit'] && this.chatRef) {
+      this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+    }
   }
 
   ngOnDestroy() {

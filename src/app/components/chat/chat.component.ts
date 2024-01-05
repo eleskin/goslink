@@ -23,6 +23,7 @@ export class ChatComponent {
   private readonly userStore = inject(UserStore);
   protected edit = false;
   protected changedMessage: Message | undefined;
+  protected onFormSubmit = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +47,7 @@ export class ChatComponent {
   }
 
   protected handleFormSubmit() {
-    console.log(1);
+    this.onFormSubmit = {};
   }
 
   protected setEdit(data: boolean, message?: Message) {
