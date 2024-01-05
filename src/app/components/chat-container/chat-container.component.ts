@@ -58,7 +58,8 @@ export class ChatContainerComponent {
       this.firstUnreadMessageId = firstUnreadMessageId;
 
       if (firstUnreadMessageElement) {
-        firstUnreadMessageElement.scrollIntoView({behavior: 'instant', block: 'start'});
+        firstUnreadMessageElement.scrollIntoView();
+        this.chatRef?.nativeElement?.scrollBy(0, -4);
       } else if (this.chatRef) {
         this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
         this.isScrolledToNearEnd = true;
@@ -66,8 +67,8 @@ export class ChatContainerComponent {
 
       this.isInitial = false;
     } else {
-      if ((this.isScrolledToNearEnd || isAddedMessage) && this.chatRef) {
-        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+      if ((this.isScrolledToNearEnd && isAddedMessage) && this.chatRef) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight + 4;
       }
     }
   }
@@ -78,7 +79,7 @@ export class ChatContainerComponent {
     const scrollTop = element?.scrollTop;
     const clientHeight = element?.clientHeight;
 
-    this.isScrolledToNearEnd = scrollTop + clientHeight >= totalHeight - 50;
+    this.isScrolledToNearEnd = scrollTop + clientHeight >= totalHeight - 80;
   }
 
   ngOnInit() {
