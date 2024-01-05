@@ -45,10 +45,10 @@ export class ChatContainerComponent {
   private scrollContainer() {
     const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
     this.allMessagesList = this.webSocketStore.allMessagesList();
+    const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userStore.user()._id;
 
     if (isAddedMessage) {
       const isScrolledContainer = this.onScrollContainer({target: this.chatRef?.nativeElement} as unknown as Event);
-      const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userStore.user()._id;
 
       if (isSelfNewMessage) {
         this.scrollContainerToBottom();
@@ -59,7 +59,11 @@ export class ChatContainerComponent {
       }
     }
 
-    this.scrollContainerToFirstUnread();
+    if (!isSelfNewMessage) {
+      this.scrollContainerToFirstUnread();
+    } else {
+      this.scrollContainerToBottom();
+    }
   }
 
   private scrollContainerToBottom() {
