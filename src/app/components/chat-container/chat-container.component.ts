@@ -65,13 +65,16 @@ export class ChatContainerComponent {
 
       if (firstUnreadMessageElement) {
         firstUnreadMessageElement.scrollIntoView();
-        this.chatRef?.nativeElement?.scrollBy(0, -4);
+      } else if (this.chatRef) {
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+        this.isScrolledToNearEnd = true;
       }
 
       this.isInitial = false;
     } else {
+      console.log(this.isScrolledToNearEnd);
       if ((isLastSelfMessage || this.isScrolledToNearEnd) && isAddedMessage && this.chatRef) {
-        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight + 4;
+        this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
       }
     }
   }
