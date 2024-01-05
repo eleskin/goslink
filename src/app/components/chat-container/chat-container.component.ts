@@ -40,15 +40,6 @@ export class ChatContainerComponent {
       this.messagesByDates = this.webSocketStore.messagesByDates();
       this.scrollContainer();
     });
-    // effect(() => {
-    //   const isAddedMessage =
-    //     this.webSocketStore.messagesByDates().map((item) => item.messages).flat() >
-    //     this.messagesByDates.map((item) => item.messages).flat();
-    //
-    //   this.messagesByDates = this.webSocketStore.messagesByDates();
-    //
-    //   setTimeout(() => this.scrollToFirstUnread(isAddedMessage));
-    // });
   }
 
   private scrollContainer() {
