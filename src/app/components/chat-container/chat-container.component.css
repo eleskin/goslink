@@ -30,7 +30,7 @@
 .app-chat-container__message {
   display: flex;
   flex-direction: column;
-  grid-row-gap: 16px;
+  grid-row-gap: 20px;
 }
 
 .app-chat-container__message::before {
@@ -44,6 +44,7 @@
   justify-content: center;
   align-items: center;
   padding: 4px 0;
+  transform: translateY(4px);
 }
 
 .app-chat-container__message--unread::before {
