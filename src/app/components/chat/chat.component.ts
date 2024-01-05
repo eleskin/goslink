@@ -32,23 +32,17 @@ export class ChatComponent {
   }
 
   ngOnInit() {
-    this.webSocketService.webSocket?.send(JSON.stringify({
-      type: 'ONLINE_USER',
-      data: {
-        userId: this.userStore.user()._id,
-        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-      },
-    }));
+    this.webSocketService.webSocket?.sendJSON('ONLINE_USER', {
+      userId: this.userStore.user()._id,
+      contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+    });
   }
 
   ngOnDestroy() {
-    this.webSocketService.webSocket?.send(JSON.stringify({
-      type: 'OFFLINE_USER',
-      data: {
-        userId: this.userStore.user()._id,
-        contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-      },
-    }));
+    this.webSocketService.webSocket?.sendJSON('OFFLINE_USER', {
+          userId: this.userStore.user()._id,
+      contactId: this.route.snapshot.paramMap.get('_id') ?? '',
+    })
   }
 
   protected setEdit(data: boolean, message?: Message) {

@@ -35,7 +35,7 @@ export class RoomsListComponent {
   ) {
     this.router.events.subscribe(async (value) => {
       if (value instanceof NavigationEnd) {
-        this.contactId = this.route.snapshot.paramMap.get('_id') ?? ''
+        this.contactId = this.route.snapshot.paramMap.get('_id') ?? '';
       }
     });
 
@@ -49,12 +49,9 @@ export class RoomsListComponent {
   protected async handleInputSearch(event: any) {
     if (!(event.target.value.trim().length > 1 && event.target.value.search(/^@[a-zA-Z0-9]*/) !== -1)) return;
 
-    this.websocketService.webSocket?.send(JSON.stringify({
-      type: 'SEARCH_USER',
-      data: {
-        contactUsername: event.target.value.slice(1),
-      },
-    }));
+    this.websocketService.webSocket?.sendJSON('SEARCH_USER', {
+      contactUsername: event.target.value.slice(1),
+    });
   }
 
   protected readonly getGradientFromChar = GetGradientFromChar;
