@@ -80,7 +80,9 @@ export class ChatContainerComponent {
 
     setTimeout(() => {
       const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${this.firstUnreadMessageId}`) as HTMLElement;
-      firstUnreadMessageElement?.scrollIntoView();
+      if (firstUnreadMessageElement) {
+        firstUnreadMessageElement.scrollIntoView();
+      }
     });
   }
 
@@ -100,6 +102,8 @@ export class ChatContainerComponent {
       if (!this.chatRef) return;
 
       this.chatRef.nativeElement.addEventListener('scroll', this.onScrollContainer);
+
+      this.scrollContainerToFirstUnread();
 
       this.intersectionObserverService.setupIntersectionObserver(
         this.chatRef?.nativeElement,
