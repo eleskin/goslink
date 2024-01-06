@@ -105,7 +105,7 @@
   background-color: var(--main-white-color);
   border-radius: var(--main-border-radius);
   bottom: 0;
-  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--main-box-shadow);
   display: flex;
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);

@@ -11,7 +11,7 @@
   text-align: center;
   transition: var(--main-transition);
   width: 100%;
-  box-shadow: 0 1px 1px rgba(138, 43, 226, 0.06);
+  box-shadow: var(--main-box-shadow);
   line-height: 28px;
 }
 

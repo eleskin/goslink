@@ -6,7 +6,7 @@
   background-color: var(--main-white-color);
   overflow: hidden;
   transition: var(--main-transition);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--main-box-shadow);
 }
 
 .app-input:hover {
