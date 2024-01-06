@@ -27,7 +27,7 @@ export class RoomsListComponent {
   private readonly webSocketStore = inject(WebsocketStore);
 
   constructor(
-    protected route: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
   ) {
     this.router.events.subscribe(async (value) => {
