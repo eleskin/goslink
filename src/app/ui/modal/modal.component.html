@@ -1,5 +1,5 @@
 <div *ngIf="visibleModal" class="app-modal">
-  <div class="app-modal__overlay"></div>
+  <div (click)="handleCloseModal()" class="app-modal__overlay"></div>
   <div class="app-modal__content">
     <ng-content></ng-content>
   </div>

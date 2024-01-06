@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ChatComponent} from '../chat/chat.component';
 import {ModalComponent} from '../../ui/modal/modal.component';
 
@@ -14,4 +14,9 @@ import {ModalComponent} from '../../ui/modal/modal.component';
 })
 export class NewChatModalComponent {
   @Input() visibleModal = false;
+  @Output() handleVisibleModal = new EventEmitter<boolean>();
+
+  protected handleCloseModal() {
+    this.handleVisibleModal.emit(false);
+  }
 }

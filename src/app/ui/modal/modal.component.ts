@@ -11,4 +11,9 @@ import {NgIf} from '@angular/common';
 })
 export class ModalComponent {
   @Input() public visibleModal = false;
+  @Output() public handleVisibleModal = new EventEmitter<boolean>();
+
+  protected handleCloseModal() {
+    this.handleVisibleModal.emit(false);
+  }
 }

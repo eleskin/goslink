@@ -68,6 +68,10 @@ export class HomeComponent {
     });
   }
 
+  protected handleCloseModal() {
+    this.visibleModal = false;
+  }
+
   ngOnInit() {
     this.webSocketService.webSocket?.sendJSON('GET_ROOM', {
       userId: this.userStore.user()._id,
