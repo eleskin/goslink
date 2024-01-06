@@ -17,6 +17,8 @@ html, body {
 
   --main-padding: 8px;
 
+  --main-grid-gap: 8px;
+
   --main-transition: all 0.2s linear;
 }
 

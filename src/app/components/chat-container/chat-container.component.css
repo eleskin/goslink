@@ -13,7 +13,7 @@
 .app-chat-container > div {
   display: flex;
   flex-direction: column;
-  grid-row-gap: 16px;
+  grid-row-gap: var(--main-grid-gap);
   padding: var(--main-padding);
 }
 
@@ -30,21 +30,21 @@
 .app-chat-container__message {
   display: flex;
   flex-direction: column;
-  grid-row-gap: 20px;
+  grid-row-gap: var(--main-grid-gap);
 }
 
 .app-chat-container__message::before {
   align-items: center;
   background-color: var(--main-color-hover-2);
-  border-radius: 4px;
+  border-radius: var(--main-border-radius);
   content: '';
   display: none;
   flex-direction: column;
   font-size: 14px;
   height: 20px;
   justify-content: center;
-  padding: 4px 0;
-  transform: translateY(4px);
+  padding: var(--main-padding) 0;
+  transform: translateY(var(--main-padding));
 }
 
 .app-chat-container__message--unread::before {
