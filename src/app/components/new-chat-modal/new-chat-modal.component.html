@@ -1,4 +1,15 @@
 <app-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()">
   <h2 class="app-title--2">New chat</h2>
-  <app-input placeholder="Enter username (ex. @username)" />
+  <app-input (input)="handleInputSearch($event)" placeholder="Enter username (ex. @username)"  />
+  <div *ngIf="searchedUser" class="app-rooms-list__search-results">
+    <span>Results: </span>
+    <a [routerLink]="'/chat/' + searchedUser._id" class="app-rooms-list__chat">
+      <span [style]="getGradientFromChar(searchedUser.name[0])">
+        {{ searchedUser.name[0] }}
+      </span>
+      <div>
+        <strong>{{ searchedUser.name }}</strong>
+      </div>
+    </a>
+  </div>
 </app-modal>
