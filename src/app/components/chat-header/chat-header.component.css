@@ -4,7 +4,7 @@
   border-radius: var(--main-border-radius) 0 0 0;
   display: flex;
   flex-direction: row;
-  grid-column-gap: 8px;
+  grid-column-gap: var(--main-grid-gap);
   justify-content: flex-start;
   padding: var(--main-padding);
 }
