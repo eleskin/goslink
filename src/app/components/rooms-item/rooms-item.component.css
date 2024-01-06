@@ -16,7 +16,7 @@
   background-color: #eeeeee;
   border: 1px solid #e0e0e0;
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--main-white-color);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;

@@ -16,7 +16,7 @@
 
 .app-modal__content {
   padding: 16px;
-  background-color: #ffffff;
+  background-color: var(--main-white-color);
   width: 320px;
   height: fit-content;
   border-radius: var(--main-border-radius);

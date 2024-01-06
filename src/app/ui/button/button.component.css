@@ -3,7 +3,7 @@
   border: 1px solid transparent;
   border-radius: var(--main-border-radius);
   box-sizing: border-box;
-  color: #ffffff;
+  color: var(--main-white-color);
   cursor: pointer;
   font-size: 14px;
   outline: none;

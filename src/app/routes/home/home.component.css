@@ -1,5 +1,5 @@
 .app-home {
-  background-color: #ffffff;
+  background-color: var(--main-white-color);
   display: grid;
   grid-template-columns: 25% 75%;
   grid-template-rows: 100%;

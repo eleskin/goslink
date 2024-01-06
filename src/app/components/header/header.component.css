@@ -1,6 +1,6 @@
 .app-header {
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--main-white-color);
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -135,5 +135,5 @@
 
 .app-header__popup > button:hover, .app-header__popup > a:hover {
   background-color: var(--main-color-hover);
-  color: #ffffff;
+  color: var(--main-white-color);
 }

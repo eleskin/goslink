@@ -3,7 +3,7 @@
   border-radius: var(--main-border-radius);
   box-sizing: border-box;
   display: flex;
-  background-color: #ffffff;
+  background-color: var(--main-white-color);
   overflow: hidden;
   transition: var(--main-transition);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);

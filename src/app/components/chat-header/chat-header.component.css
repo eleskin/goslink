@@ -13,7 +13,7 @@
   align-items: center;
   background-color: #eeeeee;
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--main-white-color);
   display: flex;
   flex-direction: column;
   font-style: normal;

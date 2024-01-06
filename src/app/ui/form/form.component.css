@@ -1,5 +1,5 @@
 .app-form {
-  background-color: #ffffff;
+  background-color: var(--main-white-color);
   border: 1px solid #eeeeee;
   border-radius: var(--main-border-radius);
   display: flex;
