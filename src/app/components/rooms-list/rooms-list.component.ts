@@ -1,5 +1,5 @@
 import {Component, effect, EventEmitter, inject, Output} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {InputComponent} from '../../ui/input/input.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import WebsocketStore from '../../store/websocket/websocket.store';
@@ -15,6 +15,7 @@ import {RoomsItemComponent} from '../rooms-item/rooms-item.component';
     NgIf,
     RouterLink,
     RoomsItemComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.css',
