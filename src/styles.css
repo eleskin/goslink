@@ -6,11 +6,11 @@
   --main-color: rgb(138, 43, 226);
   --main-color-2: rgba(138, 43, 226, 0.8);
   --main-color-3: rgba(138, 43, 226, 0.1);
-  --main-white-color: #ffffff;
-  --main-black-color: #000000;
-  --main-light-gray-color: #eeeeee;
-  --main-light-gray-color-2: #eeeeee;
-  --main-gray-color: #616161;
+  --main-white-color: rgb(255, 255, 255);
+  --main-black-color: rgb(0, 0, 0);
+  --main-light-gray-color: rgb(238, 238, 238);
+  --main-light-gray-color-2: rgb(238, 238, 238);
+  --main-gray-color: rgb(97, 97, 97);
 
   --main-padding: 8px;
 
