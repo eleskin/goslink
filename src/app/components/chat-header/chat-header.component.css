@@ -11,7 +11,7 @@
 
 .app-chat-header > i {
   align-items: center;
-  background-color: var(--main-light-gray);
+  background-color: var(--main-light-gray-color);
   border-radius: 50%;
   color: var(--main-white-color);
   display: flex;

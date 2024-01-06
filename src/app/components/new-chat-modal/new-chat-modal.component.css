@@ -31,7 +31,7 @@
 
 .app-new-chat-modal__chat > span {
   align-items: center;
-  background-color: var(--main-light-gray);
+  background-color: var(--main-light-gray-color);
   border: 1px solid #e0e0e0;
   border-radius: 50%;
   color: var(--main-white-color);
@@ -71,7 +71,7 @@
 }
 
 .app-new-chat-modal__chat > div > span {
-  color: #616161;
+  color: var(--main-gray-color);
   font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;

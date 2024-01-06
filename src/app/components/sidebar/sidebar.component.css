@@ -37,6 +37,6 @@
 }
 
 .app-sidebar__search button:hover {
-  background-color: var(--main-light-gray);
-  border-color: var(--main-light-gray);
+  background-color: var(--main-light-gray-color);
+  border-color: var(--main-light-gray-color);
 }
