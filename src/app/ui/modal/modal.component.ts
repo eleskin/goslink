@@ -1,6 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgIf} from '@angular/common';
-
 @Component({
   selector: 'app-modal',
   standalone: true,
@@ -11,9 +10,5 @@ import {NgIf} from '@angular/common';
   styleUrl: './modal.component.css',
 })
 export class ModalComponent {
-  protected visibleModal = true;
-
-  protected handleClickOverlay() {
-    this.visibleModal = false;
-  }
+  @Input() public visibleModal = false;
 }

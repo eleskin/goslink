@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ChatComponent} from '../chat/chat.component';
 import {ModalComponent} from '../../ui/modal/modal.component';
 
@@ -13,5 +13,5 @@ import {ModalComponent} from '../../ui/modal/modal.component';
   styleUrl: './new-chat-modal.component.css'
 })
 export class NewChatModalComponent {
-
+  @Input() visibleModal = false;
 }
