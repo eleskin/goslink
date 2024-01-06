@@ -23,8 +23,8 @@ import UserStore from '../../store/user/user.store';
 export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
-  protected messagesByDates: { date: string, messages: Message[] }[] = this.webSocketStore.messagesByDates();
-  protected allMessagesList: Message[] = this.webSocketStore.allMessagesList();
+  protected messagesByDates: { date: string, messages: Message[] }[] = [];
+  protected allMessagesList: Message[] = [];
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   protected firstUnreadMessageId = '';
