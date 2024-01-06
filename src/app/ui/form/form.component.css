@@ -4,7 +4,7 @@
   border-radius: var(--main-border-radius);
   display: flex;
   flex-direction: column;
-  grid-row-gap: 12px;
+  grid-row-gap: var(--main-grid-gap);
   padding: 32px;
   width: 360px;
 }

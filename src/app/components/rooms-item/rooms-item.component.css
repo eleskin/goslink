@@ -4,7 +4,7 @@
   cursor: default;
   display: flex;
   flex-direction: row;
-  grid-column-gap: 16px;
+  grid-column-gap: var(--main-grid-gap);
   justify-content: flex-start;
   overflow: hidden;
   padding: var(--main-padding);
@@ -41,7 +41,7 @@
 .app-rooms-item > div {
   display: flex;
   flex-direction: column;
-  grid-row-gap: 4px;
+  grid-row-gap: var(--main-grid-gap);
   overflow: hidden;
   width: 100%;
 }

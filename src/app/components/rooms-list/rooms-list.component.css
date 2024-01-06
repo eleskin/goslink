@@ -1,7 +1,7 @@
 .app-rooms-list {
   display: flex;
   flex-direction: column;
-  grid-row-gap: 8px;
+  grid-row-gap: var(--main-grid-gap);
   width: 100%;
 }
 

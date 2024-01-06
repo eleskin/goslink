@@ -19,7 +19,7 @@
   background-color: #ffffff;
   width: 320px;
   height: fit-content;
-  border-radius: 4px;
+  border-radius: var(--main-border-radius);
   margin: auto;
   position: absolute;
   inset: 0;

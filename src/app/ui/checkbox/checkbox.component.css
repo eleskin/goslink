@@ -1,7 +1,7 @@
 .app-checkbox {
   display: flex;
   flex-direction: row;
-  grid-column-gap: 6px;
+  grid-column-gap: var(--main-grid-gap);
   justify-content: flex-start;
 }
 
@@ -12,7 +12,7 @@
 
 .app-checkbox > i {
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: var(--main-border-radius);
   height: 18px;
   transition: var(--main-transition);
   width: 18px;
