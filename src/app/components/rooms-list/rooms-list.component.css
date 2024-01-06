@@ -116,17 +116,6 @@
   text-overflow: ellipsis;
 }
 
-.app-rooms-list__search-results {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.app-rooms-list__search-results > span {
-  font-size: 14px;
-  margin: 16px 0 4px 0;
-}
-
 .app-rooms-list__user {
   border-radius: var(--main-border-radius);
   cursor: pointer;
