@@ -2,10 +2,10 @@
   <app-chat-header/>
   <app-chat-container [setEdit]="setEdit"/>
   <app-chat-footer
-    [setEdit]="setEdit"
     (edit)="setEdit($event)"
+    [changedMessage]="changedMessage"
     [editValue]="edit"
     [message]="message"
-    [changedMessage]="changedMessage"
+    [setEdit]="setEdit"
   />
 </div>

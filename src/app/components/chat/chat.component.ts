@@ -20,10 +20,9 @@ import {ChatHeaderComponent} from '../chat-header/chat-header.component';
 })
 export class ChatComponent {
   protected message: string = '';
-  private readonly userStore = inject(UserStore);
   protected edit = false;
   protected changedMessage: Message | undefined;
-  protected onFormSubmit = {};
+  private readonly userStore = inject(UserStore);
 
   constructor(
     private route: ActivatedRoute,
@@ -41,9 +40,9 @@ export class ChatComponent {
 
   ngOnDestroy() {
     this.webSocketService.webSocket?.sendJSON('OFFLINE_USER', {
-          userId: this.userStore.user()._id,
+      userId: this.userStore.user()._id,
       contactId: this.route.snapshot.paramMap.get('_id') ?? '',
-    })
+    });
   }
 
   protected setEdit(data: boolean, message?: Message) {

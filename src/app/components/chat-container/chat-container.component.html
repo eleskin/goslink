@@ -2,14 +2,14 @@
   <div *ngFor="let item of messagesByDates">
     <span>{{ item.date }}</span>
     <div
+      *ngFor="let message of item.messages"
       [class]="[
       'app-chat-container__message',
       message._id === firstUnreadMessageId && message.userId !== userId ? 'app-chat-container__message--unread' : ''
       ]"
-      *ngFor="let message of item.messages"
       [id]="'message-' + message._id"
     >
-      <app-message [message]="message" (edit)="setEdit($event, message)"/>
+      <app-message (edit)="setEdit($event, message)" [message]="message"/>
     </div>
   </div>
 </div>
