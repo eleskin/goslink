@@ -22,7 +22,7 @@ import GetGradientFromChar from '../../utils/getGradientFromChar';
 export class RoomsListComponent {
   protected contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
   private readonly webSocketStore = inject(WebsocketStore);
-  protected rooms: Room[] = this.webSocketStore.sortedRooms();
+  protected rooms: Room[] = this.webSocketStore.rooms();
   protected onlineUsers: string[] = this.webSocketStore.onlineUsers();
   @Output() handleOpenNewChatModal = new EventEmitter<boolean>();
 
@@ -37,8 +37,7 @@ export class RoomsListComponent {
     });
 
     effect(() => {
-      this.rooms = this.webSocketStore.sortedRooms();
-      console.log(this.webSocketStore.sortedRooms());
+      this.rooms = this.webSocketStore.rooms();
       this.onlineUsers = this.webSocketStore.onlineUsers();
     });
   }
