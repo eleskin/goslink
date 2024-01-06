@@ -1,11 +1,12 @@
 const getGradientFromChar = (char: string) => {
   const generateColor = (charCode: number, offset: number): string => {
+    const SATURATION = 70;
+    const LIGHTNESS = 40;
+
     const baseHue = (charCode * 137) % 360;
     const hue = (baseHue + offset) % 360;
-    const saturation = 70;
-    const lightness = 40;
 
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    return `hsl(${hue}, ${SATURATION}%, ${LIGHTNESS}%)`;
   };
 
   const charCode = char.charCodeAt(0);
