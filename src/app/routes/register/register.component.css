@@ -7,25 +7,6 @@
   width: 100%;
 }
 
-.app-register h2 {
-  text-align: center;
-}
-
-.app-register__submit {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.app-register app-button {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 16px;
-}
-
 .app-register__footer a {
   color: var(--main-color);
   font-size: 14px;
