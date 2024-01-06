@@ -12,5 +12,5 @@
 }
 
 .app-rooms-list__chat:hover, .app-rooms-list__chat--active {
-  background-color: var(--main-color-hover-2);
+  background-color: var(--main-color-3);
 }

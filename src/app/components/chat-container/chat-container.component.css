@@ -18,7 +18,7 @@
 }
 
 .app-chat-container > div > span {
-  background-color: var(--main-color-hover-2);
+  background-color: var(--main-color-3);
   border-radius: var(--main-border-radius);
   display: block;
   margin: auto;
@@ -35,7 +35,7 @@
 
 .app-chat-container__message::before {
   align-items: center;
-  background-color: var(--main-color-hover-2);
+  background-color: var(--main-color-3);
   border-radius: var(--main-border-radius);
   content: '';
   display: none;

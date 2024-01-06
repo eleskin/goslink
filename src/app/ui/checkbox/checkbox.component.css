@@ -11,7 +11,7 @@
 }
 
 .app-checkbox > i {
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-light-gray-color-2);
   border-radius: var(--main-border-radius);
   height: 18px;
   transition: var(--main-transition);

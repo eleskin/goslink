@@ -1,5 +1,5 @@
 .app-chat {
-  border-left: 1px solid var(--main-color-hover-2);
+  border-left: 1px solid var(--main-color-3);
   border-radius: var(--main-border-radius) 0 0 0;
   display: flex;
   flex-direction: column;

@@ -140,5 +140,5 @@
 }
 
 .app-message__control > button:hover {
-  background-color: #e0e0e0;
+  background-color: var(--main-light-gray-color-2);
 }

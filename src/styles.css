@@ -4,13 +4,13 @@
   --main-border-radius: 8px;
 
   --main-color: rgb(138, 43, 226);
-  --main-color-hover: rgba(138, 43, 226, 0.8);
+  --main-color-2: rgba(138, 43, 226, 0.8);
+  --main-color-3: rgba(138, 43, 226, 0.1);
   --main-white-color: #ffffff;
   --main-black-color: #000000;
   --main-light-gray-color: #eeeeee;
+  --main-light-gray-color-2: #eeeeee;
   --main-gray-color: #616161;
-
-  --main-color-hover-2: rgba(138, 43, 226, 0.1);
 
   --main-padding: 8px;
 

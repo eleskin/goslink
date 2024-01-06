@@ -23,7 +23,7 @@
 .app-header__button {
   align-items: center;
   background-color: transparent;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--main-light-gray-color-2);
   border-radius: var(--main-border-radius);
   cursor: pointer;
   display: flex;
@@ -39,7 +39,7 @@
 }
 
 .app-header__button > span {
-  border-left: 1px solid #e0e0e0;
+  border-left: 1px solid var(--main-light-gray-color-2);
   color: var(--main-black-color);
   padding: 4px var(--main-padding);
 }
@@ -68,7 +68,7 @@
 .app-header__right > button {
   align-items: center;
   background-color: transparent;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--main-light-gray-color-2);
   border-radius: var(--main-border-radius);
   cursor: pointer;
   display: flex;
@@ -118,7 +118,7 @@
 
 .app-header__popup > button, .app-header__popup > a {
   align-items: center;
-  background-color: var(--main-color-hover-2);
+  background-color: var(--main-color-3);
   border: none;
   border-radius: var(--main-border-radius);
   box-sizing: border-box;
@@ -134,6 +134,6 @@
 }
 
 .app-header__popup > button:hover, .app-header__popup > a:hover {
-  background-color: var(--main-color-hover);
+  background-color: var(--main-color-2);
   color: var(--main-white-color);
 }
