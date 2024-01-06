@@ -9,12 +9,13 @@ import getGradientFromChar from '../../utils/getGradientFromChar';
   standalone: true,
   imports: [],
   templateUrl: './chat-header.component.html',
-  styleUrl: './chat-header.component.css'
+  styleUrl: './chat-header.component.css',
 })
 export class ChatHeaderComponent {
+  protected contact: User | undefined;
+  protected online: boolean = false;
+  protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
-  protected contact: User | null = this.webSocketStore.contact();
-  protected online: boolean = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
 
   constructor(private route: ActivatedRoute) {
     effect(() => {
@@ -22,6 +23,4 @@ export class ChatHeaderComponent {
       this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
     });
   }
-
-  protected readonly getGradientFromChar = getGradientFromChar;
 }

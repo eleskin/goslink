@@ -13,6 +13,7 @@
   align-items: center;
   background-color: #eeeeee;
   border-radius: 50%;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   font-style: normal;
@@ -20,7 +21,6 @@
   height: 44px;
   justify-content: center;
   width: 44px;
-  color: #ffffff;
 }
 
 .app-chat-header > div {

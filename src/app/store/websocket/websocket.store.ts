@@ -9,7 +9,7 @@ type WebsocketState = {
   contactId: string,
   rooms: Room[],
   searchedUser: User | null,
-  contact: User | null,
+  contact: User | undefined,
   messagesByDates: { date: string, messages: Message[] }[],
   onlineUsers: string[],
 };
@@ -19,7 +19,7 @@ const initialState: WebsocketState = {
   contactId: '',
   rooms: [],
   searchedUser: null,
-  contact: null,
+  contact: undefined,
   messagesByDates: [],
   onlineUsers: [],
 };
