@@ -7,6 +7,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 import {ActivatedRoute} from '@angular/router';
 import {IntersectionObserverService} from '../../services/intersection-observer/intersection-observer.service';
 import UserStore from '../../store/user/user.store';
+import isAvailableScrollChat from '../../utils/isAvailableScrollChat';
 
 @Component({
   selector: 'app-chat-container',
@@ -24,9 +25,9 @@ export class ChatContainerComponent {
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
   protected allMessagesList: Message[] = [];
   protected firstUnreadMessageId = '';
+  protected userId = '';
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
-  protected userId = this.userStore.user()._id;
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
 
   constructor(
@@ -36,9 +37,6 @@ export class ChatContainerComponent {
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
       this.scrollContainer();
-    });
-
-    effect(() => {
       this.userId = this.userStore.user()._id;
     });
   }
@@ -65,35 +63,32 @@ export class ChatContainerComponent {
   private scrollContainer() {
     const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
     this.allMessagesList = this.webSocketStore.allMessagesList();
-    const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userStore.user()._id;
+    const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userId;
 
     const isCheckedLastMessage = this.allMessagesList.at(-1)?.checked;
 
-    if (isSelfNewMessage) {
-      if (isAddedMessage) this.scrollContainerToBottom();
-    } else {
-      if (isCheckedLastMessage) {
-        this.scrollContainerToBottom();
-      } else {
-        if (this.onScrollContainer({target: this.chatRef?.nativeElement} as unknown as Event)) {
-          this.scrollContainerToBottom();
-        }
-      }
+    if (isSelfNewMessage && isAddedMessage) {
+      this.scrollContainerToBottom();
+    } else if (isCheckedLastMessage) {
+      this.scrollContainerToBottom();
+    } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
+      this.scrollContainerToBottom();
     }
   }
 
   private scrollContainerToBottom() {
     setTimeout(() => {
       if (!this.chatRef) return;
-      this.chatRef?.nativeElement.removeEventListener('scroll', this.onScrollContainer);
+
+      this.chatRef?.nativeElement.removeEventListener('scroll', isAvailableScrollChat);
       this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-      this.chatRef?.nativeElement.addEventListener('scroll', this.onScrollContainer);
+      this.chatRef?.nativeElement.addEventListener('scroll', isAvailableScrollChat);
     });
   }
 
   private scrollContainerToFirstUnread() {
     const allContactMessagesList = this.allMessagesList
-      .filter((message) => message.userId !== this.userStore.user()._id);
+      .filter((message) => message.userId !== this.userId);
     this.firstUnreadMessageId = allContactMessagesList.filter((message) => !message.checked)?.[0]?._id;
 
     setTimeout(() => {
@@ -102,16 +97,5 @@ export class ChatContainerComponent {
         firstUnreadMessageElement.scrollIntoView();
       }
     });
-  }
-
-  private onScrollContainer(event: Event) {
-    if (!event) return false;
-
-    const element: HTMLElement | undefined = event.target as HTMLElement;
-    const totalHeight = element?.scrollHeight;
-    const scrollTop = element?.scrollTop;
-    const clientHeight = element?.clientHeight;
-
-    return scrollTop + clientHeight >= totalHeight - 80;
   }
 }
