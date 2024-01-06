@@ -1,0 +1,62 @@
+.app-rooms-item {
+  align-items: center;
+  box-sizing: border-box;
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  grid-column-gap: 16px;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: var(--main-padding);
+  width: 100%;
+}
+
+.app-rooms-item > span {
+  align-items: center;
+  background-color: #eeeeee;
+  border: 1px solid #e0e0e0;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-weight: 500;
+  height: 56px;
+  justify-content: center;
+  position: relative;
+  width: 56px;
+}
+
+.app-rooms-item > span > i {
+  background-color: var(--main-color);
+  border-radius: 50%;
+  bottom: 0;
+  height: 12px;
+  position: absolute;
+  right: 0;
+  transform: translate(-2px, -2px);
+  width: 12px;
+}
+
+.app-rooms-item > div {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 4px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.app-rooms-item > div > strong {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.app-rooms-item > div > span {
+  color: #616161;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}

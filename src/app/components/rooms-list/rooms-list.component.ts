@@ -4,7 +4,7 @@ import {InputComponent} from '../../ui/input/input.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import Room from '../../interfaces/room';
-import GetGradientFromChar from '../../utils/getGradientFromChar';
+import {RoomsItemComponent} from '../rooms-item/rooms-item.component';
 
 @Component({
   selector: 'app-rooms-list',
@@ -14,6 +14,7 @@ import GetGradientFromChar from '../../utils/getGradientFromChar';
     InputComponent,
     NgIf,
     RouterLink,
+    RoomsItemComponent,
   ],
   templateUrl: './rooms-list.component.html',
   styleUrl: './rooms-list.component.css',
@@ -22,8 +23,6 @@ export class RoomsListComponent {
   @Output() public handleOpenNewChatModal = new EventEmitter<boolean>();
   protected contactId: string = '';
   protected rooms: Room[] = [];
-  protected onlineUsers: string[] = [];
-  protected readonly getGradientFromChar = GetGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
 
   constructor(
@@ -38,7 +37,6 @@ export class RoomsListComponent {
 
     effect(() => {
       this.rooms = this.webSocketStore.rooms();
-      this.onlineUsers = this.webSocketStore.onlineUsers();
     });
   }
 

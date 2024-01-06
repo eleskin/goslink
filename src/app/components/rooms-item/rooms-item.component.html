@@ -1,1 +1,10 @@
-<p>rooms-item works!</p>
+<div class="app-rooms-item">
+  <span [style]="getGradientFromChar(room.name[0])">
+    {{ room.name[0] }}
+    <i *ngIf="onlineUsers.includes(room._id)"></i>
+  </span>
+  <div>
+    <strong>{{ room.name }}</strong>
+    <span>{{ room.lastMessage }}</span>
+  </div>
+</div>
