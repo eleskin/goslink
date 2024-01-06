@@ -44,12 +44,12 @@
   padding: 4px var(--main-padding);
 }
 
-.app-header__button > svg {
+.app-header__button > img {
   padding: 4px;
   transition: var(--main-transition);
 }
 
-.app-header__button:not(:disabled):hover > svg {
+.app-header__button:not(:disabled):hover > img {
   transform: translateX(-2px);
 }
 
