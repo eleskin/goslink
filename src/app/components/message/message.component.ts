@@ -19,7 +19,7 @@ import getGradientFromChar from '../../utils/getGradientFromChar';
 })
 export class MessageComponent {
   @Input() public message!: Message;
-  @Output() edit = new EventEmitter<boolean>();
+  @Output() public edit = new EventEmitter<boolean>();
   protected selfMessage: boolean = false;
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly userStore = inject(UserStore);
