@@ -1,6 +1,5 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../../ui/button/button.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {InputComponent} from '../../ui/input/input.component';
 import {NgIf} from '@angular/common';
 import Message from '../../interfaces/message';
@@ -13,21 +12,19 @@ import UserStore from '../../store/user/user.store';
   standalone: true,
   imports: [
     ButtonComponent,
-    FormsModule,
     InputComponent,
     NgIf,
-    ReactiveFormsModule,
   ],
   templateUrl: './chat-footer.component.html',
   styleUrl: './chat-footer.component.css',
 })
 export class ChatFooterComponent {
-  private readonly userStore = inject(UserStore);
   @Input() public setEdit!: (event: boolean, message?: Message) => void;
   @Input() public message!: string;
   @Input() public changedMessage!: Message | undefined;
   @Input() public editValue: boolean = false;
   @Output() public edit = new EventEmitter<boolean>();
+  private readonly userStore = inject(UserStore);
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
   }
