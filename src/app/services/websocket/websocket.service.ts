@@ -106,6 +106,7 @@ export class WebsocketService {
     for (const room of rooms) {
       if (room?._id === message.userId || room?._id === message.contactId) {
         room.lastMessage = message.text;
+        room.lastMessageDate = message.dateObject;
       }
     }
   }

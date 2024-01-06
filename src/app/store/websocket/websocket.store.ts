@@ -30,6 +30,20 @@ const WebsocketStore = signalStore(
     allMessagesList: computed(() => {
       return store.messagesByDates().map((item) => item.messages).flat();
     }),
+    sortedRooms: computed(() => {
+      const rooms = store.rooms();
+
+      rooms.sort((room1, room2) => {
+        const date1 = new Date(room1.lastMessageDate);
+        const date2 = new Date(room2.lastMessageDate);
+
+        if (date1 > date2) return -1;
+        if (date1 < date2) return 1;
+        return 0;
+      });
+
+      return rooms;
+    }),
   })),
   withMethods(({...store}) => ({
     setReadyState(state = 0) {
