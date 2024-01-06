@@ -47,7 +47,7 @@
 }
 
 .app-rooms-item > div > strong {
-  color: #000000;
+  color: var(--main-black-color);
   font-size: 16px;
   font-weight: 500;
 }

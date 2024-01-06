@@ -6,6 +6,7 @@
   --main-color: rgb(138, 43, 226);
   --main-color-hover: rgba(138, 43, 226, 0.8);
   --main-white-color: #ffffff;
+  --main-black-color: #000000;
 
   --main-color-hover-2: rgba(138, 43, 226, 0.1);
 
@@ -28,7 +29,7 @@ html, body {
 }
 
 .app-title--2 {
-  color: #212121;
+  color: var(--main-black-color);
   font-size: 24px;
   font-weight: 700;
   margin: 0 0 16px 0;

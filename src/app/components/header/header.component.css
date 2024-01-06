@@ -40,7 +40,7 @@
 
 .app-header__button > span {
   border-left: 1px solid #e0e0e0;
-  color: #000000;
+  color: var(--main-black-color);
   padding: 4px var(--main-padding);
 }
 
@@ -102,7 +102,7 @@
 }
 
 .app-header__popup {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--main-white-color);
   border-radius: var(--main-border-radius);
   bottom: 0;
   box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.2);
@@ -122,7 +122,7 @@
   border: none;
   border-radius: var(--main-border-radius);
   box-sizing: border-box;
-  color: #000000;
+  color: var(--main-black-color);
   cursor: pointer;
   display: flex;
   flex-direction: row;

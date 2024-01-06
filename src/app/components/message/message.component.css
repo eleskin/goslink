@@ -37,7 +37,7 @@
 
 .app-message__content {
   background-color: rgba(0, 0, 0, 0.04);
-  color: #000000;
+  color: var(--main-black-color);
   display: flex;
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
