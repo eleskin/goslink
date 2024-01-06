@@ -27,6 +27,7 @@ export class NewChatModalComponent {
   @Output() handleVisibleModal = new EventEmitter<boolean>();
   private readonly webSocketStore = inject(WebsocketStore);
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();
+  protected usernameValue = '';
 
   constructor(private websocketService: WebsocketService) {
     effect(() => {
@@ -36,10 +37,13 @@ export class NewChatModalComponent {
 
   protected handleCloseModal() {
     this.handleVisibleModal.emit(false);
+    this.usernameValue = '';
   }
 
   protected async handleInputSearch(event: any) {
     if (!(event.target.value.trim().length > 1 && event.target.value.search(/^@[a-zA-Z0-9]*/) !== -1)) return;
+
+    this.usernameValue = event.target.value;
 
     this.websocketService.webSocket?.sendJSON('SEARCH_USER', {
       contactUsername: event.target.value.slice(1),
