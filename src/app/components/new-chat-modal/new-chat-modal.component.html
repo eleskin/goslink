@@ -5,7 +5,7 @@
                placeholder="Enter username (ex. @username)"/>
     <div *ngIf="searchedUser" class="app-new-chat-modal__search-results">
       <span>Results: </span>
-      <app-rooms-list [rooms]="[searchedUser]" />
+      <app-rooms-list [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [rooms]="[searchedUser]" />
     </div>
   </app-modal>
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {RoomsItemComponent} from '../rooms-item/rooms-item.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
@@ -19,6 +19,8 @@ import User from '../../interfaces/user';
 export class RoomsListComponent {
   protected contactId: string = '';
   @Input() rooms!: Room[] | User[];
+  @Output() public handleVisibleModal = new EventEmitter<boolean>();
+  @Input() public visibleModal = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.router.events.subscribe(async (value) => {
@@ -26,5 +28,9 @@ export class RoomsListComponent {
         this.contactId = this.route.snapshot.paramMap.get('_id') ?? '';
       }
     });
+  }
+
+  protected handleCloseModal() {
+    this.handleVisibleModal.emit(false);
   }
 }

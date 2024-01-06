@@ -3,6 +3,7 @@
     *ngFor="let room of rooms"
     [class]="['app-rooms-list__chat', room._id === contactId ? 'app-rooms-list__chat--active' : '']"
     [routerLink]="'/chat/' + room._id"
+    (click)="handleCloseModal()"
   >
     <app-rooms-item [room]="room"/>
   </a>
