@@ -1,13 +1,12 @@
-.app-rooms-list {
+.app-sidebar {
   align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  grid-row-gap: 4px;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 8px;
   padding: 0 var(--main-border-radius);
 }
 
-.app-rooms-list__search {
+.app-sidebar__search {
   align-items: center;
   box-sizing: border-box;
   display: flex;
@@ -17,11 +16,11 @@
   width: 100%;
 }
 
-.app-rooms-list__search app-input {
+.app-sidebar__search app-input {
   width: 100%;
 }
 
-.app-rooms-list__search button {
+.app-sidebar__search button {
   align-items: center;
   background-color: transparent;
   border: 1px solid transparent;
@@ -37,24 +36,7 @@
   width: 38px;
 }
 
-.app-rooms-list__search button:hover {
+.app-sidebar__search button:hover {
   background-color: #eeeeee;
   border-color: #eeeeee;
-}
-
-.app-rooms-list__rooms {
-  display: flex;
-  flex-direction: column;
-  grid-row-gap: 8px;
-  width: 100%;
-}
-
-.app-rooms-list__chat {
-  border-radius: var(--main-border-radius);
-  text-decoration: none;
-  transition: var(--main-transition);
-}
-
-.app-rooms-list__chat:hover, .app-rooms-list__chat--active {
-  background-color: var(--main-color-hover-2);
 }

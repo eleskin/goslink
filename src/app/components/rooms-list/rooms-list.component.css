@@ -1,0 +1,16 @@
+.app-rooms-list {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 8px;
+  width: 100%;
+}
+
+.app-rooms-list__chat {
+  border-radius: var(--main-border-radius);
+  text-decoration: none;
+  transition: var(--main-transition);
+}
+
+.app-rooms-list__chat:hover, .app-rooms-list__chat--active {
+  background-color: var(--main-color-hover-2);
+}

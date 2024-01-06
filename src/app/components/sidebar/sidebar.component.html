@@ -1,17 +1,9 @@
-<div class="app-rooms-list">
-  <div class="app-rooms-list__search">
+<div class="app-sidebar">
+  <div class="app-sidebar__search">
     <app-input [placeholder]="'Search'"/>
     <button (click)="handleClickNewChatButton()">
       <img alt="" height="32" ngSrc="assets/icons/pencil.svg" width="32">
     </button>
   </div>
-  <div class="app-rooms-list__rooms">
-    <a
-      *ngFor="let room of rooms"
-      [class]="['app-rooms-list__chat', room._id === contactId ? 'app-rooms-list__chat--active' : '']"
-      [routerLink]="'/chat/' + room._id"
-    >
-      <app-rooms-item [room]="room"/>
-    </a>
-  </div>
+  <app-rooms-list/>
 </div>
