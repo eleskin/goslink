@@ -1,5 +1,5 @@
 import {Component, effect, EventEmitter, inject, Input, Output} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import Message from '../../interfaces/message';
 import UserStore from '../../store/user/user.store';
 import User from '../../interfaces/user';
@@ -13,6 +13,7 @@ import getGradientFromChar from '../../utils/getGradientFromChar';
   imports: [
     NgForOf,
     NgIf,
+    NgOptimizedImage,
   ],
   templateUrl: './message.component.html',
   styleUrl: './message.component.css',
