@@ -3,6 +3,7 @@ import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf} from '@angular/common';
 import Room from '../../interfaces/room';
 import WebsocketStore from '../../store/websocket/websocket.store';
+import User from '../../interfaces/user';
 
 @Component({
   selector: 'app-rooms-item',
@@ -14,7 +15,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
   styleUrl: './rooms-item.component.css',
 })
 export class RoomsItemComponent {
-  @Input() public room!: Room;
+  @Input() public room!: Room | User;
   protected onlineUsers: string[] = [];
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);

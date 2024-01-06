@@ -5,14 +5,7 @@
                placeholder="Enter username (ex. @username)"/>
     <div *ngIf="searchedUser" class="app-new-chat-modal__search-results">
       <span>Results: </span>
-      <a (click)="handleCloseModal()" [routerLink]="'/chat/' + searchedUser._id" class="app-new-chat-modal__chat">
-        <span [style]="getGradientFromChar(searchedUser.name[0])">
-          {{ searchedUser.name[0] }}
-        </span>
-        <div>
-          <strong>{{ searchedUser.name }}</strong>
-        </div>
-      </a>
+      <app-rooms-list [rooms]="[searchedUser]" />
     </div>
   </app-modal>
 </div>

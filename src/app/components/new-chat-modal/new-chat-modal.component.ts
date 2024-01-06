@@ -7,6 +7,7 @@ import {RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
+import {RoomsListComponent} from '../rooms-list/rooms-list.component';
 
 @Component({
   selector: 'app-new-chat-modal',
@@ -16,6 +17,7 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
     InputComponent,
     NgIf,
     RouterLink,
+    RoomsListComponent,
   ],
   templateUrl: './new-chat-modal.component.html',
   styleUrl: './new-chat-modal.component.css',
