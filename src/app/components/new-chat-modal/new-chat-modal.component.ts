@@ -1,5 +1,4 @@
 import {Component, effect, EventEmitter, inject, Input, Output} from '@angular/core';
-import {ChatComponent} from '../chat/chat.component';
 import {ModalComponent} from '../../ui/modal/modal.component';
 import {InputComponent} from '../../ui/input/input.component';
 import getGradientFromChar from '../../utils/getGradientFromChar';
@@ -13,7 +12,6 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
   selector: 'app-new-chat-modal',
   standalone: true,
   imports: [
-    ChatComponent,
     ModalComponent,
     InputComponent,
     NgIf,
@@ -23,11 +21,12 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
   styleUrl: './new-chat-modal.component.css',
 })
 export class NewChatModalComponent {
-  @Input() visibleModal = false;
-  @Output() handleVisibleModal = new EventEmitter<boolean>();
-  private readonly webSocketStore = inject(WebsocketStore);
-  protected searchedUser: User | null = this.webSocketStore?.searchedUser();
+  @Input() public visibleModal = false;
+  @Output() public handleVisibleModal = new EventEmitter<boolean>();
+  protected searchedUser: User | undefined;
   protected usernameValue = '';
+  protected readonly getGradientFromChar = getGradientFromChar;
+  private readonly webSocketStore = inject(WebsocketStore);
 
   constructor(private websocketService: WebsocketService) {
     effect(() => {
@@ -49,6 +48,4 @@ export class NewChatModalComponent {
       contactUsername: event.target.value.slice(1),
     });
   }
-
-  protected readonly getGradientFromChar = getGradientFromChar;
 }
