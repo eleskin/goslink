@@ -1,5 +1,5 @@
 import {Component, effect, EventEmitter, inject, Output} from '@angular/core';
-import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {InputComponent} from '../../ui/input/input.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import WebsocketStore from '../../store/websocket/websocket.store';
@@ -10,7 +10,6 @@ import GetGradientFromChar from '../../utils/getGradientFromChar';
   selector: 'app-rooms-list',
   standalone: true,
   imports: [
-    NgOptimizedImage,
     NgForOf,
     InputComponent,
     NgIf,
@@ -20,11 +19,12 @@ import GetGradientFromChar from '../../utils/getGradientFromChar';
   styleUrl: './rooms-list.component.css',
 })
 export class RoomsListComponent {
-  protected contactId: string = this.route.snapshot.paramMap.get('_id') ?? '';
+  @Output() public handleOpenNewChatModal = new EventEmitter<boolean>();
+  protected contactId: string = '';
+  protected rooms: Room[] = [];
+  protected onlineUsers: string[] = [];
+  protected readonly getGradientFromChar = GetGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
-  protected rooms: Room[] = this.webSocketStore.rooms();
-  protected onlineUsers: string[] = this.webSocketStore.onlineUsers();
-  @Output() handleOpenNewChatModal = new EventEmitter<boolean>();
 
   constructor(
     protected route: ActivatedRoute,
@@ -45,6 +45,4 @@ export class RoomsListComponent {
   protected handleClickNewChatButton() {
     this.handleOpenNewChatModal.emit(true);
   }
-
-  protected readonly getGradientFromChar = GetGradientFromChar;
 }
