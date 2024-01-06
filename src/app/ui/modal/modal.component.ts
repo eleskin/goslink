@@ -14,6 +14,7 @@ export class ModalComponent {
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
 
   protected handleCloseModal() {
+    console.log(1);
     this.handleVisibleModal.emit(false);
   }
 }
