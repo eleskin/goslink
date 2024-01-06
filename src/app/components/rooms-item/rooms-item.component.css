@@ -13,7 +13,7 @@
 
 .app-rooms-item > span {
   align-items: center;
-  background-color: #eeeeee;
+  background-color: var(--main-light-gray);
   border: 1px solid #e0e0e0;
   border-radius: 50%;
   color: var(--main-white-color);

@@ -35,7 +35,7 @@
 }
 
 .app-header__button:not(:disabled):hover {
-  background-color: #eeeeee;
+  background-color: var(--main-light-gray);
 }
 
 .app-header__button > span {
@@ -80,12 +80,12 @@
 }
 
 .app-header__right > button:hover {
-  background-color: #eeeeee;
+  background-color: var(--main-light-gray);
 }
 
 .app-header__right > button > i {
   align-items: center;
-  background-color: #eeeeee;
+  background-color: var(--main-light-gray);
   border-radius: var(--main-border-radius);
   display: flex;
   flex-direction: column;
