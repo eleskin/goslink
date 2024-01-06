@@ -109,6 +109,17 @@ export class WebsocketService {
         room.lastMessageDate = message.dateObject;
       }
     }
+
+    rooms.sort((room1, room2) => {
+      const date1 = new Date(room1.lastMessageDate);
+      const date2 = new Date(room2.lastMessageDate);
+
+      if (date1 > date2) return -1;
+      if (date1 < date2) return 1;
+      return 0;
+    });
+
+    this.webSocketStore.setRooms(rooms);
   }
 
   private groupMessagesByDate(messages: Message[]): { date: string, messages: Message[] }[] {
