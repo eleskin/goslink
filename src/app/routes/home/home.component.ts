@@ -31,7 +31,7 @@ export class HomeComponent {
   private readonly userStore = inject(UserStore);
   private readonly routerEventSubscription: Subscription;
   private previousUrl = '';
-  protected visibleModal = false;
+  protected visibleModal = true;
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
     this.webSocketService.webSocket =
