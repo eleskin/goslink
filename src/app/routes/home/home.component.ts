@@ -8,6 +8,8 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import UserStore from '../../store/user/user.store';
 import {Subscription} from 'rxjs';
+import {ModalComponent} from '../../ui/modal/modal.component';
+import {NewChatModalComponent} from '../../components/new-chat-modal/new-chat-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,8 @@ import {Subscription} from 'rxjs';
     RoomsListComponent,
     ChatComponent,
     NgIf,
+    ModalComponent,
+    NewChatModalComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
