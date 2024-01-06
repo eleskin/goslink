@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, effect, EventEmitter, inject, Output} from '@angular/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {InputComponent} from '../../ui/input/input.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
@@ -27,6 +27,7 @@ export class RoomsListComponent {
   protected searchedUser: User | null = this.webSocketStore?.searchedUser();
   protected rooms: Room[] = this.webSocketStore?.rooms();
   protected onlineUsers: string[] = this.webSocketStore.onlineUsers();
+  @Output() handleOpenNewChatModal = new EventEmitter<boolean>();
 
   constructor(
     protected route: ActivatedRoute,
@@ -44,6 +45,10 @@ export class RoomsListComponent {
       this.rooms = this.webSocketStore?.rooms();
       this.onlineUsers = this.webSocketStore.onlineUsers();
     });
+  }
+
+  protected handleClickNewChatButton() {
+    this.handleOpenNewChatModal.emit(true);
   }
 
   protected async handleInputSearch(event: any) {
