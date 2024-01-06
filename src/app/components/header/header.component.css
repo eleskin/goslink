@@ -23,7 +23,7 @@
 .app-header__button {
   align-items: center;
   background-color: transparent;
-  border: 1px solid var(--main-light-gray-color-2);
+  border: var(--main-border);
   border-radius: var(--main-border-radius);
   cursor: pointer;
   display: flex;
@@ -68,7 +68,7 @@
 .app-header__right > button {
   align-items: center;
   background-color: transparent;
-  border: 1px solid var(--main-light-gray-color-2);
+  border: var(--main-border);
   border-radius: var(--main-border-radius);
   cursor: pointer;
   display: flex;

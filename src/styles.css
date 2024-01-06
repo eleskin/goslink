@@ -18,6 +18,8 @@
 
   --main-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
 
+  --main-border: 1px solid var(--main-light-gray-color-2);
+
   --main-transition: all 0.2s linear;
 }
 

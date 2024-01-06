@@ -32,7 +32,7 @@
 .app-new-chat-modal__chat > span {
   align-items: center;
   background-color: var(--main-light-gray-color);
-  border: 1px solid var(--main-light-gray-color-2);
+  border: var(--main-border);
   border-radius: 50%;
   color: var(--main-white-color);
   display: flex;
