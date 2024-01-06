@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ButtonComponent} from '../../ui/button/button.component';
-import {CheckboxComponent} from '../../components/checkbox/checkbox.component';
+import {CheckboxComponent} from '../../ui/checkbox/checkbox.component';
 import {FormComponent} from '../../ui/form/form.component';
 import {InputComponent} from '../../ui/input/input.component';
 import {Router, RouterLink} from '@angular/router';
