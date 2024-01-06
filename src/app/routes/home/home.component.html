@@ -1,5 +1,5 @@
 <div class="app-home">
-  <app-rooms-list (handleOpenNewChatModal)="handleOpenModal()"/>
+  <app-sidebar (handleOpenNewChatModal)="handleOpenModal()"/>
   <app-chat *ngIf="visibleChat"/>
   <app-new-chat-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()"/>
 </div>

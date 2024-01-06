@@ -1,5 +1,4 @@
 import {Component, inject} from '@angular/core';
-import {RoomsListComponent} from '../../components/rooms-list/rooms-list.component';
 import {ChatComponent} from '../../components/chat/chat.component';
 import {NgIf} from '@angular/common';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
@@ -10,16 +9,17 @@ import UserStore from '../../store/user/user.store';
 import {Subscription} from 'rxjs';
 import {ModalComponent} from '../../ui/modal/modal.component';
 import {NewChatModalComponent} from '../../components/new-chat-modal/new-chat-modal.component';
+import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    RoomsListComponent,
     ChatComponent,
     NgIf,
     ModalComponent,
     NewChatModalComponent,
+    SidebarComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
