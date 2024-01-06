@@ -69,7 +69,6 @@ export class HomeComponent {
   }
 
   protected handleCloseModal() {
-    console.log(1);
     this.visibleModal = false;
   }
 
