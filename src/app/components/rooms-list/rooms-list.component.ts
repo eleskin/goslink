@@ -1,6 +1,6 @@
 import {Component, effect, inject} from '@angular/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {InputComponent} from '../input/input.component';
+import {InputComponent} from '../../ui/input/input.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';

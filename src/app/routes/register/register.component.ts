@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {ButtonComponent} from '../../components/button/button.component';
+import {ButtonComponent} from '../../ui/button/button.component';
 import {CheckboxComponent} from '../../components/checkbox/checkbox.component';
-import {FormComponent} from '../../components/form/form.component';
-import {InputComponent} from '../../components/input/input.component';
+import {FormComponent} from '../../ui/form/form.component';
+import {InputComponent} from '../../ui/input/input.component';
 import {Router, RouterLink} from '@angular/router';
 import setJWT from '../../utils/setJWT';
 import {HttpClient} from '@angular/common/http';

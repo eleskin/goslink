@@ -1,7 +1,7 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
-import {ButtonComponent} from '../button/button.component';
+import {ButtonComponent} from '../../ui/button/button.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {InputComponent} from '../input/input.component';
+import {InputComponent} from '../../ui/input/input.component';
 import {NgIf} from '@angular/common';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
