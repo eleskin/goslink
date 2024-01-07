@@ -4,6 +4,8 @@ import {NgOptimizedImage} from '@angular/common';
 import {RoomsListComponent} from '../rooms-list/rooms-list.component';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import User from '../../interfaces/user';
+import {WebsocketService} from '../../services/websocket/websocket.service';
+import UserStore from '../../store/user/user.store';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,8 +22,9 @@ export class SidebarComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   @Output() public handleOpenNewChatModal = new EventEmitter<boolean>();
   protected rooms: User[] = [];
+  private readonly userStore = inject(UserStore);
 
-  constructor() {
+  constructor(private webSocketService: WebsocketService) {
     effect(() => {
       this.rooms = this.webSocketStore.rooms();
     });
@@ -32,6 +35,9 @@ export class SidebarComponent {
   }
 
   protected handleChangeInput(event: any) {
-    console.log(event.target.value);
+    this.webSocketService.webSocket?.sendJSON('SEARCH_MESSAGE', {
+      userId: this.userStore.user()._id,
+      searchValue: event.target.value,
+    })
   }
 }
