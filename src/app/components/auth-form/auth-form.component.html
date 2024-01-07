@@ -1,4 +1,4 @@
-<div class="app-login">
+<div class="app-auth-form">
   <app-form (submit)="handleFormSubmit($event)">
     <h2 class="app-title--2">{{ formType === 'login' ? 'Log in'  : 'Sign up' }}</h2>
 
@@ -46,7 +46,7 @@
       type="submit"
     />
 
-    <footer class="app-login__footer">
+    <footer class="app-auth-form__footer">
       <a [routerLink]="formType === 'register' ? 'login'  : 'register'">
         {{ formType === 'register' ? 'Log in'  : 'Sign up' }}
       </a>
