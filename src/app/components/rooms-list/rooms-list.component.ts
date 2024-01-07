@@ -20,7 +20,7 @@ export class RoomsListComponent {
   @Input() rooms!: User[];
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   @Input() public visibleModal = false;
-  @Input() searchList = false;
+  @Input() public searchList = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.router.events.subscribe(async (value) => {
@@ -30,7 +30,11 @@ export class RoomsListComponent {
     });
   }
 
-  protected handleCloseModal() {
+  protected handleCloseModal(room: User) {
     this.handleVisibleModal.emit(false);
+
+    if (this.searchList) {
+      console.log(room.lastMessage?._id);
+    }
   }
 }

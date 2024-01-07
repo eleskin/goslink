@@ -1,9 +1,9 @@
 <div class="app-rooms-list">
   <a
     *ngFor="let room of rooms"
-    [class]="['app-rooms-list__chat', room._id === contactId ? 'app-rooms-list__chat--active' : '']"
+    [class]="['app-rooms-list__chat', room._id === contactId && !searchList ? 'app-rooms-list__chat--active' : '']"
     [routerLink]="'/chat/' + room._id"
-    (click)="handleCloseModal()"
+    (click)="handleCloseModal(room)"
   >
     <app-rooms-item [room]="room"/>
   </a>
