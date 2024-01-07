@@ -45,8 +45,8 @@
   font-size: 14px;
   height: 20px;
   justify-content: center;
-  padding: var(--main-padding) 0;
-  transform: translateY(var(--main-padding));
+  padding: var(--main-padding);
+  text-align: center;
 }
 
 .app-chat-container__message--unread::before {
