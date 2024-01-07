@@ -1,13 +1,12 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from '@ngrx/signals';
 import User from '../../interfaces/user';
 import Message from '../../interfaces/message';
-import Room from '../../interfaces/room';
 import {computed} from '@angular/core';
 
 type WebsocketState = {
   readyState: number,
   contactId: string,
-  rooms: Room[],
+  rooms: User[],
   searchedUser: User | undefined,
   contact: User | undefined,
   messagesByDates: { date: string, messages: Message[] }[],

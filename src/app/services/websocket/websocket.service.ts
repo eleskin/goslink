@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import Message from '../../interfaces/message';
-import Room from '../../interfaces/room';
+import User from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -96,7 +96,7 @@ export class WebsocketService {
     }
   }
 
-  private setLastRoomMessage(rooms: Room[], message: Message, userId?: string, contactId?: string) {
+  private setLastRoomMessage(rooms: User[], message: Message, userId?: string, contactId?: string) {
     if (!message && userId && contactId) {
       this.webSocketStore.deleteRoom(userId);
       this.webSocketStore.deleteRoom(contactId);
@@ -111,8 +111,8 @@ export class WebsocketService {
     }
 
     rooms.sort((room1, room2) => {
-      const date1 = new Date(room1.lastMessageDate);
-      const date2 = new Date(room2.lastMessageDate);
+      const date1 = new Date(room1.lastMessageDate ?? '');
+      const date2 = new Date(room2.lastMessageDate ?? '');
 
       if (date1 > date2) return -1;
       if (date1 < date2) return 1;
