@@ -1,9 +1,9 @@
 .app-sidebar {
-  align-items: flex-start;
-  display: grid;
-  grid-template-columns: 100%;
+  display: flex;
+  flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
   padding: 0 var(--main-border-radius);
+  height: 100%;
 }
 
 .app-sidebar__search {
