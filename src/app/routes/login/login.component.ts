@@ -8,6 +8,7 @@ import setJWT from '../../utils/setJWT';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {AuthFormComponent} from '../../components/auth-form/auth-form.component';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ import {FormsModule} from '@angular/forms';
     RouterLink,
     FormComponent,
     FormsModule,
+    AuthFormComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',

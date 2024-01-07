@@ -7,6 +7,7 @@ import {Router, RouterLink} from '@angular/router';
 import setJWT from '../../utils/setJWT';
 import {HttpClient} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {AuthFormComponent} from '../../components/auth-form/auth-form.component';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ import {FormsModule} from '@angular/forms';
     InputComponent,
     RouterLink,
     FormsModule,
+    AuthFormComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
