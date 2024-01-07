@@ -78,15 +78,14 @@ const WebsocketStore = signalStore(
         return {
           date: item.date,
           messages: item.messages
-            .filter((message) => message.userId === state.userId && message.contactId === state.contactId)
             .map((message) => {
-              message.checked = true;
+              if (message.userId === state.userId && message.contactId === state.contactId) message.checked = true;
               return message;
             }),
         };
       });
 
-      // patchState(store, {messagesByDates});
+      patchState(store, {messagesByDates});
     },
     deleteRoom(state = '') {
       const rooms = store.rooms().filter((room: any) => room._id !== state);
