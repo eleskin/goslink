@@ -7,6 +7,7 @@ import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
 import Message from '../../interfaces/message';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,6 +18,7 @@ import Message from '../../interfaces/message';
     RoomsListComponent,
     NgForOf,
     NgIf,
+    RouterLink,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
