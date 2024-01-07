@@ -11,6 +11,7 @@ type WebsocketState = {
   contact: User | undefined,
   messagesByDates: { date: string, messages: Message[] }[],
   onlineUsers: string[],
+  searchedMessages: Message[],
 };
 
 const initialState: WebsocketState = {
@@ -21,6 +22,7 @@ const initialState: WebsocketState = {
   contact: undefined,
   messagesByDates: [],
   onlineUsers: [],
+  searchedMessages: [],
 };
 
 const WebsocketStore = signalStore(
@@ -97,6 +99,9 @@ const WebsocketStore = signalStore(
     setOfflineUser(state = '') {
       const onlineUsers = store.onlineUsers().filter((user) => user !== state);
       patchState(store, {onlineUsers});
+    },
+    setSearchedMessages(state = []) {
+      patchState(store, {searchedMessages: state});
     },
   })),
 );
