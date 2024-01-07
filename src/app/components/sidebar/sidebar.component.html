@@ -1,6 +1,6 @@
 <div class="app-sidebar">
   <div class="app-sidebar__search">
-    <app-input [placeholder]="'Search'"/>
+    <app-input [placeholder]="'Search'" (input)="handleChangeInput($event)"/>
     <button (click)="handleClickNewChatButton()">
       <img alt="" height="32" ngSrc="assets/icons/pencil.svg" width="32">
     </button>

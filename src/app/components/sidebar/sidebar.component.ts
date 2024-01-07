@@ -30,4 +30,8 @@ export class SidebarComponent {
   protected handleClickNewChatButton() {
     this.handleOpenNewChatModal.emit(true);
   }
+
+  protected handleChangeInput(event: any) {
+    console.log(event.target.value);
+  }
 }
