@@ -7,6 +7,6 @@
   </div>
   <div class="app-sidebar__content">
     <app-rooms-list *ngIf="!searchFieldValue" [rooms]="rooms"/>
-    <app-rooms-list *ngIf="searchFieldValue" [rooms]="searchedMessages"/>
+    <app-rooms-list *ngIf="searchFieldValue" [rooms]="searchedMessages" [searchList]="true"/>
   </div>
 </div>

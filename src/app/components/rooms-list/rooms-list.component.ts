@@ -20,6 +20,7 @@ export class RoomsListComponent {
   @Input() rooms!: User[];
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   @Input() public visibleModal = false;
+  @Input() searchList = false;
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.router.events.subscribe(async (value) => {
