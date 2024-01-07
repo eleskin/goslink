@@ -1,6 +1,6 @@
 <app-auth-form
   formType="register"
-  [handleFormSubmit]="handleFormSubmit"
+  (submit)="handleFormSubmit($event)"
   [(nameValue)]="nameValue"
   [(usernameValue)]="usernameValue"
   [(emailValue)]="emailValue"

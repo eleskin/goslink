@@ -30,7 +30,6 @@ export class AuthFormComponent {
   private _passwordValue = '';
   private _rememberValue = false;
 
-  @Input() handleFormSubmit!: (event: any) => void;
   @Input() formType!: 'login' | 'register';
 
   @Input()
@@ -83,9 +82,15 @@ export class AuthFormComponent {
     return this._rememberValue;
   }
 
+  protected handleFormSubmit(event: any) {
+    this.submit.emit(event);
+  }
+
   @Output() nameValueChange = new EventEmitter<string>();
   @Output() usernameValueChange = new EventEmitter<string>();
   @Output() emailValueChange = new EventEmitter<string>();
   @Output() passwordValueChange = new EventEmitter<string>();
   @Output() rememberValueChange = new EventEmitter<boolean>();
+
+  @Output() submit = new EventEmitter<any>();
 }
