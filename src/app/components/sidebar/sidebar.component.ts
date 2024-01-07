@@ -29,6 +29,7 @@ export class SidebarComponent {
   private readonly userStore = inject(UserStore);
   protected searchedMessages: User[] = [];
   protected userId = '';
+  protected searchFieldValue = '';
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
@@ -43,6 +44,7 @@ export class SidebarComponent {
   }
 
   protected handleChangeInput(event: any) {
+    this.searchFieldValue = event.target.value;
     this.webSocketService.webSocket?.sendJSON('SEARCH_MESSAGE', {
       userId: this.userStore.user()._id,
       searchValue: event.target.value,

@@ -1,12 +1,12 @@
 <div class="app-sidebar">
   <div class="app-sidebar__search">
-    <app-input [placeholder]="'Search'" (input)="handleChangeInput($event)"/>
+    <app-input [placeholder]="'Search'" [value]="searchFieldValue" (input)="handleChangeInput($event)"/>
     <button (click)="handleClickNewChatButton()">
       <img alt="" height="32" ngSrc="assets/icons/pencil.svg" width="32">
     </button>
   </div>
   <div class="app-sidebar__content">
-    <app-rooms-list *ngIf="!searchedMessages.length" [rooms]="rooms"/>
-    <app-rooms-list *ngIf="searchedMessages.length" [rooms]="searchedMessages"/>
+    <app-rooms-list *ngIf="!searchFieldValue" [rooms]="rooms"/>
+    <app-rooms-list *ngIf="searchFieldValue" [rooms]="searchedMessages"/>
   </div>
 </div>
