@@ -10,7 +10,6 @@
         placeholder="Name"
         type="text"
       />
-      <em>{{ registerFormErrors.nameValue }}</em>
     </div>
     <div>
       <app-input
@@ -20,7 +19,6 @@
         placeholder="Username"
         type="text"
       />
-      <em>{{ registerFormErrors.usernameValue }}</em>
     </div>
     <div>
       <app-input
@@ -30,7 +28,6 @@
         placeholder="Email"
         type="email"
       />
-      <em>{{ registerFormErrors.emailValue }}</em>
     </div>
     <div>
       <app-input
@@ -40,16 +37,7 @@
         placeholder="Password"
         type="password"
       />
-      <em>{{ registerFormErrors.passwordValue }}</em>
     </div>
-    <!--      <app-input-->
-    <!--        [(ngModel)]="repeatPasswordValue"-->
-    <!--        [required]="true"-->
-    <!--        ngDefaultControl-->
-    <!--        placeholder="Repeat password"-->
-    <!--        type="password"-->
-    <!--      />-->
-    <!--      <em>{{ registerFormErrors.repeatPasswordValue }}</em>-->
     <app-button text="Sign up" type="submit"/>
     <footer class="app-register__footer">
       <a routerLink="/login">Log in</a>

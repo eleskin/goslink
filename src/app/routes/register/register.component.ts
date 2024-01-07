@@ -27,32 +27,12 @@ export class RegisterComponent {
   protected usernameValue: string = '';
   protected emailValue: string = '';
   protected passwordValue: string = '';
-  protected repeatPasswordValue: string = '';
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  private _registerFormErrors = {
-    nameValue: '',
-    usernameValue: '',
-    emailValue: '',
-    passwordValue: '',
-    repeatPasswordValue: '',
-  };
-
-  protected get registerFormErrors() {
-    return this._registerFormErrors;
-  }
-
-  protected set registerFormErrors(event: typeof this._registerFormErrors) {
-    this._registerFormErrors = {...event};
-  }
-
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
-    if (this.passwordValue !== this.repeatPasswordValue) {
-      // this.registerFormErrors = {...this.registerFormErrors, repeatPasswordValue: 'The passwords don\'t match'};
-    }
 
     this.http.post('http://localhost:3000/api/user/auth/register', {
       name: this.nameValue,
