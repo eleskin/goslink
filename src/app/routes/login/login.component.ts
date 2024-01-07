@@ -1,25 +1,13 @@
 import {Component} from '@angular/core';
-import {InputComponent} from '../../ui/input/input.component';
-import {ButtonComponent} from '../../ui/button/button.component';
-import {CheckboxComponent} from '../../ui/checkbox/checkbox.component';
-import {RouterLink} from '@angular/router';
-import {FormComponent} from '../../ui/form/form.component';
 import setJWT from '../../utils/setJWT';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
 import {AuthFormComponent} from '../../components/auth-form/auth-form.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    InputComponent,
-    ButtonComponent,
-    CheckboxComponent,
-    RouterLink,
-    FormComponent,
-    FormsModule,
     AuthFormComponent,
   ],
   templateUrl: './login.component.html',
