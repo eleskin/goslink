@@ -44,7 +44,7 @@ export class AuthFormComponent {
 
   @Input()
   set usernameValue(value: string) {
-    this.nameValueChange.emit(value);
+    this.usernameValueChange.emit(value);
     this._usernameValue = value;
   }
 
