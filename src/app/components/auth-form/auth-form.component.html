@@ -2,15 +2,54 @@
   <app-form (submit)="handleFormSubmit($event)">
     <h2 class="app-title--2">{{ formType === 'login' ? 'Log in'  : 'Sign up' }}</h2>
 
-    <app-input *ngIf="formType === 'register'" [(ngModel)]="nameValue" [required]="true" ngDefaultControl placeholder="Name" type="text"/>
-    <app-input *ngIf="formType === 'register'" [(ngModel)]="usernameValue" [required]="true" ngDefaultControl placeholder="Username" type="text"/>
-    <app-input *ngIf="formType === 'login'" [(ngModel)]="emailValue" [required]="true" ngDefaultControl placeholder="Email" type="email"/>
-    <app-input *ngIf="formType === 'login'" [(ngModel)]="passwordValue" [required]="true" ngDefaultControl placeholder="Password" type="password"/>
-    <app-checkbox *ngIf="formType === 'login'" [(ngModel)]="rememberValue" [required]="true" label="Remember me" ngDefaultControl/>
-    <app-button [text]="formType === 'login' ? 'Log in'  : 'Sign up'" type="submit"/>
+    <app-input
+      *ngIf="formType === 'register'"
+      [(ngModel)]="nameValue"
+      [required]="true"
+      ngDefaultControl
+      placeholder="Name"
+      type="text"
+    />
+    <app-input
+      *ngIf="formType === 'register'"
+      [(ngModel)]="usernameValue"
+      [required]="true"
+      ngDefaultControl
+      placeholder="Username"
+      type="text"
+    />
+    <app-input
+      *ngIf="formType === 'login'"
+      [(ngModel)]="emailValue"
+      [required]="true"
+      ngDefaultControl
+      placeholder="Email"
+      type="email"
+    />
+    <app-input
+      *ngIf="formType === 'login'"
+      [(ngModel)]="passwordValue"
+      [required]="true"
+      ngDefaultControl
+      placeholder="Password"
+      type="password"
+    />
+    <app-checkbox
+      *ngIf="formType === 'login'"
+      [(ngModel)]="rememberValue"
+      [required]="true"
+      label="Remember me"
+      ngDefaultControl
+    />
+    <app-button
+      [text]="formType === 'login' ? 'Log in'  : 'Sign up'"
+      type="submit"
+    />
 
     <footer class="app-login__footer">
-      <a [routerLink]="formType === 'register' ? 'login'  : 'register'">{{ formType === 'register' ? 'Log in'  : 'Sign up' }}</a>
+      <a [routerLink]="formType === 'register' ? 'login'  : 'register'">
+        {{ formType === 'register' ? 'Log in'  : 'Sign up' }}
+      </a>
     </footer>
   </app-form>
 </div>

@@ -26,9 +26,9 @@ import {NgIf} from '@angular/common';
 export class AuthFormComponent {
   @Input() handleFormSubmit!: (event: any) => void;
   @Input() formType!: 'login' | 'register';
-  protected nameValue: string = '';
-  protected usernameValue: string = '';
-  protected emailValue: string = '';
-  protected passwordValue: string = '';
-  protected rememberValue: boolean = false;
+  @Input() nameValue?: string = '';
+  @Input() usernameValue?: string = '';
+  @Input() emailValue: string = '';
+  @Input() passwordValue: string = '';
+  @Input() rememberValue?: boolean = false;
 }
