@@ -46,13 +46,16 @@ export class ChatContainerComponent {
       if (value instanceof NavigationEnd) {
         const params = new URLSearchParams(value.url.split('?')[1]);
         const messageValue = params.get('message');
-        console.log(messageValue);
 
         const interval = setInterval(() => {
-          const messageElement = document.querySelector(`#message-${messageValue}`);
+          const messageElement: HTMLElement | null = document.querySelector(`#message-${messageValue}`) as HTMLElement;
 
           if (messageElement) {
             messageElement.scrollIntoView({behavior: 'smooth'});
+            messageElement.style.background = 'var(--main-color-3)';
+            setTimeout(() => {
+              messageElement.style.background = '';
+            }, 1000)
             clearInterval(interval);
           }
         }, 100);
