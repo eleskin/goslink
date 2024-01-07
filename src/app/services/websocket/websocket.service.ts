@@ -71,8 +71,8 @@ export class WebsocketService {
     ['READ_MESSAGE', (event: any) => {
       this.webSocketStore.setRead(event.detail.data._id);
     }],
-    ['READ_ALL_MESSAGE', () => {
-      this.webSocketStore.setAllRead();
+    ['READ_ALL_MESSAGE', (event: any) => {
+      this.webSocketStore.setAllRead(event.detail.data);
     }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [

@@ -73,13 +73,16 @@ const WebsocketStore = signalStore(
 
       patchState(store, {messagesByDates});
     },
-    setAllRead() {
+    setAllRead(state: { userId: string, contactId: string }) {
       const messagesByDates = store.messagesByDates().map((item) => {
         return {
-          date: item.date, messages: item.messages.map((message) => {
-            message.checked = true;
-            return message;
-          }),
+          date: item.date,
+          messages: item.messages
+            .filter((message) => message.userId === state.userId && message.contactId === state.contactId)
+            .map((message) => {
+              message.checked = true;
+              return message;
+            }),
         };
       });
 
