@@ -24,11 +24,7 @@ export class ChatComponent {
   protected changedMessage: Message | undefined;
   private readonly userStore = inject(UserStore);
 
-  constructor(
-    private route: ActivatedRoute,
-    private webSocketService: WebsocketService,
-  ) {
-    this.setEdit = this.setEdit.bind(this);
+  constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
   }
 
   ngOnInit() {
@@ -45,7 +41,7 @@ export class ChatComponent {
     });
   }
 
-  protected setEdit(data: boolean, message?: Message) {
+  protected setEdit({data, message}: {data: boolean, message?: Message}) {
     this.edit = data;
     this.message = message?.text ?? '';
     this.changedMessage = message;

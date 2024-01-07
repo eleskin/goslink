@@ -19,7 +19,6 @@ export class LoginComponent {
   protected rememberValue: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   protected async handleFormSubmit(event: any) {

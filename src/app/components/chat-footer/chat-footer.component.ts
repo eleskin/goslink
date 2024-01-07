@@ -19,11 +19,13 @@ import UserStore from '../../store/user/user.store';
   styleUrl: './chat-footer.component.css',
 })
 export class ChatFooterComponent {
-  @Input() public setEdit!: (event: boolean, message?: Message) => void;
+  protected setEdit (data: boolean, message?: Message) {
+    this.edit.emit({data, message});
+  };
   @Input() public message!: string;
   @Input() public changedMessage!: Message | undefined;
   @Input() public editValue: boolean = false;
-  @Output() public edit = new EventEmitter<boolean>();
+  @Output() public edit = new EventEmitter<any>();
   private readonly userStore = inject(UserStore);
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService) {
@@ -43,7 +45,7 @@ export class ChatFooterComponent {
     }
 
     this.message = '';
-    this.edit.emit(false);
+    this.edit.emit({data: false});
     this.changedMessage = undefined;
   }
 

@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject, Input, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, EventEmitter, inject, Output, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
@@ -21,7 +21,9 @@ import isAvailableScrollChat from '../../utils/isAvailableScrollChat';
   styleUrl: './chat-container.component.css',
 })
 export class ChatContainerComponent {
-  @Input() public setEdit!: (event: boolean, message?: Message) => void;
+  protected setEdit (data: boolean, message?: Message) {
+    this.edit.emit({data, message});
+  };
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
   protected allMessagesList: Message[] = [];
   protected firstUnreadMessageId = '';
@@ -29,6 +31,7 @@ export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
+  @Output() public edit = new EventEmitter<any>();
 
   constructor(
     private route: ActivatedRoute,
