@@ -3,40 +3,16 @@
     <h2 class="app-title--2">Sign up</h2>
 
     <div>
-      <app-input
-        [(ngModel)]="nameValue"
-        [required]="true"
-        ngDefaultControl
-        placeholder="Name"
-        type="text"
-      />
+      <app-input [(ngModel)]="nameValue" [required]="true" ngDefaultControl placeholder="Name" type="text"/>
     </div>
     <div>
-      <app-input
-        [(ngModel)]="usernameValue"
-        [required]="true"
-        ngDefaultControl
-        placeholder="Username"
-        type="text"
-      />
+      <app-input [(ngModel)]="usernameValue" [required]="true" ngDefaultControl placeholder="Username" type="text"/>
     </div>
     <div>
-      <app-input
-        [(ngModel)]="emailValue"
-        [required]="true"
-        ngDefaultControl
-        placeholder="Email"
-        type="email"
-      />
+      <app-input [(ngModel)]="emailValue" [required]="true" ngDefaultControl placeholder="Email" type="email"/>
     </div>
     <div>
-      <app-input
-        [(ngModel)]="passwordValue"
-        [required]="true"
-        ngDefaultControl
-        placeholder="Password"
-        type="password"
-      />
+      <app-input [(ngModel)]="passwordValue" [required]="true" ngDefaultControl placeholder="Password" type="password"/>
     </div>
     <app-button text="Sign up" type="submit"/>
     <footer class="app-register__footer">

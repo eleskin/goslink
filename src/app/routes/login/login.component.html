@@ -2,9 +2,9 @@
   <app-form (submit)="handleFormSubmit($event)">
     <h2 class="app-title--2">Log in</h2>
 
-    <app-input [(ngModel)]="emailValue" ngDefaultControl placeholder="Email" type="email"/>
-    <app-input [(ngModel)]="passwordValue" ngDefaultControl placeholder="Password" type="password"/>
-    <app-checkbox [(ngModel)]="rememberValue" label="Remember me" ngDefaultControl/>
+    <app-input [(ngModel)]="emailValue" [required]="true" ngDefaultControl placeholder="Email" type="email"/>
+    <app-input [(ngModel)]="passwordValue" [required]="true" ngDefaultControl placeholder="Password" type="password"/>
+    <app-checkbox [(ngModel)]="rememberValue" [required]="true" label="Remember me" ngDefaultControl/>
     <app-button text="Login" type="submit"/>
 
     <footer class="app-login__footer">
