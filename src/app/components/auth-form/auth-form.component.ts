@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ButtonComponent} from '../../ui/button/button.component';
 import {CheckboxComponent} from '../../ui/checkbox/checkbox.component';
 import {FormComponent} from '../../ui/form/form.component';
@@ -21,5 +21,6 @@ import {RouterLink} from '@angular/router';
   styleUrl: './auth-form.component.css'
 })
 export class AuthFormComponent {
-
+  @Input() handleFormSubmit!: (event: any) => void;
+  @Input() formType!: 'login' | 'register';
 }
