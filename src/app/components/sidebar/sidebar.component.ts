@@ -29,11 +29,13 @@ export class SidebarComponent {
   protected rooms: User[] = [];
   private readonly userStore = inject(UserStore);
   protected searchedMessages: Message[] = [];
+  protected userId = '';
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
       this.rooms = this.webSocketStore.rooms();
       this.searchedMessages = this.webSocketStore.searchedMessages();
+      this.userId = this.userStore.user()._id;
     });
   }
 
