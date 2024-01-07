@@ -30,11 +30,11 @@ export class RoomsListComponent {
     });
   }
 
-  protected handleCloseModal(room: User) {
+  protected async handleCloseModal(room: User) {
     this.handleVisibleModal.emit(false);
 
     if (this.searchList) {
-      console.log(room.lastMessage?._id);
+      await this.router.navigate([`/chat/${room._id}`], {queryParams: {message: room.lastMessage?._id}});
     }
   }
 }
