@@ -60,3 +60,8 @@
   white-space: nowrap;
   width: 100%;
 }
+
+.app-rooms-item > div > span > em {
+  font-style: normal;
+  color: var(--main-color)
+}
