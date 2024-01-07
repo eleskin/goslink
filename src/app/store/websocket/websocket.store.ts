@@ -11,7 +11,7 @@ type WebsocketState = {
   contact: User | undefined,
   messagesByDates: { date: string, messages: Message[] }[],
   onlineUsers: string[],
-  searchedMessages: Message[],
+  searchedMessages: User[],
 };
 
 const initialState: WebsocketState = {

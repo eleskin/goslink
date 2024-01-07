@@ -6,10 +6,5 @@
     </button>
   </div>
   <app-rooms-list *ngIf="!searchedMessages.length" [rooms]="rooms"/>
-  <a
-    [routerLink]="'/chat/' + (userId === message.userId ? message.contactId : message.userId)"
-    *ngFor="let message of searchedMessages"
-  >
-    {{ message.text }}
-  </a>
+  <app-rooms-list *ngIf="searchedMessages.length" [rooms]="searchedMessages"/>
 </div>
