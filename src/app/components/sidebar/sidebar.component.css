@@ -1,7 +1,7 @@
 .app-sidebar {
   align-items: flex-start;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 100%;
   grid-row-gap: var(--main-grid-gap);
   padding: 0 var(--main-border-radius);
 }
