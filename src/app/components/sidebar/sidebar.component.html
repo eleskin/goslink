@@ -5,6 +5,8 @@
       <img alt="" height="32" ngSrc="assets/icons/pencil.svg" width="32">
     </button>
   </div>
-  <app-rooms-list *ngIf="!searchedMessages.length" [rooms]="rooms"/>
-  <app-rooms-list *ngIf="searchedMessages.length" [rooms]="searchedMessages"/>
+  <div class="app-sidebar__content">
+    <app-rooms-list *ngIf="!searchedMessages.length" [rooms]="rooms"/>
+    <app-rooms-list *ngIf="searchedMessages.length" [rooms]="searchedMessages"/>
+  </div>
 </div>

@@ -40,3 +40,7 @@
   background-color: var(--main-light-gray-color);
   border-color: var(--main-light-gray-color);
 }
+
+.app-sidebar__content {
+  height: calc(100vh - 48px);
+}
