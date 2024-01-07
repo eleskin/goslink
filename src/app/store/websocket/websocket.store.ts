@@ -78,7 +78,7 @@ const WebsocketStore = signalStore(
         return {
           date: item.date,
           messages: item.messages
-            // .filter((message) => message.userId === state.userId && message.contactId === state.contactId)
+            .filter((message) => message.userId === state.userId && message.contactId === state.contactId)
             .map((message) => {
               message.checked = true;
               return message;
@@ -86,7 +86,7 @@ const WebsocketStore = signalStore(
         };
       });
 
-      patchState(store, {messagesByDates});
+      // patchState(store, {messagesByDates});
     },
     deleteRoom(state = '') {
       const rooms = store.rooms().filter((room: any) => room._id !== state);
