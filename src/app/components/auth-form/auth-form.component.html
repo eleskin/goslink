@@ -19,7 +19,6 @@
       type="text"
     />
     <app-input
-      *ngIf="formType === 'login'"
       [(ngModel)]="emailValue"
       [required]="true"
       ngDefaultControl
@@ -27,7 +26,6 @@
       type="email"
     />
     <app-input
-      *ngIf="formType === 'login'"
       [(ngModel)]="passwordValue"
       [required]="true"
       ngDefaultControl
@@ -47,7 +45,7 @@
     />
 
     <footer class="app-auth-form__footer">
-      <a [routerLink]="formType === 'register' ? 'login'  : 'register'">
+      <a [routerLink]="formType === 'register' ? '/login'  : '/register'">
         {{ formType === 'register' ? 'Log in'  : 'Sign up' }}
       </a>
     </footer>
