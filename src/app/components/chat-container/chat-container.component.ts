@@ -83,17 +83,17 @@ export class ChatContainerComponent {
 
       this.scrollContainerToFirstUnread();
 
-      this.intersectionObserverService.setupIntersectionObserver(
-        this.chatRef?.nativeElement,
-        this.route.snapshot.paramMap.get('_id') ?? '',
-      );
+      // this.intersectionObserverService.setupIntersectionObserver(
+      //   this.chatRef?.nativeElement,
+      //   this.route.snapshot.paramMap.get('_id') ?? '',
+      // );
     });
   }
 
   ngOnDestroy() {
-    if (this.intersectionObserverService.observer) {
-      this.intersectionObserverService.observer.disconnect();
-    }
+    // if (this.intersectionObserverService.observer) {
+    //   this.intersectionObserverService.observer.disconnect();
+    // }
 
     if (this.routerEventSubscription) {
       this.routerEventSubscription.unsubscribe();
