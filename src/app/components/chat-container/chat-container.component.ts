@@ -82,12 +82,17 @@ export class ChatContainerComponent {
     if (params.get('message')) {
       await this.router.navigate([deleteParam(this.router.url, 'message')]);
     }
+
+    this.intersectionObserverService
+      .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
   }
 
   ngOnDestroy() {
     if (this.routerEventSubscription) {
       this.routerEventSubscription.unsubscribe();
     }
+
+    this.intersectionObserverService.observer?.unobserve(this.chatRef.nativeElement)
   }
 
   private scrollContainerToBottom() {
