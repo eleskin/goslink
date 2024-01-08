@@ -23,10 +23,7 @@ import deleteParam from '../../utils/deleteParam';
   styleUrl: './chat-container.component.css',
 })
 export class ChatContainerComponent {
-  protected setEdit(data: boolean, message?: Message) {
-    this.edit.emit({data, message});
-  };
-
+  @Output() public edit = new EventEmitter<any>();
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
   protected allMessagesList: Message[] = [];
   protected firstUnreadMessageId = '';
@@ -34,7 +31,6 @@ export class ChatContainerComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
   @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
-  @Output() public edit = new EventEmitter<any>();
   private readonly routerEventSubscription: Subscription;
 
   constructor(
@@ -55,7 +51,7 @@ export class ChatContainerComponent {
             messageElement.style.background = 'var(--main-color-3)';
             setTimeout(() => {
               messageElement.style.background = '';
-            }, 1000)
+            }, 1000);
             clearInterval(interval);
           }
         }, 100);
@@ -65,7 +61,7 @@ export class ChatContainerComponent {
 
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
-      console.log(this.messagesByDates)
+      console.log(this.messagesByDates);
       this.scrollContainer();
       this.userId = this.userStore.user()._id;
     });
@@ -99,6 +95,10 @@ export class ChatContainerComponent {
       this.routerEventSubscription.unsubscribe();
     }
   }
+
+  protected setEdit(data: boolean, message?: Message) {
+    this.edit.emit({data, message});
+  };
 
   private scrollContainer() {
     const params = new URLSearchParams(this.router.url.split('?')[1]);
