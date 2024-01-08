@@ -70,7 +70,7 @@ export class ChatContainerComponent {
       this.messagesByDates = this.webSocketStore.messagesByDates();
       this.userId = this.userStore.user()._id;
 
-      this.scrollContainerToBottom();
+      this.scrollContainer();
 
       this.allMessagesList = this.webSocketStore.allMessagesList();
     });
@@ -97,7 +97,7 @@ export class ChatContainerComponent {
 
   private scrollContainerToBottom() {
     const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
-    const isScrollDisabled = this.autoScrollDisabled && this.webSocketStore.allMessagesList().at(-1)?._id !== this.userId;
+    const isScrollDisabled = this.autoScrollDisabled && this.webSocketStore.allMessagesList().at(-1)?.userId !== this.userId;
 
     if (!isAddedMessage || isScrollDisabled) return;
 
@@ -111,7 +111,7 @@ export class ChatContainerComponent {
   };
 
   private scrollContainer() {
-    // const params = new URLSearchParams(this.router.url.split('?')[1]);
+    this.scrollContainerToBottom();
     // const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
     // this.allMessagesList = this.webSocketStore.allMessagesList();
     // const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userId;
