@@ -60,7 +60,6 @@ export class ChatContainerComponent {
 
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
-      console.log(this.messagesByDates);
       this.scrollContainer();
       this.userId = this.userStore.user()._id;
     });
