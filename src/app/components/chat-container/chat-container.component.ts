@@ -64,6 +64,7 @@ export class ChatContainerComponent {
 
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
+      console.log(this.messagesByDates)
       this.scrollContainer();
       this.userId = this.userStore.user()._id;
     });
@@ -109,11 +110,11 @@ export class ChatContainerComponent {
     if (params.get('message')) return;
 
     if (isSelfNewMessage && isAddedMessage) {
-      this.scrollContainerToBottom();
+      // this.scrollContainerToBottom();
     } else if (isCheckedLastMessage) {
-      this.scrollContainerToBottom();
+      // this.scrollContainerToBottom();
     } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
-      this.scrollContainerToBottom();
+      // this.scrollContainerToBottom();
     }
   }
 

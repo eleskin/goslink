@@ -127,8 +127,8 @@ export class WebsocketService {
   private groupMessagesByDate(messages: Message[]): { date: string, messages: Message[] }[] {
     const tempStorage: { [key: string]: { date: string, messages: Message[] } } = {};
 
-    messages.forEach((item: Message) => {
-      const dateKey = new Date(item.dateObject).toDateString();
+    for (let i = messages.length - 1; i >= 0; i--) {
+        const dateKey = new Date(messages[i].dateObject).toDateString();
 
       if (!tempStorage[dateKey]) {
         tempStorage[dateKey] = {
@@ -137,8 +137,8 @@ export class WebsocketService {
         };
       }
 
-      tempStorage[dateKey].messages.push(item);
-    });
+      tempStorage[dateKey].messages.push(messages[i]);
+    }
 
     return Object.values(tempStorage);
   }
