@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, EventEmitter, inject, Output, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, EventEmitter, HostListener, inject, Output, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
@@ -23,6 +23,13 @@ import deleteParam from '../../utils/deleteParam';
   styleUrl: './chat-container.component.css',
 })
 export class ChatContainerComponent {
+  @HostListener('scroll', ['$event'])
+  onScroll(event: any) {
+    const threshold = 80;
+    const position = event.target.scrollHeight - (event.target.scrollTop + event.target.clientHeight);
+    this.autoScrollDisabled = position > threshold;
+  }
+
   @Output() public edit = new EventEmitter<any>();
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
   protected allMessagesList: Message[] = [];
@@ -30,13 +37,14 @@ export class ChatContainerComponent {
   protected userId = '';
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
-  @ViewChild('chat') private chatRef: ElementRef<HTMLDivElement> | undefined;
   private readonly routerEventSubscription: Subscription;
+  private autoScrollDisabled = false;
 
   constructor(
     private route: ActivatedRoute,
     private intersectionObserverService: IntersectionObserverService,
     private router: Router,
+    private chatRef: ElementRef,
   ) {
     this.routerEventSubscription = this.router.events.subscribe(async (value) => {
       if (value instanceof NavigationEnd) {
@@ -60,8 +68,11 @@ export class ChatContainerComponent {
 
     effect(() => {
       this.messagesByDates = this.webSocketStore.messagesByDates();
-      this.scrollContainer();
       this.userId = this.userStore.user()._id;
+
+      this.scrollContainerToBottom(this.webSocketStore.allMessagesList().length > this.allMessagesList.length);
+
+      this.allMessagesList = this.webSocketStore.allMessagesList();
     });
   }
 
@@ -71,27 +82,20 @@ export class ChatContainerComponent {
     if (params.get('message')) {
       await this.router.navigate([deleteParam(this.router.url, 'message')]);
     }
-
-    setTimeout(() => {
-      if (!this.chatRef) return;
-
-      this.scrollContainerToFirstUnread();
-
-      this.intersectionObserverService.setupIntersectionObserver(
-        this.chatRef?.nativeElement,
-        this.route.snapshot.paramMap.get('_id') ?? '',
-      );
-    });
   }
 
   ngOnDestroy() {
-    if (this.intersectionObserverService.observer) {
-      this.intersectionObserverService.observer.disconnect();
-    }
-
     if (this.routerEventSubscription) {
       this.routerEventSubscription.unsubscribe();
     }
+  }
+
+  private scrollContainerToBottom(isAddedMessage: boolean) {
+    if (!isAddedMessage) return;
+
+    setTimeout(() => {
+      this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+    });
   }
 
   protected setEdit(data: boolean, message?: Message) {
@@ -99,42 +103,42 @@ export class ChatContainerComponent {
   };
 
   private scrollContainer() {
-    const params = new URLSearchParams(this.router.url.split('?')[1]);
-    const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
-    this.allMessagesList = this.webSocketStore.allMessagesList();
-    const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userId;
-
-    const isCheckedLastMessage = this.allMessagesList.at(-1)?.checked;
-
-    if (params.get('message')) return;
-
-    if (isSelfNewMessage && isAddedMessage) {
-      this.scrollContainerToBottom();
-    } else if (isCheckedLastMessage) {
-      this.scrollContainerToBottom();
-    } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
-      this.scrollContainerToBottom();
-    }
+    // const params = new URLSearchParams(this.router.url.split('?')[1]);
+    // const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
+    // this.allMessagesList = this.webSocketStore.allMessagesList();
+    // const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userId;
+    //
+    // const isCheckedLastMessage = this.allMessagesList.at(-1)?.checked;
+    //
+    // if (params.get('message')) return;
+    //
+    // if (isSelfNewMessage && isAddedMessage) {
+    //   // this.scrollContainerToBottom();
+    // } else if (isCheckedLastMessage) {
+    //   // this.scrollContainerToBottom();
+    // } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
+    //   // this.scrollContainerToBottom();
+    // }
   }
 
-  private scrollContainerToBottom() {
-    setTimeout(() => {
-      if (!this.chatRef) return;
-
-      this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-    });
-  }
-
-  private scrollContainerToFirstUnread() {
-    const allContactMessagesList = this.allMessagesList
-      .filter((message) => message.userId !== this.userId);
-    this.firstUnreadMessageId = allContactMessagesList.filter((message) => !message.checked)?.[0]?._id;
-
-    setTimeout(() => {
-      const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${this.firstUnreadMessageId}`) as HTMLElement;
-      if (firstUnreadMessageElement) {
-        firstUnreadMessageElement.scrollIntoView();
-      }
-    });
-  }
+  // private scrollContainerToBottom() {
+  //   setTimeout(() => {
+  //     if (!this.chatRef) return;
+  //
+  //     this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
+  //   });
+  // }
+  //
+  // private scrollContainerToFirstUnread() {
+  //   const allContactMessagesList = this.allMessagesList
+  //     .filter((message) => message.userId !== this.userId);
+  //   this.firstUnreadMessageId = allContactMessagesList.filter((message) => !message.checked)?.[0]?._id;
+  //
+  //   setTimeout(() => {
+  //     const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${this.firstUnreadMessageId}`) as HTMLElement;
+  //     if (firstUnreadMessageElement) {
+  //       firstUnreadMessageElement.scrollIntoView();
+  //     }
+  //   });
+  // }
 }
