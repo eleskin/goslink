@@ -70,7 +70,7 @@ export class ChatContainerComponent {
       this.messagesByDates = this.webSocketStore.messagesByDates();
       this.userId = this.userStore.user()._id;
 
-      this.scrollContainerToBottom(this.webSocketStore.allMessagesList().length > this.allMessagesList.length);
+      this.scrollContainerToBottom();
 
       this.allMessagesList = this.webSocketStore.allMessagesList();
     });
@@ -90,8 +90,11 @@ export class ChatContainerComponent {
     }
   }
 
-  private scrollContainerToBottom(isAddedMessage: boolean) {
-    if (!isAddedMessage) return;
+  private scrollContainerToBottom() {
+    const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
+    const isScrollDisabled = this.autoScrollDisabled && this.webSocketStore.allMessagesList().at(-1)?._id !== this.userId;
+
+    if (!isAddedMessage || isScrollDisabled) return;
 
     setTimeout(() => {
       this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
@@ -121,14 +124,6 @@ export class ChatContainerComponent {
     // }
   }
 
-  // private scrollContainerToBottom() {
-  //   setTimeout(() => {
-  //     if (!this.chatRef) return;
-  //
-  //     this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-  //   });
-  // }
-  //
   // private scrollContainerToFirstUnread() {
   //   const allContactMessagesList = this.allMessagesList
   //     .filter((message) => message.userId !== this.userId);
