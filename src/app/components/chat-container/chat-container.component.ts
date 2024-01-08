@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, EventEmitter, HostListener, inject, Output, ViewChild} from '@angular/core';
+import {Component, effect, ElementRef, EventEmitter, HostListener, inject, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
@@ -7,7 +7,6 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {IntersectionObserverService} from '../../services/intersection-observer/intersection-observer.service';
 import UserStore from '../../store/user/user.store';
-import isAvailableScrollChat from '../../utils/isAvailableScrollChat';
 import {Subscription} from 'rxjs';
 import deleteParam from '../../utils/deleteParam';
 
@@ -33,12 +32,12 @@ export class ChatContainerComponent {
   @Output() public edit = new EventEmitter<any>();
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
   protected allMessagesList: Message[] = [];
-  protected firstUnreadMessageId = '';
   protected userId = '';
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
   private readonly routerEventSubscription: Subscription;
   private autoScrollDisabled = false;
+  protected firstUnreadMessageId = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -92,8 +91,12 @@ export class ChatContainerComponent {
       this.routerEventSubscription.unsubscribe();
     }
 
-    this.intersectionObserverService.observer?.unobserve(this.chatRef.nativeElement)
+    this.intersectionObserverService.observer?.unobserve(this.chatRef.nativeElement);
   }
+
+  protected setEdit(data: boolean, message?: Message) {
+    this.edit.emit({data, message});
+  };
 
   private scrollContainerToBottom() {
     const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
@@ -106,12 +109,29 @@ export class ChatContainerComponent {
     });
   }
 
-  protected setEdit(data: boolean, message?: Message) {
-    this.edit.emit({data, message});
-  };
+  private scrollContainerToFirstUnread() {
+    const allContactMessagesList = this.allMessagesList
+      .filter((message) => message.userId !== this.userId);
+    this.firstUnreadMessageId = allContactMessagesList.find((message) => !message.checked)?._id ?? '';
+
+    setTimeout(() => {
+      const firstUnreadMessageElement: HTMLElement | null =
+        document.querySelector(`#message-${this.firstUnreadMessageId}`) as HTMLElement;
+      if (firstUnreadMessageElement) {
+        firstUnreadMessageElement.scrollIntoView();
+      }
+    });
+  }
 
   private scrollContainer() {
-    this.scrollContainerToBottom();
+    if (!this.allMessagesList.at(-1)?.checked
+      && this.allMessagesList.at(-1)?.userId !== this.userId
+    ) {
+      this.scrollContainerToFirstUnread();
+    } else {
+      this.scrollContainerToBottom();
+    }
+
     // const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
     // this.allMessagesList = this.webSocketStore.allMessagesList();
     // const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userId;
@@ -128,17 +148,4 @@ export class ChatContainerComponent {
     //   // this.scrollContainerToBottom();
     // }
   }
-
-  // private scrollContainerToFirstUnread() {
-  //   const allContactMessagesList = this.allMessagesList
-  //     .filter((message) => message.userId !== this.userId);
-  //   this.firstUnreadMessageId = allContactMessagesList.filter((message) => !message.checked)?.[0]?._id;
-  //
-  //   setTimeout(() => {
-  //     const firstUnreadMessageElement: HTMLElement | null = document.querySelector(`#message-${this.firstUnreadMessageId}`) as HTMLElement;
-  //     if (firstUnreadMessageElement) {
-  //       firstUnreadMessageElement.scrollIntoView();
-  //     }
-  //   });
-  // }
 }
