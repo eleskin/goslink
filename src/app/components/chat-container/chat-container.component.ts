@@ -55,7 +55,6 @@ export class ChatContainerComponent {
             clearInterval(interval);
           }
         }, 100);
-        clearInterval(interval);
       }
     });
 
