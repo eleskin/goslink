@@ -108,24 +108,20 @@ export class ChatContainerComponent {
 
     if (params.get('message')) return;
 
-    setTimeout(() => {
-      if (isSelfNewMessage && isAddedMessage) {
-        this.scrollContainerToBottom();
-      } else if (isCheckedLastMessage) {
-        this.scrollContainerToBottom();
-      } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
-        this.scrollContainerToBottom();
-      }
-    });
+    if (isSelfNewMessage && isAddedMessage) {
+      this.scrollContainerToBottom();
+    } else if (isCheckedLastMessage) {
+      this.scrollContainerToBottom();
+    } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
+      this.scrollContainerToBottom();
+    }
   }
 
   private scrollContainerToBottom() {
     setTimeout(() => {
       if (!this.chatRef) return;
 
-      this.chatRef?.nativeElement.removeEventListener('scroll', isAvailableScrollChat);
       this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
-      this.chatRef?.nativeElement.addEventListener('scroll', isAvailableScrollChat);
     });
   }
 
