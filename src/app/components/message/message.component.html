@@ -4,10 +4,10 @@
     <span>{{ message.text }}</span>
     <div *ngIf="selfMessage" class="app-message__control">
       <button (click)="handleClickEdit()">
-        <img alt="" height="20" ngSrc="assets/icons/pencil.svg" width="20">
+        <img alt="" loading="eager" height="20" ngSrc="assets/icons/pencil.svg" width="20">
       </button>
       <button (click)="handleClickDelete(message)">
-        <img alt="" height="20" ngSrc="assets/icons/trash.svg" width="20">
+        <img alt="" loading="eager" height="20" ngSrc="assets/icons/trash.svg" width="20">
       </button>
     </div>
     <footer class="app-message__footer">
@@ -15,8 +15,8 @@
         {{ message.time }}
       </em>
       <div *ngIf="selfMessage">
-        <img *ngIf="!message.checked" alt="" height="16" ngSrc="assets/icons/check.svg" width="16">
-        <img *ngIf="message.checked" alt="" height="16" ngSrc="assets/icons/double-check.svg" width="16">
+        <img loading="eager" *ngIf="!message.checked" alt="" height="16" ngSrc="assets/icons/check.svg" width="16">
+        <img loading="eager" *ngIf="message.checked" alt="" height="16" ngSrc="assets/icons/double-check.svg" width="16">
       </div>
     </footer>
   </div>
