@@ -37,7 +37,7 @@ export class ChatContainerComponent {
   private readonly routerEventSubscription: Subscription;
   private autoScrollDisabled = false;
   protected firstUnreadMessageId = '';
-  private isBlockedObserver = false;
+  private isInitScroll = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -103,6 +103,7 @@ export class ChatContainerComponent {
   }
 
   private scrollToFirstUnread() {
+    this.intersectionObserverService.destroyIntersectionObserver();
     setTimeout(() => {
       this.chatRef.nativeElement.querySelector(`#message-${this.firstUnreadMessageId}`)?.scrollIntoView();
       if (!this.webSocketStore.messages().find((message) => !message.checked)?._id) this.firstUnreadMessageId = '';
@@ -110,19 +111,25 @@ export class ChatContainerComponent {
   }
 
   private scrollContainer() {
-    // this.intersectionObserverService.destroyIntersectionObserver();
-
     const lastMessage = this.webSocketStore.messages().at(-1);
     const firstUnreadMessage = this.webSocketStore.messages().find((message) => !message.checked);
     const firstUnreadMessageUserId = firstUnreadMessage?.userId ?? '';
     this.firstUnreadMessageId = firstUnreadMessage?._id ?? '';
 
-    if (this.firstUnreadMessageId && firstUnreadMessageUserId !== this.userId && lastMessage?.userId !== this.userId) {
+    if (
+      this.firstUnreadMessageId &&
+      firstUnreadMessageUserId !== this.userId &&
+      lastMessage?.userId !== this.userId &&
+      this.isInitScroll
+    ) {
       this.scrollToFirstUnread();
+      this.isInitScroll = false;
     } else {
       if (this.autoScrollDisabled && lastMessage?.userId !== this.userId) return;
 
       this.scrollContainerToBottom();
+
+      this.isInitScroll = false;
     }
   }
 }
