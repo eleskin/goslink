@@ -101,7 +101,20 @@ export class ChatContainerComponent {
     });
   }
 
+  private scrollToFirstUnread() {
+    setTimeout(() => {
+      this.chatRef.nativeElement.querySelector(`#message-${this.firstUnreadMessageId}`)?.scrollIntoView();
+      if (!this.webSocketStore.allMessagesList().find((message) => !message.checked)?._id) this.firstUnreadMessageId = '';
+    });
+  }
+
   private scrollContainer() {
+    // if (!this.firstUnreadMessageId) {
+    //   this.firstUnreadMessageId = this.webSocketStore.allMessagesList().find((message) => !message.checked)?._id ?? '';
+    //   this.scrollToFirstUnread();
+    // }
+    if (this.autoScrollDisabled && this.webSocketStore.allMessagesList().at(-1)?.userId !== this.userId) return;
+
     this.scrollContainerToBottom();
   }
 }
