@@ -27,6 +27,11 @@ export class ChatContainerComponent {
     const threshold = 80;
     const position = event.target.scrollHeight - (event.target.scrollTop + event.target.clientHeight);
     this.autoScrollDisabled = position > threshold;
+
+    if (position <= threshold) {
+      this.intersectionObserverService
+        .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
+    }
   }
 
   @Output() public edit = new EventEmitter<any>();
