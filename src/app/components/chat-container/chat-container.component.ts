@@ -31,7 +31,6 @@ export class ChatContainerComponent {
 
   @Output() public edit = new EventEmitter<any>();
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
-  protected allMessagesList: Message[] = [];
   protected userId = '';
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
@@ -70,8 +69,6 @@ export class ChatContainerComponent {
       this.userId = this.userStore.user()._id;
 
       this.scrollContainer();
-
-      this.allMessagesList = this.webSocketStore.allMessagesList();
     });
   }
 
@@ -99,37 +96,12 @@ export class ChatContainerComponent {
   };
 
   private scrollContainerToBottom() {
-    const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
-    const isScrollDisabled = this.autoScrollDisabled && this.webSocketStore.allMessagesList().at(-1)?.userId !== this.userId;
-
-    if (!isAddedMessage || isScrollDisabled) return;
-
     setTimeout(() => {
       this.chatRef.nativeElement.scrollTop = this.chatRef.nativeElement.scrollHeight;
     });
   }
 
-  private scrollContainerToFirstUnread() {
-    const allContactMessagesList = this.allMessagesList
-      .filter((message) => message.userId !== this.userId);
-    this.firstUnreadMessageId = allContactMessagesList.find((message) => !message.checked)?._id ?? '';
-
-    setTimeout(() => {
-      const firstUnreadMessageElement: HTMLElement | null =
-        document.querySelector(`#message-${this.firstUnreadMessageId}`) as HTMLElement;
-      if (firstUnreadMessageElement) {
-        firstUnreadMessageElement.scrollIntoView();
-      }
-    });
-  }
-
   private scrollContainer() {
-    if (!this.allMessagesList.at(-1)?.checked
-      && this.allMessagesList.at(-1)?.userId !== this.userId
-    ) {
-      this.scrollContainerToFirstUnread();
-    } else {
-      this.scrollContainerToBottom();
-    }
+    this.scrollContainerToBottom();
   }
 }
