@@ -131,21 +131,5 @@ export class ChatContainerComponent {
     } else {
       this.scrollContainerToBottom();
     }
-
-    // const isAddedMessage = this.webSocketStore.allMessagesList().length > this.allMessagesList.length;
-    // this.allMessagesList = this.webSocketStore.allMessagesList();
-    // const isSelfNewMessage = this.allMessagesList.at(-1)?.userId === this.userId;
-    //
-    // const isCheckedLastMessage = this.allMessagesList.at(-1)?.checked;
-    //
-    // if (params.get('message')) return;
-    //
-    // if (isSelfNewMessage && isAddedMessage) {
-    //   // this.scrollContainerToBottom();
-    // } else if (isCheckedLastMessage) {
-    //   // this.scrollContainerToBottom();
-    // } else if (isAvailableScrollChat({target: this.chatRef?.nativeElement} as unknown as Event)) {
-    //   // this.scrollContainerToBottom();
-    // }
   }
 }
