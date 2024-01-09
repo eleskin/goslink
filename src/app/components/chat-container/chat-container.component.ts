@@ -104,7 +104,7 @@ export class ChatContainerComponent {
   private scrollToFirstUnread() {
     setTimeout(() => {
       this.chatRef.nativeElement.querySelector(`#message-${this.firstUnreadMessageId}`)?.scrollIntoView();
-      if (!this.webSocketStore.allMessagesList().find((message) => !message.checked)?._id) this.firstUnreadMessageId = '';
+      if (!this.webSocketStore.messages().find((message) => !message.checked)?._id) this.firstUnreadMessageId = '';
     });
   }
 
@@ -113,7 +113,7 @@ export class ChatContainerComponent {
     //   this.firstUnreadMessageId = this.webSocketStore.allMessagesList().find((message) => !message.checked)?._id ?? '';
     //   this.scrollToFirstUnread();
     // }
-    if (this.autoScrollDisabled && this.webSocketStore.allMessagesList().at(-1)?.userId !== this.userId) return;
+    if (this.autoScrollDisabled && this.webSocketStore.messages().at(-1)?.userId !== this.userId) return;
 
     this.scrollContainerToBottom();
   }

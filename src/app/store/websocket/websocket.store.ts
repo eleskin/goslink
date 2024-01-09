@@ -2,6 +2,7 @@ import {patchState, signalStore, withComputed, withMethods, withState} from '@ng
 import User from '../../interfaces/user';
 import Message from '../../interfaces/message';
 import {computed} from '@angular/core';
+import groupMessagesByDate from '../../utils/groupMessagesByDate';
 
 type WebsocketState = {
   readyState: number,
@@ -9,9 +10,9 @@ type WebsocketState = {
   rooms: User[],
   searchedUser: User | undefined,
   contact: User | undefined,
-  messagesByDates: { date: string, messages: Message[] }[],
   onlineUsers: string[],
   searchedMessages: User[],
+  messages: Message[],
 };
 
 const initialState: WebsocketState = {
@@ -20,16 +21,16 @@ const initialState: WebsocketState = {
   rooms: [],
   searchedUser: undefined,
   contact: undefined,
-  messagesByDates: [],
   onlineUsers: [],
   searchedMessages: [],
+  messages: [],
 };
 
 const WebsocketStore = signalStore(
   withState(initialState),
   withComputed((store) => ({
-    allMessagesList: computed(() => {
-      return store.messagesByDates().map((item) => item.messages).flat();
+    messagesByDates: computed(() => {
+      return groupMessagesByDate(store.messages());
     }),
   })),
   withMethods(({...store}) => ({
@@ -48,48 +49,34 @@ const WebsocketStore = signalStore(
     setContact(state = null) {
       patchState(store, {contact: state});
     },
-    setMessagesByDate(state = []) {
-      patchState(store, {messagesByDates: state});
+    setMessages(state = []) {
+      patchState(store, {messages: state});
     },
     updateMessage(state = null) {
-      const messagesByDates = store.messagesByDates().map((item) => {
-        return {
-          date: item.date, messages: item.messages.map((message) => {
-            if (message._id === state._id) message.text = state.text;
-            return message;
-          }),
-        };
+      const messages = store.messages().map((message) => {
+        if (message._id === state._id) message.text = state.text;
+        return message;
       });
 
-      patchState(store, {messagesByDates});
+      patchState(store, {messages});
     },
     setRead(state = '') {
-      const messagesByDates = store.messagesByDates().map((item) => {
-        return {
-          date: item.date, messages: item.messages.map((message) => {
-            if (message._id === state) message.checked = true;
-            return message;
-          }),
-        };
+      const messages = store.messages().map((message) => {
+        if (message._id === state) message.checked = true;
+        return message;
       });
 
-      patchState(store, {messagesByDates});
+      patchState(store, {messages});
     },
     setAllRead(state: { _id: string, userId: string, contactId: string }) {
-      const messagesByDates = store.messagesByDates().map((item) => {
-        return {
-          date: item.date,
-          messages: item.messages
-            .map((message) => {
-              if ((message.userId === state.userId && message.contactId === state.contactId) || message._id === state._id) {
-                message.checked = true;
-              }
-              return message;
-            }),
-        };
+      const messages = store.messages().map((message) => {
+        if ((message.userId === state.userId && message.contactId === state.contactId) || message._id === state._id) {
+          message.checked = true;
+        }
+        return message;
       });
 
-      patchState(store, {messagesByDates});
+      patchState(store, {messages});
     },
     deleteRoom(state = '') {
       const rooms = store.rooms().filter((room: any) => room._id !== state);
