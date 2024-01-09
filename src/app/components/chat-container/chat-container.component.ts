@@ -37,6 +37,7 @@ export class ChatContainerComponent {
   private readonly routerEventSubscription: Subscription;
   private autoScrollDisabled = false;
   protected firstUnreadMessageId = '';
+  private isBlockedObserver = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -79,8 +80,8 @@ export class ChatContainerComponent {
       await this.router.navigate([deleteParam(this.router.url, 'message')]);
     }
 
-    this.intersectionObserverService
-      .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
+    // this.intersectionObserverService
+    //   .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
   }
 
   ngOnDestroy() {
@@ -109,12 +110,17 @@ export class ChatContainerComponent {
   }
 
   private scrollContainer() {
-    // if (!this.firstUnreadMessageId) {
-    //   this.firstUnreadMessageId = this.webSocketStore.allMessagesList().find((message) => !message.checked)?._id ?? '';
-    //   this.scrollToFirstUnread();
-    // }
-    if (this.autoScrollDisabled && this.webSocketStore.messages().at(-1)?.userId !== this.userId) return;
+    const lastMessage = this.webSocketStore.messages().at(-1);
+    const firstUnreadMessage = this.webSocketStore.messages().find((message) => !message.checked);
+    const firstUnreadMessageUserId = firstUnreadMessage?.userId ?? '';
+    this.firstUnreadMessageId = firstUnreadMessage?._id ?? '';
 
-    this.scrollContainerToBottom();
+    if (this.firstUnreadMessageId && firstUnreadMessageUserId !== this.userId && lastMessage?.userId !== this.userId) {
+      this.scrollToFirstUnread();
+    } else {
+      if (this.autoScrollDisabled && lastMessage?.userId !== this.userId) return;
+
+      this.scrollContainerToBottom();
+    }
   }
 }
