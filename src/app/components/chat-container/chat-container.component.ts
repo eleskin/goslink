@@ -80,8 +80,8 @@ export class ChatContainerComponent {
       await this.router.navigate([deleteParam(this.router.url, 'message')]);
     }
 
-    // this.intersectionObserverService
-    //   .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
+    this.intersectionObserverService
+      .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
   }
 
   ngOnDestroy() {
@@ -89,7 +89,7 @@ export class ChatContainerComponent {
       this.routerEventSubscription.unsubscribe();
     }
 
-    this.intersectionObserverService.observer?.unobserve(this.chatRef.nativeElement);
+    this.intersectionObserverService.destroyIntersectionObserver();
   }
 
   protected setEdit(data: boolean, message?: Message) {
@@ -110,6 +110,8 @@ export class ChatContainerComponent {
   }
 
   private scrollContainer() {
+    // this.intersectionObserverService.destroyIntersectionObserver();
+
     const lastMessage = this.webSocketStore.messages().at(-1);
     const firstUnreadMessage = this.webSocketStore.messages().find((message) => !message.checked);
     const firstUnreadMessageUserId = firstUnreadMessage?.userId ?? '';

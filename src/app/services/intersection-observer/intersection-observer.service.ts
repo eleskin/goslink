@@ -16,9 +16,7 @@ export class IntersectionObserverService {
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
-      this.messages = this.webSocketStore.messagesByDates()
-        .map((item) => item.messages)
-        .flat()
+      this.messages = this.webSocketStore.messages()
         .filter((message) => message.contactId === this.userStore.user()._id && !message.checked);
 
       setTimeout(() => {
@@ -48,6 +46,10 @@ export class IntersectionObserverService {
         contactId: this.contactId,
       });
     }
+  }
+
+  public destroyIntersectionObserver() {
+    this.observer = undefined;
   }
 
   public setupIntersectionObserver(messageContainerElement: HTMLElement, contactId: string) {
