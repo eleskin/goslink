@@ -75,6 +75,11 @@ export class WebsocketService {
       this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
     }],
   ];
+  private readonly chatHandlers: [string, (event: any) => void][] = [
+    ['NEW_CHAT', (event: any) => {
+      console.log(event.details.data.chatId)
+    }],
+  ];
 
   public setHandlers() {
     for (const [key, value] of this.userHandlers) {
@@ -86,6 +91,10 @@ export class WebsocketService {
     }
 
     for (const [key, value] of this.roomHandlers) {
+      this.webSocket?.addEventListener(String(key), value);
+    }
+
+    for (const [key, value] of this.chatHandlers) {
       this.webSocket?.addEventListener(String(key), value);
     }
   }
