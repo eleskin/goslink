@@ -51,13 +51,13 @@ export class WebsocketService {
       // this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
-      const rooms = this.webSocketStore.rooms();
-      const {lastMessage} = event.detail.data;
+      // const rooms = this.webSocketStore.rooms();
+      // const {lastMessage} = event.detail.data;
 
       this.webSocketStore.setMessages(
         this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.removedMessageId),
       );
-      this.setLastRoomMessage(rooms, lastMessage, event.detail.data.used, event.detail.data.contactId);
+      // this.setLastRoomMessage(rooms, lastMessage, event.detail.data.used, event.detail.data.contactId);
     }],
     ['EDIT_MESSAGE', (event: any) => {
       this.webSocketStore.updateMessage(event.detail.data.message);
