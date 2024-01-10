@@ -37,18 +37,18 @@ export class WebsocketService {
         message,
       ]);
 
-      const isExistRoom = !this.webSocketStore.rooms().filter((room: any) => {
-        return room?._id === message.author?._id || room?._id === message.contact?._id;
-      }).length;
-
-      if (isExistRoom) {
-        this.webSocketStore.setRooms([
-          ...this.webSocketStore.rooms(),
-          this.webSocketStore.contact()?._id === message.contact._id ? message.contact : message.author,
-        ]);
-      }
-
-      this.setLastRoomMessage(this.webSocketStore.rooms(), message);
+      // const isExistRoom = !this.webSocketStore.rooms().filter((room: any) => {
+      //   return room?._id === message.author?._id || room?._id === message.contact?._id;
+      // }).length;
+      //
+      // if (isExistRoom) {
+      //   this.webSocketStore.setRooms([
+      //     ...this.webSocketStore.rooms(),
+      //     this.webSocketStore.contact()?._id === message.contact._id ? message.contact : message.author,
+      //   ]);
+      // }
+      //
+      // this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
       const rooms = this.webSocketStore.rooms();
