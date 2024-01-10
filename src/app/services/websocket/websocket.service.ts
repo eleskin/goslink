@@ -78,7 +78,8 @@ export class WebsocketService {
   ];
   private readonly chatHandlers: [string, (event: any) => void][] = [
     ['NEW_CHAT', async (event: any) => {
-      await this.router.navigate([`chat/${event.detail.data.chatId}`])
+      this.webSocketStore.setContact(event.detail.data.contact);
+      await this.router.navigate([`chat/${event.detail.data.chatId}`]);
     }],
   ];
 
