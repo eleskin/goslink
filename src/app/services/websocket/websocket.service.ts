@@ -4,6 +4,7 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 import Message from '../../interfaces/message';
 import User from '../../interfaces/user';
 import {Router} from '@angular/router';
+import UserStore from '../../store/user/user.store';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import {Router} from '@angular/router';
 export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly webSocketStore = inject(WebsocketStore);
+  private readonly userStore = inject(UserStore);
   private readonly userHandlers: [string, (event: any) => void][] = [
     ['SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
@@ -80,6 +82,11 @@ export class WebsocketService {
     ['NEW_CHAT', async (event: any) => {
       this.webSocketStore.setContact(event.detail.data.contact);
       await this.router.navigate([`chat/${event.detail.data.chatId}`]);
+    }],
+    ['GET_CHAT', async (event: any) => {
+      const contact = event.detail.data.users.filter((user: User) => user._id !== this.userStore.user()._id)[0];
+
+      this.webSocketStore.setContact(contact);
     }],
   ];
 
