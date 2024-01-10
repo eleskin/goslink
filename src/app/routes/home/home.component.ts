@@ -48,6 +48,7 @@ export class HomeComponent {
           this.webSocketStore.setSearchedUser(null);
 
           this.webSocketService.webSocket?.sendJSON('GET_CHAT', {
+            userId: this.userStore.user()._id,
             chatId: this.route.snapshot.paramMap.get('_id') ?? '',
           });
 

@@ -57,7 +57,7 @@ export class WebsocketService {
       this.webSocketStore.setMessages(
         this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.removedMessageId),
       );
-      this.setLastRoomMessage(rooms, lastMessage, event.detail.data.userId, event.detail.data.contactId);
+      this.setLastRoomMessage(rooms, lastMessage, event.detail.data.used, event.detail.data.contactId);
     }],
     ['EDIT_MESSAGE', (event: any) => {
       this.webSocketStore.updateMessage(event.detail.data.message);
@@ -87,6 +87,7 @@ export class WebsocketService {
       const contact = event.detail.data.users.filter((user: User) => user._id !== this.userStore.user()._id)[0];
 
       this.webSocketStore.setContact(contact);
+      this.webSocketStore.setMessages(event.detail.data.messages);
     }],
   ];
 

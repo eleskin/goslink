@@ -1,6 +1,6 @@
 <div [class]="['app-message', selfMessage ? 'app-message--self' : 'app-message--not-self']">
   <div class="app-message__content">
-    <em>{{ message.author.name }}</em>
+<!--    <em>{{ message.author.name }}</em>-->
     <span>{{ message.text }}</span>
     <div *ngIf="selfMessage" class="app-message__control">
       <button (click)="handleClickEdit()">
@@ -20,7 +20,7 @@
       </div>
     </footer>
   </div>
-  <i [style]="getGradientFromChar(message.author.name[0])" class="app-message__author">
-    {{ message.author.name[0] }}
-  </i>
+<!--  <i [style]="getGradientFromChar(message.author.name[0])" class="app-message__author">-->
+<!--    {{ message.author.name[0] }}-->
+<!--  </i>-->
 </div>
