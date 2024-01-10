@@ -7,6 +7,7 @@
       <span>Results: </span>
       <app-rooms-list [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [rooms]="[searchedUser]" />
     </div>
+    <span>or</span>
     <app-button (click)="handleClickNewChat()" text="New group chat"/>
   </app-modal>
 </div>
