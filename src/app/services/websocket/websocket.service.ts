@@ -31,6 +31,7 @@ export class WebsocketService {
   private readonly messageHandlers: [string, (event: any) => void][] = [
     ['NEW_MESSAGE', (event: any) => {
       const {message} = event.detail.data;
+      console.log(message);
 
       this.webSocketStore.setMessages([
         ...this.webSocketStore.messages(),
@@ -48,7 +49,7 @@ export class WebsocketService {
       //   ]);
       // }
       //
-      // this.setLastRoomMessage(this.webSocketStore.rooms(), message);
+      this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
       // const rooms = this.webSocketStore.rooms();
@@ -114,14 +115,14 @@ export class WebsocketService {
   }
 
   private setLastRoomMessage(rooms: User[], message: Message, userId?: string, contactId?: string) {
-    if (!message && userId && contactId) {
-      this.webSocketStore.deleteRoom(userId);
-      this.webSocketStore.deleteRoom(contactId);
-      return;
-    }
+    // if (!message && userId && contactId) {
+    //   this.webSocketStore.deleteRoom(userId);
+    //   this.webSocketStore.deleteRoom(contactId);
+    //   return;
+    // }
 
     for (const room of rooms) {
-      if (room?._id === message.userId || room?._id === message.contactId) {
+      if (room?._id === message.chatId) {
         room.lastMessage = message;
       }
     }

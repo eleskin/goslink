@@ -9,6 +9,7 @@ interface Message {
   dateObject: Date | string;
   time: string;
   checked: boolean;
+  chatId: string;
 }
 
 export default Message;
