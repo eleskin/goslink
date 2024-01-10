@@ -16,9 +16,8 @@
   text-decoration: none;
   transition: var(--main-transition);
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  background-color: transparent;
+  text-align: left;
 }
 
 .app-rooms-list__chat:hover, .app-rooms-list__chat--active {
