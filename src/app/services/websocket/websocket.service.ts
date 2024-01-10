@@ -3,6 +3,7 @@ import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import Message from '../../interfaces/message';
 import User from '../../interfaces/user';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -76,10 +77,13 @@ export class WebsocketService {
     }],
   ];
   private readonly chatHandlers: [string, (event: any) => void][] = [
-    ['NEW_CHAT', (event: any) => {
-      console.log(event.details.data.chatId)
+    ['NEW_CHAT', async (event: any) => {
+      await this.router.navigate([`chat/${event.detail.data.chatId}`])
     }],
   ];
+
+  constructor(private router: Router) {
+  }
 
   public setHandlers() {
     for (const [key, value] of this.userHandlers) {
