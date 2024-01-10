@@ -15,6 +15,10 @@
   border-radius: var(--main-border-radius);
   text-decoration: none;
   transition: var(--main-transition);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .app-rooms-list__chat:hover, .app-rooms-list__chat--active {
