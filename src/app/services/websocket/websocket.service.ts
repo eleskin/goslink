@@ -58,7 +58,8 @@ export class WebsocketService {
       const {chatId} = event.detail.data.deletedMessage;
       this.setLastRoomMessage(
         this.webSocketStore.rooms(),
-        this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1)
+        this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1),
+        event.detail.data.deletedMessage,
       );
     }],
     ['EDIT_MESSAGE', (event: any) => {
@@ -115,17 +116,15 @@ export class WebsocketService {
     }
   }
 
-  private setLastRoomMessage(rooms: User[], message: Message | undefined) {
-    if (!message) return;
-    // if (!message && userId && contactId) {
-    //   this.webSocketStore.deleteRoom(userId);
-    //   this.webSocketStore.deleteRoom(contactId);
-    //   return;
-    // }
+  private setLastRoomMessage(rooms: User[], lastMessage: Message | undefined, deletedMessage?: Message) {
+    if (!lastMessage) {
+      this.webSocketStore.deleteRoom(deletedMessage?.chatId);
+      return;
+    }
 
     for (const room of rooms) {
-      if (room?._id === message.chatId) {
-        room.lastMessage = message;
+      if (room?._id === lastMessage.chatId) {
+        room.lastMessage = lastMessage;
       }
     }
 
