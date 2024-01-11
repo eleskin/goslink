@@ -52,13 +52,14 @@ export class WebsocketService {
       this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
-      // const rooms = this.webSocketStore.rooms();
-      // const {lastMessage} = event.detail.data;
-
       this.webSocketStore.setMessages(
-        this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.removedMessageId),
+        this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage._id),
       );
-      // this.setLastRoomMessage(rooms, lastMessage, event.detail.data.used, event.detail.data.contactId);
+      const {chatId} = event.detail.data.deletedMessage;
+      this.setLastRoomMessage(
+        this.webSocketStore.rooms(),
+        this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1)
+      );
     }],
     ['EDIT_MESSAGE', (event: any) => {
       this.webSocketStore.updateMessage(event.detail.data.message);
@@ -114,7 +115,8 @@ export class WebsocketService {
     }
   }
 
-  private setLastRoomMessage(rooms: User[], message: Message, userId?: string, contactId?: string) {
+  private setLastRoomMessage(rooms: User[], message: Message | undefined) {
+    if (!message) return;
     // if (!message && userId && contactId) {
     //   this.webSocketStore.deleteRoom(userId);
     //   this.webSocketStore.deleteRoom(contactId);
