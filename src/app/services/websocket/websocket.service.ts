@@ -31,24 +31,32 @@ export class WebsocketService {
   private readonly messageHandlers: [string, (event: any) => void][] = [
     ['NEW_MESSAGE', (event: any) => {
       const {message} = event.detail.data;
-      console.log(message);
+      const {userChatName} = event.detail.data;
+      const {contactChatName} = event.detail.data;
 
+      console.log(userChatName, contactChatName)
       this.webSocketStore.setMessages([
         ...this.webSocketStore.messages(),
         message,
       ]);
 
-      // const isExistRoom = !this.webSocketStore.rooms().filter((room: any) => {
-      //   return room?._id === message.author?._id || room?._id === message.contact?._id;
-      // }).length;
-      //
-      // if (isExistRoom) {
-      //   this.webSocketStore.setRooms([
-      //     ...this.webSocketStore.rooms(),
-      //     this.webSocketStore.contact()?._id === message.contact._id ? message.contact : message.author,
-      //   ]);
-      // }
-      //
+      const isExistRoom = this.webSocketStore.rooms().filter((room: any) => {
+        return room?._id === message.chatId;
+      }).length;
+
+      if (!isExistRoom) {
+        const room = {
+          _id: message.chatId,
+          name: message.userId === this.userStore.user()._id ? userChatName : contactChatName,
+          lastMessage: message,
+        }
+
+        this.webSocketStore.setRooms([
+          ...this.webSocketStore.rooms(),
+          room,
+        ]);
+      }
+
       this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
