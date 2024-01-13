@@ -27,36 +27,30 @@ export class WebsocketService {
   private readonly messageHandlers: [string, (event: any) => void][] = [
     ['NEW_MESSAGE', (event: any) => {
       const {message} = event.detail.data;
-      // const {userChatName} = event.detail.data;
-      // const {contactChatName} = event.detail.data;
-      //
-      // console.log(message.chatId)
-      // console.log(this.route.snapshot.paramMap.get('_id'))
-      // if (message.chatId === this.route.snapshot.paramMap.get('_id')) {
-        this.webSocketStore.setMessages([
-          ...this.webSocketStore.messages(),
-          message,
+
+      this.webSocketStore.setMessages([
+        ...this.webSocketStore.messages(),
+        message,
+      ]);
+
+      const isExistRoom = this.webSocketStore.rooms().filter((room: any) => {
+        return room?._id === message.chatId;
+      }).length;
+
+      if (!isExistRoom) {
+        const room = {
+          _id: message.chatId,
+          name: message.userId,
+          lastMessage: message,
+        };
+
+        this.webSocketStore.setRooms([
+          ...this.webSocketStore.rooms(),
+          room,
         ]);
-      // }
-      //
-      // const isExistRoom = this.webSocketStore.rooms().filter((room: any) => {
-      //   return room?._id === message.chatId;
-      // }).length;
-      //
-      // if (!isExistRoom) {
-      //   const room = {
-      //     _id: message.chatId,
-      //     name: message.userId === this.userStore.user()._id ? userChatName : contactChatName,
-      //     lastMessage: message,
-      //   }
-      //
-      //   this.webSocketStore.setRooms([
-      //     ...this.webSocketStore.rooms(),
-      //     room,
-      //   ]);
-      // }
-      //
-      // this.setLastRoomMessage(this.webSocketStore.rooms(), message);
+      }
+
+      this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
       // this.webSocketStore.setMessages(
