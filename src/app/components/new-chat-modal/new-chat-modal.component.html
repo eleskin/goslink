@@ -5,7 +5,12 @@
                placeholder="Enter username (ex. @username)"/>
     <div *ngIf="searchedUser" class="app-new-chat-modal__search-results">
       <span>Results: </span>
-      <app-rooms-list [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [rooms]="[searchedUser]" />
+      <app-rooms-list
+        [visibleModal]="visibleModal"
+        (handleVisibleModal)="handleCloseModal()"
+        [rooms]="[searchedUser]"
+        [searchList]="true"
+      />
     </div>
     <span>or</span>
     <app-button (click)="handleClickNewChat()" text="New group chat"/>

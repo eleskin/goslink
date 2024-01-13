@@ -15,7 +15,8 @@ export class WebsocketService {
   private readonly userStore = inject(UserStore);
   private readonly userHandlers: [string, (event: any) => void][] = [
     ['SEARCH_USER', (event: any) => {
-      // this.webSocketStore.setSearchedUser(event.detail.data.user);
+    console.log(event.detail.data.user)
+      this.webSocketStore.setSearchedUser(event.detail.data.user);
     }],
     ['GET_USER', (event: any) => {
       // this.webSocketStore.setContact(event.detail.data.user);
