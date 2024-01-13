@@ -15,7 +15,6 @@ export class WebsocketService {
   private readonly userStore = inject(UserStore);
   private readonly userHandlers: [string, (event: any) => void][] = [
     ['SEARCH_USER', (event: any) => {
-    console.log(event.detail.data.user)
       this.webSocketStore.setSearchedUser(event.detail.data.user);
     }],
     ['GET_USER', (event: any) => {
@@ -96,8 +95,8 @@ export class WebsocketService {
   ];
   private readonly chatHandlers: [string, (event: any) => void][] = [
     ['NEW_CHAT', async (event: any) => {
-      // this.webSocketStore.setContact(event.detail.data.contact);
-      // await this.router.navigate([`chat/${event.detail.data.chatId}`]);
+      this.webSocketStore.setContact(event.detail.data.contact);
+      await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
     ['GET_CHAT', async (event: any) => {
       // const contact = event.detail.data.users.filter((user: User) => user._id !== this.userStore.user()._id)[0];
