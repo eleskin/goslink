@@ -26,6 +26,7 @@ export class WebsocketService {
   ];
   private readonly messageHandlers: [string, (event: any) => void][] = [
     ['NEW_MESSAGE', (event: any) => {
+      console.log(event.detail.data)
       // const {message} = event.detail.data;
       // const {userChatName} = event.detail.data;
       // const {contactChatName} = event.detail.data;
