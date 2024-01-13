@@ -17,10 +17,6 @@ export class WebsocketService {
     ['SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
     }],
-    ['GET_USER', (event: any) => {
-      // this.webSocketStore.setContact(event.detail.data.user);
-      // this.webSocketStore.setMessages(event.detail.data.messages);
-    }],
     ['ONLINE_USER', (event: any) => {
       // this.webSocketStore.setOnlineUser([event.detail.data.userId]);
     }],
