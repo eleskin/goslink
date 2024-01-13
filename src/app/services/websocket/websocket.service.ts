@@ -95,10 +95,8 @@ export class WebsocketService {
       await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
     ['GET_CHAT', async (event: any) => {
-      // const contact = event.detail.data.users.filter((user: User) => user._id !== this.userStore.user()._id)[0];
-      //
-      // this.webSocketStore.setContact(contact);
-      // this.webSocketStore.setMessages(event.detail.data.messages);
+      this.webSocketStore.setContact(event.detail.data.users[0]);
+      this.webSocketStore.setMessages(event.detail.data.messages);
     }],
   ];
 
