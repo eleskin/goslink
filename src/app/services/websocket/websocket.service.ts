@@ -26,18 +26,17 @@ export class WebsocketService {
   ];
   private readonly messageHandlers: [string, (event: any) => void][] = [
     ['NEW_MESSAGE', (event: any) => {
-      console.log(event.detail.data)
-      // const {message} = event.detail.data;
+      const {message} = event.detail.data;
       // const {userChatName} = event.detail.data;
       // const {contactChatName} = event.detail.data;
       //
       // console.log(message.chatId)
       // console.log(this.route.snapshot.paramMap.get('_id'))
       // if (message.chatId === this.route.snapshot.paramMap.get('_id')) {
-      //   this.webSocketStore.setMessages([
-      //     ...this.webSocketStore.messages(),
-      //     message,
-      //   ]);
+        this.webSocketStore.setMessages([
+          ...this.webSocketStore.messages(),
+          message,
+        ]);
       // }
       //
       // const isExistRoom = this.webSocketStore.rooms().filter((room: any) => {
