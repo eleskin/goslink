@@ -27,7 +27,7 @@ export class SidebarComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly messagesStore = inject(MessagesStore);
   @Output() public handleOpenNewChatModal = new EventEmitter<boolean>();
-  protected rooms: User[] = [];
+  protected chats: User[] = [];
   private readonly userStore = inject(UserStore);
   protected searchedMessages: User[] = [];
   protected userId = '';
@@ -35,7 +35,7 @@ export class SidebarComponent {
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
-      this.rooms = this.webSocketStore.chats();
+      this.chats = this.webSocketStore.chats();
       this.searchedMessages = this.messagesStore.searchedMessages();
       this.userId = this.userStore.user()._id;
     });
