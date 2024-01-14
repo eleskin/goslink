@@ -1,9 +1,9 @@
 <div class="app-rooms-list">
   <button
-    *ngFor="let room of rooms"
-    [class]="['app-rooms-list__chat', room._id === contactId && !searchList ? 'app-rooms-list__chat--active' : '']"
-    (click)="handleCloseModal(room)"
+    *ngFor="let chat of rooms"
+    [class]="['app-rooms-list__chat', chat._id === contactId && !searchList ? 'app-rooms-list__chat--active' : '']"
+    (click)="handleCloseModal(chat)"
   >
-    <app-rooms-item [room]="room"/>
+    <app-rooms-item [room]="chat"/>
   </button>
 </div>
