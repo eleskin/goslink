@@ -79,7 +79,7 @@ export class WebsocketService {
     }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [
-    ['GET_ROOM', (event: any) => {
+    ['GET_CHAT', (event: any) => {
       this.webSocketStore.setRooms(event.detail.data.rooms);
       this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
     }],

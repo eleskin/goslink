@@ -77,7 +77,7 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-    this.webSocketService.webSocket?.sendJSON('GET_ROOM', {
+    this.webSocketService.webSocket?.sendJSON('GET_CHAT', {
       userId: this.userStore.user()._id,
     });
   }
