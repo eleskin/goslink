@@ -94,7 +94,7 @@ export class ChatContainerComponent {
       this.routerEventSubscription.unsubscribe();
     }
 
-    this.intersectionObserverService.destroyIntersectionObserver();
+    // this.intersectionObserverService.destroyIntersectionObserver();
   }
 
   protected setEdit(data: boolean, message?: Message) {
@@ -129,6 +129,7 @@ export class ChatContainerComponent {
     ) {
       this.scrollToFirstUnread();
       this.isInitScroll = false;
+      this.intersectionObserverService.setupIntersectionObserver(this.chatRef.nativeElement);
     } else {
       if (this.autoScrollDisabled && lastMessage?.userId !== this.userId) return;
 
