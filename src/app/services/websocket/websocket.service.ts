@@ -112,7 +112,7 @@ export class WebsocketService {
 
   private setLastChatMessage(chats: User[], lastMessage: Message | undefined, deletedMessage?: Message) {
     if (!lastMessage) {
-      this.webSocketStore.deleteRoom(deletedMessage?.chatId);
+      this.webSocketStore.deleteChat(deletedMessage?.chatId);
       return;
     }
 
