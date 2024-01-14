@@ -55,9 +55,9 @@ export class WebsocketService {
     }],
     ['DELETE_MESSAGE', (event: any) => {
       this.webSocketStore.setMessages(
-        this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage._id),
+        this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
       );
-      const {chatId} = event.detail.data.deletedMessage;
+      const chatId = event.detail.data.deletedMessage?.chatId;
       this.setLastRoomMessage(
         this.webSocketStore.rooms(),
         this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1),
@@ -73,7 +73,7 @@ export class WebsocketService {
       this.webSocketStore.setRead(event.detail.data._id);
     }],
     ['READ_ALL_MESSAGE', (event: any) => {
-      this.webSocketStore.setAllRead(event.detail.data);
+      this.webSocketStore.setAllRead(event.detail.data._id);
     }],
     ['SEARCH_MESSAGE', (event: any) => {
       console.log(event.detail.data.searchedMessages)

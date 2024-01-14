@@ -68,9 +68,10 @@ const WebsocketStore = signalStore(
 
       patchState(store, {messages});
     },
-    setAllRead(state: { _id: string, userId: string, contactId: string }) {
+    setAllRead(state = '') {
+      const chatId = store.messages().find((message) => message._id === state)?.chatId;
       const messages = store.messages().map((message) => {
-        if ((message.userId === state.userId && message.contactId === state.contactId) || message._id === state._id) {
+        if (message.chatId === chatId) {
           message.checked = true;
         }
         return message;
