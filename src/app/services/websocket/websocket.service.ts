@@ -40,8 +40,7 @@ export class WebsocketService {
       if (!isExistRoom) {
         const room = {
           _id: message.chatId,
-          // name: message.userId,
-          name: '',
+          name: message.author.name,
           lastMessage: message,
         };
 
