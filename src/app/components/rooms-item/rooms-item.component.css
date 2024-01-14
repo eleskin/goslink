@@ -1,4 +1,4 @@
-.app-rooms-item {
+.app-chats-item {
   align-items: center;
   box-sizing: border-box;
   cursor: default;
@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.app-rooms-item > span {
+.app-chats-item > span {
   align-items: center;
   background-color: var(--main-light-gray-color);
   border: var(--main-border);
@@ -27,7 +27,7 @@
   width: 56px;
 }
 
-.app-rooms-item > span > i {
+.app-chats-item > span > i {
   background-color: var(--main-color);
   border-radius: 50%;
   bottom: 0;
@@ -38,7 +38,7 @@
   width: 12px;
 }
 
-.app-rooms-item > div {
+.app-chats-item > div {
   display: flex;
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
@@ -46,13 +46,13 @@
   width: 100%;
 }
 
-.app-rooms-item > div > strong {
+.app-chats-item > div > strong {
   color: var(--main-black-color);
   font-size: 16px;
   font-weight: 500;
 }
 
-.app-rooms-item > div > span {
+.app-chats-item > div > span {
   color: var(--main-gray-color);
   font-size: 14px;
   overflow: hidden;
@@ -61,7 +61,7 @@
   width: 100%;
 }
 
-.app-rooms-item > div > span > em {
+.app-chats-item > div > span > em {
   font-style: normal;
   color: var(--main-color)
 }
