@@ -28,7 +28,7 @@ const WebsocketStore = signalStore(
     setContactId(state = '') {
       patchState(store, {contactId: state});
     },
-    setRooms(state = []) {
+    setChats(state = []) {
       patchState(store, {chats: state});
     },
     setSearchedUser(state = null) {

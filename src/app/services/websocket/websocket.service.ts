@@ -44,7 +44,7 @@ export class WebsocketService {
           lastMessage: message,
         };
 
-        this.webSocketStore.setRooms([
+        this.webSocketStore.setChats([
           ...this.webSocketStore.chats(),
           room,
         ]);
@@ -84,7 +84,7 @@ export class WebsocketService {
   ];
   private readonly chatHandlers: [string, (event: any) => void][] = [
     ['GET_CHAT', (event: any) => {
-      this.webSocketStore.setRooms(event.detail.data.chats);
+      this.webSocketStore.setChats(event.detail.data.chats);
       this.webSocketStore.setOnlineUser(event.detail.data.onlineChats);
     }],
     ['NEW_CHAT', async (event: any) => {
@@ -131,6 +131,6 @@ export class WebsocketService {
       return 0;
     });
 
-    this.webSocketStore.setRooms(chats);
+    this.webSocketStore.setChats(chats);
   }
 }
