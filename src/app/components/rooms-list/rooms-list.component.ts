@@ -33,16 +33,16 @@ export class RoomsListComponent {
     });
   }
 
-  protected async handleCloseModal(room: User) {
+  protected async handleCloseModal(chat: User) {
     this.handleVisibleModal.emit(false);
 
     if (this.searchList) {
       this.webSocketService.webSocket?.sendJSON('NEW_CHAT', {
         userId: this.userStore.user()._id,
-        contactId: room._id,
+        contactId: chat._id,
       });
     } else {
-      await this.router.navigate([`/chat/${room._id}`]);
+      await this.router.navigate([`/chat/${chat._id}`]);
     }
   }
 }
