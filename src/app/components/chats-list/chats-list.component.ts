@@ -19,7 +19,7 @@ import UserStore from '../../store/user/user.store';
 })
 export class ChatsListComponent {
   protected contactId: string = '';
-  @Input() rooms!: User[];
+  @Input() chats!: User[];
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   @Input() public visibleModal = false;
   @Input() public searchList = false;
