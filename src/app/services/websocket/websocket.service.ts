@@ -89,7 +89,7 @@ export class WebsocketService {
       this.webSocketStore.setContact(event.detail.data.contact);
       await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
-    ['GET_CHAT', async (event: any) => {
+    ['GET_MESSAGE', async (event: any) => {
       this.webSocketStore.setContact(event.detail.data.users[0]);
       this.messagesStore.setMessages(event.detail.data.messages);
     }],
