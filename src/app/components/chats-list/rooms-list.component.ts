@@ -1,6 +1,6 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {NgForOf} from '@angular/common';
-import {RoomsItemComponent} from '../rooms-item/rooms-item.component';
+import {RoomsItemComponent} from '../chats-item/rooms-item.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
