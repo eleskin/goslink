@@ -70,10 +70,10 @@ export class WebsocketService {
       this.setLastRoomMessage(this.webSocketStore.rooms(), event.detail.data.message);
     }],
     ['READ_MESSAGE', (event: any) => {
-      // this.webSocketStore.setRead(event.detail.data._id);
+      this.webSocketStore.setRead(event.detail.data._id);
     }],
     ['READ_ALL_MESSAGE', (event: any) => {
-      // this.webSocketStore.setAllRead(event.detail.data);
+      this.webSocketStore.setAllRead(event.detail.data);
     }],
     ['SEARCH_MESSAGE', (event: any) => {
       console.log(event.detail.data.searchedMessages)

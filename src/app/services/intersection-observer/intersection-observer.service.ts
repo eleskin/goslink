@@ -10,14 +10,13 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 export class IntersectionObserverService {
   public observer: IntersectionObserver | undefined;
   private messages: Message[] = [];
-  private contactId = '';
   private userStore = inject(UserStore);
   private webSocketStore = inject(WebsocketStore);
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
       this.messages = this.webSocketStore.messages()
-        .filter((message) => message.contactId === this.userStore.user()._id && !message.checked);
+        .filter((message) => message.userId !== this.userStore.user()._id && !message.checked);
 
       setTimeout(() => {
         this.messages.forEach((message) => {
@@ -36,14 +35,10 @@ export class IntersectionObserverService {
     if (this.messages.at(-1)?._id === _id) {
       this.webSocketService.webSocket?.sendJSON('READ_ALL_MESSAGE', {
         _id: _id,
-        userId: this.userStore.user()._id,
-        contactId: this.contactId,
       })
     } else {
       this.webSocketService.webSocket?.sendJSON('READ_MESSAGE', {
         _id: _id,
-        userId: this.userStore.user()._id,
-        contactId: this.contactId,
       });
     }
   }
@@ -52,9 +47,7 @@ export class IntersectionObserverService {
     this.observer = undefined;
   }
 
-  public setupIntersectionObserver(messageContainerElement: HTMLElement, contactId: string) {
-    this.contactId = contactId;
-
+  public setupIntersectionObserver(messageContainerElement: HTMLElement) {
     const options = {
       root: messageContainerElement,
       rootMargin: '0px',

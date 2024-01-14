@@ -30,7 +30,7 @@ export class ChatContainerComponent {
 
     if (position <= threshold) {
       this.intersectionObserverService
-        .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
+        .setupIntersectionObserver(this.chatRef.nativeElement);
     }
   }
 
@@ -86,7 +86,7 @@ export class ChatContainerComponent {
     }
 
     this.intersectionObserverService
-      .setupIntersectionObserver(this.chatRef.nativeElement, this.route.snapshot.paramMap.get('_id') ?? '');
+      .setupIntersectionObserver(this.chatRef.nativeElement);
   }
 
   ngOnDestroy() {
