@@ -1,7 +1,7 @@
-<div class="app-rooms-list">
+<div class="app-chats-list">
   <button
     *ngFor="let chat of rooms"
-    [class]="['app-rooms-list__chat', chat._id === contactId && !searchList ? 'app-rooms-list__chat--active' : '']"
+    [class]="['app-chats-list__chat', chat._id === contactId && !searchList ? 'app-chats-list__chat--active' : '']"
     (click)="handleCloseModal(chat)"
   >
     <app-rooms-item [room]="chat"/>

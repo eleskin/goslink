@@ -2,7 +2,7 @@
   height: 100%;
 }
 
-.app-rooms-list {
+.app-chats-list {
   display: flex;
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
@@ -11,7 +11,7 @@
   overflow-y: auto;
 }
 
-.app-rooms-list__chat {
+.app-chats-list__chat {
   border-radius: var(--main-border-radius);
   text-decoration: none;
   transition: var(--main-transition);
@@ -20,6 +20,6 @@
   text-align: left;
 }
 
-.app-rooms-list__chat:hover, .app-rooms-list__chat--active {
+.app-chats-list__chat:hover, .app-chats-list__chat--active {
   background-color: var(--main-color-3);
 }
