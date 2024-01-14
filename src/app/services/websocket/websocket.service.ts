@@ -77,21 +77,19 @@ export class WebsocketService {
     ['SEARCH_MESSAGE', (event: any) => {
       this.messagesStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
-  ];
-  private readonly roomHandlers: [string, (event: any) => void][] = [
-    ['GET_ROOM', (event: any) => {
-      this.webSocketStore.setRooms(event.detail.data.rooms);
-      this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
-    }],
-  ];
-  private readonly chatHandlers: [string, (event: any) => void][] = [
-    ['NEW_CHAT', async (event: any) => {
-      this.webSocketStore.setContact(event.detail.data.contact);
-      await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
-    }],
     ['GET_MESSAGE', async (event: any) => {
       this.webSocketStore.setContact(event.detail.data.users[0]);
       this.messagesStore.setMessages(event.detail.data.messages);
+    }],
+  ];
+  private readonly chatHandlers: [string, (event: any) => void][] = [
+    ['GET_CHAT', (event: any) => {
+      this.webSocketStore.setRooms(event.detail.data.rooms);
+      this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
+    }],
+    ['NEW_CHAT', async (event: any) => {
+      this.webSocketStore.setContact(event.detail.data.contact);
+      await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
   ];
 
@@ -104,10 +102,6 @@ export class WebsocketService {
     }
 
     for (const [key, value] of this.messageHandlers) {
-      this.webSocket?.addEventListener(String(key), value);
-    }
-
-    for (const [key, value] of this.roomHandlers) {
       this.webSocket?.addEventListener(String(key), value);
     }
 
