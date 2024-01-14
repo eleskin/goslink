@@ -15,7 +15,7 @@ import UserStore from '../../store/user/user.store';
     RouterLink,
   ],
   templateUrl: './rooms-list.component.html',
-  styleUrl: './rooms-list.component.css',
+  styleUrl: './chats-list.component.css',
 })
 export class RoomsListComponent {
   protected contactId: string = '';

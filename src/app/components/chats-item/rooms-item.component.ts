@@ -12,7 +12,7 @@ import UserStore from '../../store/user/user.store';
     NgIf,
   ],
   templateUrl: './rooms-item.component.html',
-  styleUrl: './rooms-item.component.css',
+  styleUrl: './chats-item.component.css',
 })
 export class RoomsItemComponent {
   @Input() public room!: User;
