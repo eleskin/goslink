@@ -11,7 +11,7 @@ import UserStore from '../../store/user/user.store';
   imports: [
     NgIf,
   ],
-  templateUrl: './rooms-item.component.html',
+  templateUrl: './chats-item.component.html',
   styleUrl: './chats-item.component.css',
 })
 export class RoomsItemComponent {

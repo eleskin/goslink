@@ -14,7 +14,7 @@ import UserStore from '../../store/user/user.store';
     RoomsItemComponent,
     RouterLink,
   ],
-  templateUrl: './rooms-list.component.html',
+  templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.css',
 })
 export class RoomsListComponent {
