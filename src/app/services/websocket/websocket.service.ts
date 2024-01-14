@@ -75,7 +75,6 @@ export class WebsocketService {
       this.webSocketStore.setAllRead(event.detail.data._id);
     }],
     ['SEARCH_MESSAGE', (event: any) => {
-      console.log(event.detail.data.searchedMessages)
       this.webSocketStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
   ];

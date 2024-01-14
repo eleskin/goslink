@@ -32,7 +32,6 @@ export class IntersectionObserverService {
 
     const _id = messageId.split('-')[1];
 
-    console.log(this.webSocketStore.messages().find((message) => message._id === _id))
     if (this.messages.at(-1)?._id === _id) {
       this.webSocketService.webSocket?.sendJSON('READ_ALL_MESSAGE', {
         _id: _id,
