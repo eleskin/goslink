@@ -6,7 +6,7 @@ import User from '../../interfaces/user';
 import UserStore from '../../store/user/user.store';
 
 @Component({
-  selector: 'app-rooms-item',
+  selector: 'app-chats-item',
   standalone: true,
   imports: [
     NgIf,
