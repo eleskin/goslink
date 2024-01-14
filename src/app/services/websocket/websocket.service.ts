@@ -53,6 +53,7 @@ export class WebsocketService {
       this.setLastChatMessage(this.webSocketStore.chats(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
+    console.log(event.detail.data)
       this.messagesStore.setMessages(
         this.messagesStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
       );
@@ -78,7 +79,7 @@ export class WebsocketService {
       this.messagesStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
     ['GET_MESSAGE', async (event: any) => {
-      this.webSocketStore.setContact(event.detail.data.users[0]);
+      this.webSocketStore.setContact(event.detail.data.users?.[0]);
       this.messagesStore.setMessages(event.detail.data.messages);
     }],
   ];
