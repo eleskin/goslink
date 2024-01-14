@@ -76,7 +76,8 @@ export class WebsocketService {
       // this.webSocketStore.setAllRead(event.detail.data);
     }],
     ['SEARCH_MESSAGE', (event: any) => {
-      // this.webSocketStore.setSearchedMessages(event.detail.data.searchedMessages);
+      console.log(event.detail.data.searchedMessages)
+      this.webSocketStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [
