@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="app-sidebar__content">
-    <app-rooms-list *ngIf="!searchFieldValue" [rooms]="chats"/>
-    <app-rooms-list *ngIf="searchFieldValue" [rooms]="searchedMessages" [searchList]="true"/>
+    <app-chats-list *ngIf="!searchFieldValue" [rooms]="chats"/>
+    <app-chats-list *ngIf="searchFieldValue" [rooms]="searchedMessages" [searchList]="true"/>
   </div>
 </div>

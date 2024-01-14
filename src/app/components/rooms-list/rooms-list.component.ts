@@ -7,7 +7,7 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
 
 @Component({
-  selector: 'app-rooms-list',
+  selector: 'app-chats-list',
   standalone: true,
   imports: [
     NgForOf,
