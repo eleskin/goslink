@@ -54,15 +54,15 @@ export class WebsocketService {
       this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
-      // this.webSocketStore.setMessages(
-      //   this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage._id),
-      // );
-      // const {chatId} = event.detail.data.deletedMessage;
-      // this.setLastRoomMessage(
-      //   this.webSocketStore.rooms(),
-      //   this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1),
-      //   event.detail.data.deletedMessage,
-      // );
+      this.webSocketStore.setMessages(
+        this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage._id),
+      );
+      const {chatId} = event.detail.data.deletedMessage;
+      this.setLastRoomMessage(
+        this.webSocketStore.rooms(),
+        this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1),
+        event.detail.data.deletedMessage,
+      );
     }],
     ['EDIT_MESSAGE', (event: any) => {
       this.webSocketStore.updateMessage(event.detail.data.message);
