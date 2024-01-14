@@ -50,14 +50,14 @@ export class WebsocketService {
         ]);
       }
 
-      this.setLastRoomMessage(this.webSocketStore.chats(), message);
+      this.setLastChatMessage(this.webSocketStore.chats(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
       this.messagesStore.setMessages(
         this.messagesStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
       );
       const chatId = event.detail.data.deletedMessage?.chatId;
-      this.setLastRoomMessage(
+      this.setLastChatMessage(
         this.webSocketStore.chats(),
         this.messagesStore.messages().filter((message) => message.chatId === chatId).at(-1),
         event.detail.data.deletedMessage,
@@ -66,7 +66,7 @@ export class WebsocketService {
     ['EDIT_MESSAGE', (event: any) => {
       this.messagesStore.updateMessage(event.detail.data.message);
 
-      this.setLastRoomMessage(this.webSocketStore.chats(), event.detail.data.message);
+      this.setLastChatMessage(this.webSocketStore.chats(), event.detail.data.message);
     }],
     ['READ_MESSAGE', (event: any) => {
       this.messagesStore.setRead(event.detail.data._id);
@@ -110,27 +110,27 @@ export class WebsocketService {
     }
   }
 
-  private setLastRoomMessage(rooms: User[], lastMessage: Message | undefined, deletedMessage?: Message) {
+  private setLastChatMessage(chats: User[], lastMessage: Message | undefined, deletedMessage?: Message) {
     if (!lastMessage) {
       this.webSocketStore.deleteRoom(deletedMessage?.chatId);
       return;
     }
 
-    for (const room of rooms) {
-      if (room?._id === lastMessage.chatId) {
-        room.lastMessage = lastMessage;
+    for (const chat of chats) {
+      if (chat?._id === lastMessage.chatId) {
+        chat.lastMessage = lastMessage;
       }
     }
 
-    rooms.sort((room1, room2) => {
-      const date1 = new Date(room1.lastMessage?.dateObject ?? '');
-      const date2 = new Date(room2.lastMessage?.dateObject ?? '');
+    chats.sort((chat1, chat2) => {
+      const date1 = new Date(chat1.lastMessage?.dateObject ?? '');
+      const date2 = new Date(chat2.lastMessage?.dateObject ?? '');
 
       if (date1 > date2) return -1;
       if (date1 < date2) return 1;
       return 0;
     });
 
-    this.webSocketStore.setRooms(rooms);
+    this.webSocketStore.setRooms(chats);
   }
 }
