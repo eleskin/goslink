@@ -33,12 +33,12 @@ export class WebsocketService {
         message,
       ]);
 
-      const isExistRoom = this.webSocketStore.chats().filter((room: any) => {
-        return room?._id === message.chatId;
+      const isExistChat = this.webSocketStore.chats().filter((chat: any) => {
+        return chat?._id === message.chatId;
       }).length;
 
-      if (!isExistRoom) {
-        const room = {
+      if (!isExistChat) {
+        const chat = {
           _id: message.chatId,
           name: message.author.name,
           lastMessage: message,
@@ -46,7 +46,7 @@ export class WebsocketService {
 
         this.webSocketStore.setChats([
           ...this.webSocketStore.chats(),
-          room,
+          chat,
         ]);
       }
 

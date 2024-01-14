@@ -38,7 +38,7 @@ const WebsocketStore = signalStore(
       patchState(store, {contact: state});
     },
     deleteChat(state = '') {
-      const chats = store.chats().filter((room: any) => room._id !== state);
+      const chats = store.chats().filter((chat: any) => chat._id !== state);
       patchState(store, {chats});
     },
     setOnlineUser(state = []) {
