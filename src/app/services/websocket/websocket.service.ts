@@ -65,7 +65,9 @@ export class WebsocketService {
       // );
     }],
     ['EDIT_MESSAGE', (event: any) => {
-      // this.webSocketStore.updateMessage(event.detail.data.message);
+      this.webSocketStore.updateMessage(event.detail.data.message);
+
+      this.setLastRoomMessage(this.webSocketStore.rooms(), event.detail.data.message);
     }],
     ['READ_MESSAGE', (event: any) => {
       // this.webSocketStore.setRead(event.detail.data._id);
