@@ -15,7 +15,7 @@ import UserStore from '../../store/user/user.store';
   styleUrl: './chats-item.component.css',
 })
 export class ChatsItemComponent {
-  @Input() public room!: User;
+  @Input() public chat!: User;
   protected onlineUsers: string[] = [];
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);

@@ -4,6 +4,6 @@
     [class]="['app-chats-list__chat', chat._id === contactId && !searchList ? 'app-chats-list__chat--active' : '']"
     (click)="handleCloseModal(chat)"
   >
-    <app-chats-item [room]="chat"/>
+    <app-chats-item [chat]="chat"/>
   </button>
 </div>
