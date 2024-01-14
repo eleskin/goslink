@@ -53,7 +53,6 @@ export class WebsocketService {
       this.setLastChatMessage(this.webSocketStore.chats(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
-      console.log(event.detail.data);
       this.messagesStore.setMessages(
         this.messagesStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
       );
