@@ -3,12 +3,12 @@ import {FormsModule} from '@angular/forms';
 import {MessageComponent} from '../message/message.component';
 import {NgForOf} from '@angular/common';
 import Message from '../../interfaces/message';
-import WebsocketStore from '../../store/websocket/websocket.store';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {IntersectionObserverService} from '../../services/intersection-observer/intersection-observer.service';
 import UserStore from '../../store/user/user.store';
 import {Subscription} from 'rxjs';
 import deleteParam from '../../utils/deleteParam';
+import MessagesStore from '../../store/messages/messages.store';
 
 @Component({
   selector: 'app-chat-container',
@@ -37,7 +37,7 @@ export class ChatContainerComponent {
   @Output() public edit = new EventEmitter<any>();
   protected messagesByDates: { date: string, messages: Message[] }[] = [];
   protected userId = '';
-  private readonly webSocketStore = inject(WebsocketStore);
+  private readonly messagesStore = inject(MessagesStore);
   private readonly userStore = inject(UserStore);
   private readonly routerEventSubscription: Subscription;
   private autoScrollDisabled = false;
@@ -71,7 +71,7 @@ export class ChatContainerComponent {
     });
 
     effect(() => {
-      this.messagesByDates = this.webSocketStore.messagesByDates();
+      this.messagesByDates = this.messagesStore.messagesByDates();
       this.userId = this.userStore.user()._id;
 
       this.scrollContainer();
@@ -111,13 +111,13 @@ export class ChatContainerComponent {
     this.intersectionObserverService.destroyIntersectionObserver();
     setTimeout(() => {
       this.chatRef.nativeElement.querySelector(`#message-${this.firstUnreadMessageId}`)?.scrollIntoView();
-      if (!this.webSocketStore.messages().find((message) => !message.checked)?._id) this.firstUnreadMessageId = '';
+      if (!this.messagesStore.messages().find((message) => !message.checked)?._id) this.firstUnreadMessageId = '';
     });
   }
 
   private scrollContainer() {
-    const lastMessage = this.webSocketStore.messages().at(-1);
-    const firstUnreadMessage = this.webSocketStore.messages().find((message) => !message.checked);
+    const lastMessage = this.messagesStore.messages().at(-1);
+    const firstUnreadMessage = this.messagesStore.messages().find((message) => !message.checked);
     const firstUnreadMessageUserId = firstUnreadMessage?.userId ?? '';
     this.firstUnreadMessageId = firstUnreadMessage?._id ?? '';
 

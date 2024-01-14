@@ -7,6 +7,7 @@ import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
 import {RouterLink} from '@angular/router';
+import MessagesStore from '../../store/messages/messages.store';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,6 +25,7 @@ import {RouterLink} from '@angular/router';
 })
 export class SidebarComponent {
   private readonly webSocketStore = inject(WebsocketStore);
+  private readonly messagesStore = inject(MessagesStore);
   @Output() public handleOpenNewChatModal = new EventEmitter<boolean>();
   protected rooms: User[] = [];
   private readonly userStore = inject(UserStore);
@@ -34,7 +36,7 @@ export class SidebarComponent {
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
       this.rooms = this.webSocketStore.rooms();
-      this.searchedMessages = this.webSocketStore.searchedMessages();
+      this.searchedMessages = this.messagesStore.searchedMessages();
       this.userId = this.userStore.user()._id;
     });
   }

@@ -2,7 +2,7 @@ import {effect, inject, Injectable} from '@angular/core';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
-import WebsocketStore from '../../store/websocket/websocket.store';
+import MessagesStore from '../../store/messages/messages.store';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +11,11 @@ export class IntersectionObserverService {
   public observer: IntersectionObserver | undefined;
   private messages: Message[] = [];
   private userStore = inject(UserStore);
-  private webSocketStore = inject(WebsocketStore);
+  private messagesStore = inject(MessagesStore);
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
-      this.messages = this.webSocketStore.messages()
+      this.messages = this.messagesStore.messages()
         .filter((message) => message.userId !== this.userStore.user()._id && !message.checked);
 
       setTimeout(() => {
@@ -35,12 +35,12 @@ export class IntersectionObserverService {
     if (this.messages.at(-1)?._id === _id) {
       this.webSocketService.webSocket?.sendJSON('READ_ALL_MESSAGE', {
         _id: _id,
-        chatId: this.webSocketStore.messages().find((message) => message._id === _id)?.chatId
+        chatId: this.messagesStore.messages().find((message) => message._id === _id)?.chatId
       })
     } else {
       this.webSocketService.webSocket?.sendJSON('READ_MESSAGE', {
         _id: _id,
-        chatId: this.webSocketStore.messages().find((message) => message._id === _id)?.chatId
+        chatId: this.messagesStore.messages().find((message) => message._id === _id)?.chatId
       });
     }
   }

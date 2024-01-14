@@ -3,8 +3,8 @@ import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import Message from '../../interfaces/message';
 import User from '../../interfaces/user';
-import {ActivatedRoute, Router} from '@angular/router';
-import UserStore from '../../store/user/user.store';
+import {Router} from '@angular/router';
+import MessagesStore from '../../store/messages/messages.store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import UserStore from '../../store/user/user.store';
 export class WebsocketService {
   public webSocket: WebSocketChatClient | undefined;
   private readonly webSocketStore = inject(WebsocketStore);
-  private readonly userStore = inject(UserStore);
+  private readonly messagesStore = inject(MessagesStore);
   private readonly userHandlers: [string, (event: any) => void][] = [
     ['SEARCH_USER', (event: any) => {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
@@ -28,8 +28,8 @@ export class WebsocketService {
     ['NEW_MESSAGE', (event: any) => {
       const {message} = event.detail.data;
 
-      this.webSocketStore.setMessages([
-        ...this.webSocketStore.messages(),
+      this.messagesStore.setMessages([
+        ...this.messagesStore.messages(),
         message,
       ]);
 
@@ -53,29 +53,29 @@ export class WebsocketService {
       this.setLastRoomMessage(this.webSocketStore.rooms(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
-      this.webSocketStore.setMessages(
-        this.webSocketStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
+      this.messagesStore.setMessages(
+        this.messagesStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
       );
       const chatId = event.detail.data.deletedMessage?.chatId;
       this.setLastRoomMessage(
         this.webSocketStore.rooms(),
-        this.webSocketStore.messages().filter((message) => message.chatId === chatId).at(-1),
+        this.messagesStore.messages().filter((message) => message.chatId === chatId).at(-1),
         event.detail.data.deletedMessage,
       );
     }],
     ['EDIT_MESSAGE', (event: any) => {
-      this.webSocketStore.updateMessage(event.detail.data.message);
+      this.messagesStore.updateMessage(event.detail.data.message);
 
       this.setLastRoomMessage(this.webSocketStore.rooms(), event.detail.data.message);
     }],
     ['READ_MESSAGE', (event: any) => {
-      this.webSocketStore.setRead(event.detail.data._id);
+      this.messagesStore.setRead(event.detail.data._id);
     }],
     ['READ_ALL_MESSAGE', (event: any) => {
-      this.webSocketStore.setAllRead(event.detail.data._id);
+      this.messagesStore.setAllRead(event.detail.data._id);
     }],
     ['SEARCH_MESSAGE', (event: any) => {
-      this.webSocketStore.setSearchedMessages(event.detail.data.searchedMessages);
+      this.messagesStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
   ];
   private readonly roomHandlers: [string, (event: any) => void][] = [
@@ -91,11 +91,11 @@ export class WebsocketService {
     }],
     ['GET_CHAT', async (event: any) => {
       this.webSocketStore.setContact(event.detail.data.users[0]);
-      this.webSocketStore.setMessages(event.detail.data.messages);
+      this.messagesStore.setMessages(event.detail.data.messages);
     }],
   ];
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router) {
   }
 
   public setHandlers() {

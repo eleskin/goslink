@@ -2,15 +2,18 @@ import {patchState, signalStore, withComputed, withMethods, withState} from '@ng
 import {computed} from '@angular/core';
 import groupMessagesByDate from '../../utils/groupMessagesByDate';
 import Message from '../../interfaces/message';
+import User from '../../interfaces/user';
 
 type MessagesState = {
   messages: Message[],
+  searchedMessages: User[],
 };
 
 
 const initialState: MessagesState = {
-  messages: []
-}
+  messages: [],
+  searchedMessages: [],
+};
 
 const MessagesStore = signalStore(
   withState(initialState),
@@ -50,5 +53,10 @@ const MessagesStore = signalStore(
 
       patchState(store, {messages});
     },
+    setSearchedMessages(state = []) {
+      patchState(store, {searchedMessages: state});
+    },
   })),
 );
+
+export default MessagesStore;
