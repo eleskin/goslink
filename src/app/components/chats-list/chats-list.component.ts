@@ -1,6 +1,6 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {NgForOf} from '@angular/common';
-import {RoomsItemComponent} from '../chats-item/chats-item.component';
+import {ChatsItemComponent} from '../chats-item/chats-item.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
@@ -11,7 +11,7 @@ import UserStore from '../../store/user/user.store';
   standalone: true,
   imports: [
     NgForOf,
-    RoomsItemComponent,
+    ChatsItemComponent,
     RouterLink,
   ],
   templateUrl: './chats-list.component.html',

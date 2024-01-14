@@ -14,7 +14,7 @@ import UserStore from '../../store/user/user.store';
   templateUrl: './chats-item.component.html',
   styleUrl: './chats-item.component.css',
 })
-export class RoomsItemComponent {
+export class ChatsItemComponent {
   @Input() public room!: User;
   protected onlineUsers: string[] = [];
   protected readonly getGradientFromChar = getGradientFromChar;
