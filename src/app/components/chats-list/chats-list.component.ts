@@ -17,7 +17,7 @@ import UserStore from '../../store/user/user.store';
   templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.css',
 })
-export class RoomsListComponent {
+export class ChatsListComponent {
   protected contactId: string = '';
   @Input() rooms!: User[];
   @Output() public handleVisibleModal = new EventEmitter<boolean>();

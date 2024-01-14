@@ -1,7 +1,7 @@
 import {Component, effect, EventEmitter, inject, Output} from '@angular/core';
 import {InputComponent} from '../../ui/input/input.component';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
-import {RoomsListComponent} from '../chats-list/chats-list.component';
+import {ChatsListComponent} from '../chats-list/chats-list.component';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
@@ -15,7 +15,7 @@ import MessagesStore from '../../store/messages/messages.store';
   imports: [
     InputComponent,
     NgOptimizedImage,
-    RoomsListComponent,
+    ChatsListComponent,
     NgForOf,
     NgIf,
     RouterLink,
