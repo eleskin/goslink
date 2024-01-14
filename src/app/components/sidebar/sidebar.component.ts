@@ -35,7 +35,7 @@ export class SidebarComponent {
 
   constructor(private webSocketService: WebsocketService) {
     effect(() => {
-      this.rooms = this.webSocketStore.rooms();
+      this.rooms = this.webSocketStore.chats();
       this.searchedMessages = this.messagesStore.searchedMessages();
       this.userId = this.userStore.user()._id;
     });

@@ -4,7 +4,7 @@ import User from '../../interfaces/user';
 type WebsocketState = {
   readyState: number,
   contactId: string,
-  rooms: User[],
+  chats: User[],
   searchedUser: User | undefined,
   contact: User | undefined,
   onlineUsers: string[],
@@ -13,7 +13,7 @@ type WebsocketState = {
 const initialState: WebsocketState = {
   readyState: 0,
   contactId: '',
-  rooms: [],
+  chats: [],
   searchedUser: undefined,
   contact: undefined,
   onlineUsers: [],
@@ -29,7 +29,7 @@ const WebsocketStore = signalStore(
       patchState(store, {contactId: state});
     },
     setRooms(state = []) {
-      patchState(store, {rooms: state});
+      patchState(store, {chats: state});
     },
     setSearchedUser(state = null) {
       patchState(store, {searchedUser: state});
@@ -38,8 +38,8 @@ const WebsocketStore = signalStore(
       patchState(store, {contact: state});
     },
     deleteRoom(state = '') {
-      const rooms = store.rooms().filter((room: any) => room._id !== state);
-      patchState(store, {rooms});
+      const chats = store.chats().filter((room: any) => room._id !== state);
+      patchState(store, {chats});
     },
     setOnlineUser(state = []) {
       patchState(store, {onlineUsers: [...store.onlineUsers(), ...state]});

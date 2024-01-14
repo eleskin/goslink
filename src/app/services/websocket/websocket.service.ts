@@ -33,7 +33,7 @@ export class WebsocketService {
         message,
       ]);
 
-      const isExistRoom = this.webSocketStore.rooms().filter((room: any) => {
+      const isExistRoom = this.webSocketStore.chats().filter((room: any) => {
         return room?._id === message.chatId;
       }).length;
 
@@ -45,12 +45,12 @@ export class WebsocketService {
         };
 
         this.webSocketStore.setRooms([
-          ...this.webSocketStore.rooms(),
+          ...this.webSocketStore.chats(),
           room,
         ]);
       }
 
-      this.setLastRoomMessage(this.webSocketStore.rooms(), message);
+      this.setLastRoomMessage(this.webSocketStore.chats(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
       this.messagesStore.setMessages(
@@ -58,7 +58,7 @@ export class WebsocketService {
       );
       const chatId = event.detail.data.deletedMessage?.chatId;
       this.setLastRoomMessage(
-        this.webSocketStore.rooms(),
+        this.webSocketStore.chats(),
         this.messagesStore.messages().filter((message) => message.chatId === chatId).at(-1),
         event.detail.data.deletedMessage,
       );
@@ -66,7 +66,7 @@ export class WebsocketService {
     ['EDIT_MESSAGE', (event: any) => {
       this.messagesStore.updateMessage(event.detail.data.message);
 
-      this.setLastRoomMessage(this.webSocketStore.rooms(), event.detail.data.message);
+      this.setLastRoomMessage(this.webSocketStore.chats(), event.detail.data.message);
     }],
     ['READ_MESSAGE', (event: any) => {
       this.messagesStore.setRead(event.detail.data._id);
