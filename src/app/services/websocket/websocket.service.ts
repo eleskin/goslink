@@ -53,6 +53,7 @@ export class WebsocketService {
       this.setLastChatMessage(this.webSocketStore.chats(), message);
     }],
     ['DELETE_MESSAGE', (event: any) => {
+      console.log(event.detail.data);
       this.messagesStore.setMessages(
         this.messagesStore.messages().filter((message: Message) => message._id !== event.detail.data.deletedMessage?._id),
       );
@@ -62,6 +63,10 @@ export class WebsocketService {
         this.messagesStore.messages().filter((message) => message.chatId === chatId).at(-1),
         event.detail.data.deletedMessage,
       );
+
+      if (!this.messagesStore.messages().filter((message) => message.chatId === chatId).at(-1)) {
+        this.router.navigate(['/']);
+      }
     }],
     ['EDIT_MESSAGE', (event: any) => {
       this.messagesStore.updateMessage(event.detail.data.message);
