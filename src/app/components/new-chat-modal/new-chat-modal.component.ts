@@ -7,7 +7,7 @@ import {RouterLink} from '@angular/router';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
-import {RoomsListComponent} from '../chats-list/rooms-list.component';
+import {RoomsListComponent} from '../chats-list/chats-list.component';
 import {ButtonComponent} from '../../ui/button/button.component';
 import UserStore from '../../store/user/user.store';
 
