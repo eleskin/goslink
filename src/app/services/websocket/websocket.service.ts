@@ -84,8 +84,8 @@ export class WebsocketService {
   ];
   private readonly chatHandlers: [string, (event: any) => void][] = [
     ['GET_CHAT', (event: any) => {
-      this.webSocketStore.setRooms(event.detail.data.rooms);
-      this.webSocketStore.setOnlineUser(event.detail.data.onlineRooms);
+      this.webSocketStore.setRooms(event.detail.data.chats);
+      this.webSocketStore.setOnlineUser(event.detail.data.onlineChats);
     }],
     ['NEW_CHAT', async (event: any) => {
       this.webSocketStore.setContact(event.detail.data.contact);
