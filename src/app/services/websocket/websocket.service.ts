@@ -18,7 +18,7 @@ export class WebsocketService {
       this.webSocketStore.setSearchedUser(event.detail.data.user);
     }],
     ['ONLINE_USER', (event: any) => {
-      // this.webSocketStore.setOnlineUser([event.detail.data.userId]);
+      this.webSocketStore.setOnlineUser([event.detail.data.userId]);
     }],
     ['OFFLINE_USER', (event: any) => {
       // this.webSocketStore.setOfflineUser(event.detail.data.userId);
