@@ -4,12 +4,14 @@ import WebsocketStore from '../../store/websocket/websocket.store';
 import {ActivatedRoute} from '@angular/router';
 import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf} from '@angular/common';
+import {NewChatModalComponent} from '../new-chat-modal/new-chat-modal.component';
 
 @Component({
   selector: 'app-chat-header',
   standalone: true,
   imports: [
     NgIf,
+    NewChatModalComponent,
   ],
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.css',
@@ -20,6 +22,7 @@ export class ChatHeaderComponent {
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
   protected chat: any;
+  protected visibleModal = false;
 
   constructor(private route: ActivatedRoute) {
     effect(() => {
@@ -30,5 +33,11 @@ export class ChatHeaderComponent {
     });
   }
 
-  protected handleAddUser() {}
+  protected handleAddUser() {
+    this.visibleModal = true;
+  }
+
+  protected handleCloseModal() {
+    this.visibleModal = false;
+  }
 }

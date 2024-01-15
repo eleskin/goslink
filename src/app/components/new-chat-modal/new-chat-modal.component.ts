@@ -27,6 +27,7 @@ import UserStore from '../../store/user/user.store';
 })
 export class NewChatModalComponent {
   @Input() public visibleModal = false;
+  @Input() public addUser = false;
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   protected searchedUser: User | undefined;
   protected usernameValue = '';

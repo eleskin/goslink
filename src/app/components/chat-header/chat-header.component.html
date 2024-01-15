@@ -5,4 +5,5 @@
 <!--    <i>{{ online ? 'Online' : 'Last seen recently' }}</i>-->
   </div>
   <button *ngIf="chat?.group" (click)="handleAddUser()">Add user</button>
+  <app-new-chat-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [addUser]="true" />
 </header>

@@ -20,6 +20,7 @@ import UserStore from '../../store/user/user.store';
 export class ChatsListComponent {
   protected contactId: string = '';
   @Input() chats!: User[];
+  @Input() public addUser = false;
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   @Input() public visibleModal = false;
   @Input() public searchList = false;
@@ -37,10 +38,18 @@ export class ChatsListComponent {
     this.handleVisibleModal.emit(false);
 
     if (this.searchList) {
-      this.webSocketService.webSocket?.sendJSON('NEW_CHAT', {
-        userId: this.userStore.user()._id,
-        contactId: chat._id,
-      });
+      if (this.addUser) {
+        this.webSocketService.webSocket?.sendJSON('ADD_USER', {
+          userId: this.userStore.user()._id,
+          chatId: this.route.snapshot.paramMap.get('_id') ?? '',
+          contactId: chat._id,
+        });
+      } else {
+        this.webSocketService.webSocket?.sendJSON('NEW_CHAT', {
+          userId: this.userStore.user()._id,
+          contactId: chat._id,
+        });
+      }
     } else {
       await this.router.navigate([`/chat/${chat._id}`]);
     }
