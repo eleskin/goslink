@@ -9,7 +9,7 @@ const getGradientFromChar = (char: string) => {
     return `hsl(${hue}, ${SATURATION}%, ${LIGHTNESS}%)`;
   };
 
-  const charCode = char?.charCodeAt(0);
+  const charCode = char.charCodeAt(0);
   const color1 = generateColor(charCode, 0);
   const color2 = generateColor(charCode, 15);
 
