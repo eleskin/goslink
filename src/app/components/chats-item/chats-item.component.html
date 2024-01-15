@@ -9,4 +9,7 @@
       <em>{{ chat.lastMessage?.userId === userId ? 'You: ' : chat.name + ': ' }}</em>{{ chat.lastMessage?.text }}
     </span>
   </div>
+  <button (click)="handleDeleteChat(chat)">
+    <img ngSrc="assets/icons/trash.svg" height="20" width="20" alt="">
+  </button>
 </div>

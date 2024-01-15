@@ -82,9 +82,9 @@ export class WebsocketService {
       this.messagesStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
     ['GET_MESSAGE', async (event: any) => {
-    console.log(event.detail.data)
+      console.log(event.detail.data);
       this.webSocketStore.setContact(event.detail.data.users?.[0] || {
-        name: 'Group chat'
+        name: 'Group chat',
       });
       this.messagesStore.setMessages(event.detail.data.messages);
     }],
@@ -100,6 +100,10 @@ export class WebsocketService {
     }],
     ['NEW_GROUP_CHAT', async (event: any) => {
       await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
+    }],
+    ['DELETE_CHAT', async (event: any) => {
+      this.webSocketStore.setChats(this.webSocketStore.chats().filter((chat) => chat._id !== event.detail.data.chat._id));
+      await this.router.navigate(['/']);
     }],
   ];
 
