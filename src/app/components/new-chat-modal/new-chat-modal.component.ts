@@ -56,7 +56,7 @@ export class NewChatModalComponent {
   }
 
   protected handleClickNewChat() {
-    this.websocketService.webSocket?.sendJSON('NEW_CHAT', {
+    this.websocketService.webSocket?.sendJSON('NEW_GROUP_CHAT', {
       userId: this.userStore.user()._id,
     });
   }

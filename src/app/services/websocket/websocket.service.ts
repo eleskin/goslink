@@ -95,6 +95,9 @@ export class WebsocketService {
       this.webSocketStore.setContact(event.detail.data.contact);
       await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
+    ['NEW_GROUP_CHAT', async (event: any) => {
+      await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
+    }],
   ];
 
   constructor(private router: Router) {
