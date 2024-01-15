@@ -39,7 +39,7 @@ export class ChatsListComponent {
 
     if (this.searchList) {
       if (this.addUser) {
-        this.webSocketService.webSocket?.sendJSON('ADD_USER', {
+        this.webSocketService.webSocket?.sendJSON('ADD_USER_CHAT', {
           userId: this.userStore.user()._id,
           chatId: this.route.snapshot.paramMap.get('_id') ?? '',
           contactId: chat._id,
