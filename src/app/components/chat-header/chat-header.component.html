@@ -4,4 +4,5 @@
     <span>{{ contact?.name ?? '' }}</span>
 <!--    <i>{{ online ? 'Online' : 'Last seen recently' }}</i>-->
   </div>
+  <button *ngIf="chat?.group" (click)="handleAddUser()">Add user</button>
 </header>
