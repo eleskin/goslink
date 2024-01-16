@@ -82,10 +82,6 @@ export class AuthFormComponent {
     return this._rememberValue;
   }
 
-  protected handleFormSubmit(event: any) {
-    this.submit.emit(event);
-  }
-
   @Output() nameValueChange = new EventEmitter<string>();
   @Output() usernameValueChange = new EventEmitter<string>();
   @Output() emailValueChange = new EventEmitter<string>();
