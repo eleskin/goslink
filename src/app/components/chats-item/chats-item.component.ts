@@ -2,9 +2,9 @@ import {Component, effect, inject, Input} from '@angular/core';
 import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf, NgOptimizedImage} from '@angular/common';
 import WebsocketStore from '../../store/websocket/websocket.store';
-import User from '../../interfaces/user';
 import UserStore from '../../store/user/user.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
+import Chat from '../../interfaces/chat';
 
 @Component({
   selector: 'app-chats-item',
@@ -17,7 +17,7 @@ import {WebsocketService} from '../../services/websocket/websocket.service';
   styleUrl: './chats-item.component.css',
 })
 export class ChatsItemComponent {
-  @Input() public chat!: User;
+  @Input() public chat!: Chat;
   protected onlineUsers: string[] = [];
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
@@ -31,7 +31,7 @@ export class ChatsItemComponent {
     });
   }
 
-  protected handleDeleteChat(chat: User) {
+  protected handleDeleteChat(chat: Chat) {
     this.webSocketService.webSocket?.sendJSON('DELETE_CHAT', {
       userId: this.userStore.user()._id,
       chatId: chat._id,

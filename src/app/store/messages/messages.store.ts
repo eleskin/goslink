@@ -2,11 +2,11 @@ import {patchState, signalStore, withComputed, withMethods, withState} from '@ng
 import {computed} from '@angular/core';
 import groupMessagesByDate from '../../utils/groupMessagesByDate';
 import Message from '../../interfaces/message';
-import User from '../../interfaces/user';
+import Chat from '../../interfaces/chat';
 
 type MessagesState = {
   messages: Message[],
-  searchedMessages: User[],
+  searchedMessages: Chat[],
 };
 
 

@@ -1,11 +1,12 @@
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
 import User from '../../interfaces/user';
+import Chat from '../../interfaces/chat';
 
 type WebsocketState = {
   readyState: number,
   contactId: string,
-  chats: User[],
-  searchedUser: User | undefined,
+  chats: Chat[],
+  searchedUser: Chat | undefined,
   contact: User | undefined,
   onlineUsers: string[],
 };

@@ -4,12 +4,12 @@ import {InputComponent} from '../../ui/input/input.component';
 import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
-import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import {ChatsListComponent} from '../chats-list/chats-list.component';
 import {ButtonComponent} from '../../ui/button/button.component';
 import UserStore from '../../store/user/user.store';
+import Chat from '../../interfaces/chat';
 
 @Component({
   selector: 'app-new-chat-modal',
@@ -29,7 +29,7 @@ export class NewChatModalComponent {
   @Input() public visibleModal = false;
   @Input() public addUser = false;
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
-  protected searchedUser: User | undefined;
+  protected searchedUser: Chat | undefined;
   protected usernameValue = '';
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);

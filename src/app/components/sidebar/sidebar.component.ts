@@ -3,11 +3,11 @@ import {InputComponent} from '../../ui/input/input.component';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {ChatsListComponent} from '../chats-list/chats-list.component';
 import WebsocketStore from '../../store/websocket/websocket.store';
-import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
 import {RouterLink} from '@angular/router';
 import MessagesStore from '../../store/messages/messages.store';
+import Chat from '../../interfaces/chat';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,9 +27,9 @@ export class SidebarComponent {
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly messagesStore = inject(MessagesStore);
   @Output() public handleOpenNewChatModal = new EventEmitter<boolean>();
-  protected chats: User[] = [];
+  protected chats: Chat[] = [];
   private readonly userStore = inject(UserStore);
-  protected searchedMessages: User[] = [];
+  protected searchedMessages: Chat[] = [];
   protected userId = '';
   protected searchFieldValue = '';
 

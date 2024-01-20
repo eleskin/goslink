@@ -2,9 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import WebSocketChatClient from '../../classes/web-socket-chat-client';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import Message from '../../interfaces/message';
-import User from '../../interfaces/user';
 import {Router} from '@angular/router';
 import MessagesStore from '../../store/messages/messages.store';
+import Chat from '../../interfaces/chat';
 
 @Injectable({
   providedIn: 'root',
@@ -124,7 +124,7 @@ export class WebsocketService {
     }
   }
 
-  private setLastChatMessage(chats: User[], lastMessage: Message | undefined, deletedMessage?: Message) {
+  private setLastChatMessage(chats: Chat[], lastMessage: Message | undefined, deletedMessage?: Message) {
     if (!lastMessage) {
       this.webSocketStore.deleteChat(deletedMessage?.chatId);
       return;

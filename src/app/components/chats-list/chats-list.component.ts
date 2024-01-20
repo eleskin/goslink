@@ -2,9 +2,9 @@ import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {ChatsItemComponent} from '../chats-item/chats-item.component';
 import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router';
-import User from '../../interfaces/user';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
+import Chat from '../../interfaces/chat';
 
 @Component({
   selector: 'app-chats-list',
@@ -19,7 +19,7 @@ import UserStore from '../../store/user/user.store';
 })
 export class ChatsListComponent {
   protected contactId: string = '';
-  @Input() chats!: User[];
+  @Input() chats!: Chat[];
   @Input() public addUser = false;
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   @Input() public visibleModal = false;
@@ -34,7 +34,7 @@ export class ChatsListComponent {
     });
   }
 
-  protected async handleCloseModal(chat: User) {
+  protected async handleCloseModal(chat: Chat) {
     this.handleVisibleModal.emit(false);
 
     if (this.searchList) {
