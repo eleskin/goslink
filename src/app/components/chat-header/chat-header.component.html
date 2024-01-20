@@ -1,9 +1,15 @@
 <header class="app-chat-header">
-  <i [style]="getGradientFromChar(contact?.name?.[0] ?? '')">{{ contact?.name?.[0] ?? '' }}</i>
-  <div>
-    <span>{{ contact?.name ?? '' }}</span>
-<!--    <i>{{ online ? 'Online' : 'Last seen recently' }}</i>-->
+  <div class="app-chat-header__container">
+    <div>
+      <i [style]="getGradientFromChar(contact?.name?.[0] ?? '')">{{ contact?.name?.[0] ?? '' }}</i>
+      <div>
+        <span>{{ contact?.name ?? '' }}</span>
+        <!--    <i>{{ online ? 'Online' : 'Last seen recently' }}</i>-->
+      </div>
+    </div>
+    <div>
+      <app-button *ngIf="chat?.group" (click)="handleAddUser()" text="Add user"/>
+    </div>
   </div>
-  <button *ngIf="chat?.group" (click)="handleAddUser()">Add user</button>
-  <app-new-chat-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [addUser]="true" />
+  <app-new-chat-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [addUser]="true"/>
 </header>

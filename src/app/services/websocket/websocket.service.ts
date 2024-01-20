@@ -38,7 +38,7 @@ export class WebsocketService {
       }).length;
 
       if (!isExistChat) {
-        const chat = {
+        const chat: Chat = {
           _id: message.chatId,
           name: message.author.name,
           lastMessage: message,

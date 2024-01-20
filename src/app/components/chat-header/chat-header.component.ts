@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf} from '@angular/common';
 import {NewChatModalComponent} from '../new-chat-modal/new-chat-modal.component';
+import {ButtonComponent} from '../../ui/button/button.component';
 
 @Component({
   selector: 'app-chat-header',
@@ -12,6 +13,7 @@ import {NewChatModalComponent} from '../new-chat-modal/new-chat-modal.component'
   imports: [
     NgIf,
     NewChatModalComponent,
+    ButtonComponent,
   ],
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.css',
