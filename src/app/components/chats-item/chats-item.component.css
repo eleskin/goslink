@@ -65,3 +65,14 @@
   font-style: normal;
   color: var(--main-color)
 }
+
+.app-chats-item button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: var(--main-transition);
+}
+
+.app-chats-item button:hover {
+  background-color: var(--main-light-gray-color-2);
+}

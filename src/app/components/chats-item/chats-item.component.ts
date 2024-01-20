@@ -18,6 +18,7 @@ import Chat from '../../interfaces/chat';
 })
 export class ChatsItemComponent {
   @Input() public chat!: Chat;
+  @Input() public searchList = false;
   protected onlineUsers: string[] = [];
   protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
