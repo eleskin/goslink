@@ -99,6 +99,7 @@ export class WebsocketService {
       await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
     ['NEW_GROUP_CHAT', async (event: any) => {
+      await this.router.navigate(['/']);
       await this.router.navigate([`chat/${event.detail.data.chat._id}`]);
     }],
     ['DELETE_CHAT', async (event: any) => {
