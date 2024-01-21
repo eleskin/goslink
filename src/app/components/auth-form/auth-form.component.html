@@ -32,6 +32,14 @@
       placeholder="Password"
       type="password"
     />
+    <app-input
+      *ngIf="formType === 'register'"
+      [(ngModel)]="passwordRepeatValue"
+      [required]="true"
+      ngDefaultControl
+      placeholder="Repeat password"
+      type="password"
+    />
     <app-checkbox
       *ngIf="formType === 'login'"
       [(ngModel)]="rememberValue"

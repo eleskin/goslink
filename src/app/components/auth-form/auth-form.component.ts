@@ -28,6 +28,7 @@ export class AuthFormComponent {
   private _usernameValue = '';
   private _emailValue = '';
   private _passwordValue = '';
+  private _passwordRepeatValue = '';
   private _rememberValue = false;
 
   @Input() formType!: 'login' | 'register';
@@ -73,6 +74,16 @@ export class AuthFormComponent {
   }
 
   @Input()
+  set passwordRepeatValue(value: string) {
+    this.passwordRepeatValueChange.emit(value);
+    this._passwordRepeatValue = value;
+  }
+
+  get passwordRepeatValue() {
+    return this._passwordRepeatValue;
+  }
+
+  @Input()
   set rememberValue(value: boolean) {
     this.rememberValueChange.emit(value);
     this._rememberValue = value;
@@ -86,6 +97,7 @@ export class AuthFormComponent {
   @Output() usernameValueChange = new EventEmitter<string>();
   @Output() emailValueChange = new EventEmitter<string>();
   @Output() passwordValueChange = new EventEmitter<string>();
+  @Output() passwordRepeatValueChange = new EventEmitter<string>();
   @Output() rememberValueChange = new EventEmitter<boolean>();
 
   @Output() submit = new EventEmitter<any>();

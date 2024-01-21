@@ -18,12 +18,15 @@ export class RegisterComponent {
   protected usernameValue: string = '';
   protected emailValue: string = '';
   protected passwordValue: string = '';
+  protected passwordRepeatValue: string = '';
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
+
+    if (this.passwordValue !== this.passwordRepeatValue) return;
 
     this.http.post('http://localhost:3000/api/user/auth/register', {
       name: this.nameValue,
