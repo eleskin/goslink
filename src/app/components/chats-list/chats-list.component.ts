@@ -18,7 +18,7 @@ import Chat from '../../interfaces/chat';
   styleUrl: './chats-list.component.css',
 })
 export class ChatsListComponent {
-  protected contactId: string = '';
+  protected chatId: string = '';
   @Input() chats!: Chat[];
   @Input() public addUser = false;
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
@@ -27,9 +27,10 @@ export class ChatsListComponent {
   private readonly userStore = inject(UserStore);
 
   constructor(private route: ActivatedRoute, private router: Router, private webSocketService: WebsocketService) {
+    this.chatId = this.route.snapshot.paramMap.get('_id') ?? '';
     this.router.events.subscribe(async (value) => {
       if (value instanceof NavigationEnd) {
-        this.contactId = this.route.snapshot.paramMap.get('_id') ?? '';
+        this.chatId = this.route.snapshot.paramMap.get('_id') ?? '';
       }
     });
   }
