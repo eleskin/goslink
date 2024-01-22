@@ -20,9 +20,9 @@ export class WebsocketService {
     ['ONLINE_USER', (event: any) => {
       this.webSocketStore.setOnlineUser([event.detail.data.userId]);
     }],
-    // ['OFFLINE_USER', (event: any) => {
-    //   this.webSocketStore.setOfflineUser(event.detail.data.userId);
-    // }],
+    ['OFFLINE_USER', (event: any) => {
+      this.webSocketStore.setOfflineUser(event.detail.data.userId);
+    }],
   ];
   private readonly messageHandlers: [string, (event: any) => void][] = [
     ['NEW_MESSAGE', (event: any) => {
