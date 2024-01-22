@@ -6,7 +6,7 @@
   <div>
     <strong>{{ chat.name }}</strong>
     <span *ngIf="chat.lastMessage?.text">
-      <em>{{ chat.lastMessage?.userId === userId ? 'You: ' : chat.name + ': ' }}</em>{{ chat.lastMessage?.text }}
+      <em>{{ chat.lastMessage.userId === userId ? 'You: ' : chat.name + ': ' }}</em>{{ chat.lastMessage.text }}
     </span>
   </div>
   <button (click)="handleDeleteChat(chat)" *ngIf="!searchList">
