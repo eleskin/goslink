@@ -7,6 +7,6 @@
   </div>
   <div class="app-sidebar__content">
     <app-chats-list *ngIf="!searchFieldValue" [chats]="chats"/>
-    <app-chats-list *ngIf="searchFieldValue" [chats]="searchedMessages"/>
+    <app-chats-list *ngIf="searchFieldValue" [chats]="searchedMessages" [messagesList]="true"/>
   </div>
 </div>

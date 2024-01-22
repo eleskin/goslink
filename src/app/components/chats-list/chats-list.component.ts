@@ -24,6 +24,7 @@ export class ChatsListComponent {
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   @Input() public visibleModal = false;
   @Input() public searchList = false;
+  @Input() public messagesList = false;
   private readonly userStore = inject(UserStore);
 
   constructor(private route: ActivatedRoute, private router: Router, private webSocketService: WebsocketService) {
@@ -51,12 +52,17 @@ export class ChatsListComponent {
           contactId: chat._id,
         });
       }
+    } else if (this.messagesList) {
+      await this.router.navigate([`/chat/${chat._id}`]);
+      setTimeout(async () => {
+        await this.router.navigate([`/chat/${chat._id}`], {
+          queryParams: {
+            message: chat.lastMessage._id,
+          },
+        });
+      }, 400);
     } else {
-      await this.router.navigate([`/chat/${chat._id}`], {
-        queryParams: {
-          message: chat.lastMessage._id,
-        },
-      });
+      await this.router.navigate([`/chat/${chat._id}`]);
     }
   }
 }
