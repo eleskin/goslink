@@ -4,7 +4,7 @@
       <i [style]="getGradientFromChar(chatName?.[0] ?? '')">{{ chatName?.[0] ?? '' }}</i>
       <div>
         <span>{{ chatName }}</span>
-        <!--    <i>{{ online ? 'Online' : 'Last seen recently' }}</i>-->
+        <i *ngIf="!chat?.group">{{ online ? 'Online' : 'Last seen recently' }}</i>
       </div>
     </div>
     <div>
