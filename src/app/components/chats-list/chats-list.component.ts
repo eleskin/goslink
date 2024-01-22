@@ -52,7 +52,11 @@ export class ChatsListComponent {
         });
       }
     } else {
-      await this.router.navigate([`/chat/${chat._id}`]);
+      await this.router.navigate([`/chat/${chat._id}`], {
+        queryParams: {
+          message: chat.lastMessage._id,
+        },
+      });
     }
   }
 }
