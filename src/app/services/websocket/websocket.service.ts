@@ -42,6 +42,7 @@ export class WebsocketService {
           _id: message.chatId,
           name: message.author.name,
           lastMessage: message,
+          group: false,
         };
 
         this.webSocketStore.setChats([

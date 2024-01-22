@@ -1,9 +1,9 @@
 <header class="app-chat-header">
   <div class="app-chat-header__container">
     <div>
-      <i [style]="getGradientFromChar(contact?.name?.[0] ?? '')">{{ contact?.name?.[0] ?? '' }}</i>
+      <i [style]="getGradientFromChar(chat?.name?.[0] ?? '')">{{ chat?.name?.[0] }}</i>
       <div>
-        <span>{{ contact?.name ?? '' }}</span>
+        <span>{{ chat?.name }}</span>
         <!--    <i>{{ online ? 'Online' : 'Last seen recently' }}</i>-->
       </div>
     </div>
