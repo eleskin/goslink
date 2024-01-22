@@ -33,7 +33,6 @@ export class ChatHeaderComponent {
       this.online = this.webSocketStore.onlineUsers().includes(this.route.snapshot.paramMap.get('_id') ?? '');
 
       this.chat = this.webSocketStore.chats().find((chat) => chat._id === this.route.snapshot.paramMap.get('_id') ?? '');
-      console.log(this.chat);
     });
   }
 

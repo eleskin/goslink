@@ -1,12 +1,12 @@
 <div class="app-chats-item">
-  <span [style]="getGradientFromChar(chat.name[0])">
-    {{ chat.name[0] }}
+  <span [style]="getGradientFromChar(chatName?.[0] ?? '')">
+    {{ chat.name?.[0] }}
     <i *ngIf="onlineUsers.includes(chat._id)"></i>
   </span>
   <div>
-    <strong>{{ chat.name }}</strong>
+    <strong>{{ chatName }}</strong>
     <span *ngIf="chat.lastMessage?.text">
-      <em>{{ chat.lastMessage.userId === userId ? 'You: ' : chat.name + ': ' }}</em>{{ chat.lastMessage.text }}
+      <em>{{ chat.lastMessage.userId === user._id ? 'You: ' : chatName + ': ' }}</em>{{ chat.lastMessage.text }}
     </span>
   </div>
   <button (click)="handleDeleteChat(chat)" *ngIf="!searchList">

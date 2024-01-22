@@ -83,7 +83,6 @@ export class WebsocketService {
       this.messagesStore.setSearchedMessages(event.detail.data.searchedMessages);
     }],
     ['GET_MESSAGE', async (event: any) => {
-      console.log(event.detail.data);
       this.webSocketStore.setContact(event.detail.data.users?.[0] || {
         name: 'Group chat',
       });
