@@ -32,10 +32,10 @@ jobs:
       - name: Archive files
         run: tar -czvf ./dist/*.tar.gz ./dist/*
 
-      - name: Prepare files for deployment
-        run: |
-          mkdir -p temp_deploy/public_html
-          cp -R ./dist/goslink/* temp_deploy/public_html/
+#      - name: Prepare files for deployment
+#        run: |
+#          mkdir -p temp_deploy/public_html
+#          cp -R ./dist/goslink/* temp_deploy/public_html/
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
