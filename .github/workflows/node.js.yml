@@ -29,10 +29,10 @@ jobs:
       - run: npm install
       - run: npm ci
       - run: npm run build --if-present
-#      - run: npm test
+      - run: npm test
 
-#      - name: Deploy to SprintHost
-#        run: |
-#          ssh a0192340@141.8.195.218 'cd /domains/goslink-messenger.online/public_html && rm -rf dist && mkdir dist && scp -r ~/dist/* ./dist && pm2 restart app'
-#        env:
-#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Deploy to SprintHost
+        run: |
+          ssh a0192340@141.8.195.218 'cd /domains/goslink-messenger.online/public_html && rm -rf dist && mkdir dist && scp -r ~/dist/* ./dist && pm2 restart app'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
