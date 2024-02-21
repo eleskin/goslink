@@ -37,5 +37,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: "./dist/*" # Замените на путь к вашему сборочному каталогу
+          source: "./dist/*.tar.gz" # Замените на путь к вашему сборочному каталогу
           target: "/" # Укажите целевой каталог на сервере
