@@ -44,5 +44,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: "./*" # Замените на путь к вашему сборочному каталогу
+          source: "./" # Замените на путь к вашему сборочному каталогу
           target: "./domains/goslink-messenger.online/public_html" # Укажите целевой каталог на сервере
