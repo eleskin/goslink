@@ -32,6 +32,6 @@ jobs:
 
       - name: Deploy to SprintHost
         run: |
-          ssh -o StrictHostKeyChecking=no eleskin1201@gmail.com@206.71.149.72 'rm -rf dist && mkdir dist && scp -r ~/dist/* ./dist && pm2 restart app'
+          ssh root@172.86.75.201 'rm -rf dist && mkdir dist && scp -r ~/dist/* ./dist && pm2 restart app'
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
