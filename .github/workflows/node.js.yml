@@ -39,14 +39,4 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
       - name: Deploy to Server
-        run: scp -r ./dist/goslink/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:./domains/goslink-messenger.online/public_html
-
-#      - name: Deploy to Server
-#        uses: appleboy/scp-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          key: ${{ secrets.SSH_KEY }}
-#          port: 22
-#          source: "./dist/goslink" # Замените на путь к вашему сборочному каталогу
-#          target: "./domains/goslink-messenger.online/public_html" # Укажите целевой каталог на сервере
+        run: scp -r ./dist/goslink/browser/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:./domains/goslink-messenger.online/public_html
