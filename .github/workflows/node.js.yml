@@ -38,5 +38,9 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+
+      - name: Clear target directory
+        run: ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} "rm -rf ./domains/goslink-messenger.online/public_html/*"
+
       - name: Deploy to Server
         run: scp -r ./dist/goslink/browser/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:./domains/goslink-messenger.online/public_html
