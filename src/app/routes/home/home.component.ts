@@ -35,7 +35,7 @@ export class HomeComponent {
 
   constructor(private route: ActivatedRoute, private webSocketService: WebsocketService, private router: Router) {
     this.webSocketService.webSocket =
-      new WebSocketChatClient(`wss://goslink-messenger.online/api/api/websocket?_id=${this.userStore.user()._id}`);
+      new WebSocketChatClient(`ws://149.248.78.196/api/websocket?_id=${this.userStore.user()._id}`);
 
     this.webSocketService.webSocket.addEventListener('open', () => {
       this.webSocketService.setHandlers();

@@ -24,7 +24,7 @@ export class LoginComponent {
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
-    this.http.post('https://goslink-messenger.online/api/api/user/auth/login', {
+    this.http.post('http://149.248.78.196/api/user/auth/login', {
       email: this.emailValue,
       password: this.passwordValue,
       remember: this.rememberValue,

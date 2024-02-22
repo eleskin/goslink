@@ -28,7 +28,7 @@ export class RegisterComponent {
 
     if (this.passwordValue !== this.passwordRepeatValue) return;
 
-    this.http.post('https://goslink-messenger.online/api/api/user/auth/register', {
+    this.http.post('http://149.248.78.196/api/user/auth/register', {
       name: this.nameValue,
       username: this.usernameValue,
       email: this.emailValue,
