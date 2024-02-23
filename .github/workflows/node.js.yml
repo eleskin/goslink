@@ -40,7 +40,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
 
       - name: Clear target directory
-        run: ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} "rm -rf ./domains/goslink-messenger.online/public_html/*"
+        run: ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} "cd ./domains/goslink-messenger.online/public_html && find . -mindepth 1 ! -name '.htaccess' -exec rm -rf {} +"
 
       - name: Deploy to Server
         run: scp -r ./dist/goslink/browser/* ${{ secrets.USERNAME }}@${{ secrets.HOST }}:./domains/goslink-messenger.online/public_html
