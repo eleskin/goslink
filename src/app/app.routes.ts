@@ -7,9 +7,24 @@ import {canActivateExternalRouteGuard} from './guards/can-activate-external-rout
 import {WelcomeComponent} from './routes/welcome/welcome.component';
 
 export const routes: Routes = [
-  {path: '', component: HomeComponent, canActivate: [canActivateInternalRouteGuard]},
-  {path: 'chat/:_id', component: HomeComponent, canActivate: [canActivateInternalRouteGuard]},
-  {path: 'welcome', component: WelcomeComponent, canActivate: [canActivateExternalRouteGuard]},
-  {path: 'login', component: LoginComponent, canActivate: [canActivateExternalRouteGuard]},
-  {path: 'register', component: RegisterComponent, canActivate: [canActivateExternalRouteGuard]},
+  {
+    path: '', component: HomeComponent, canActivate: [canActivateInternalRouteGuard],
+    data: {animationState: 0},
+  },
+  {
+    path: 'chat/:_id', component: HomeComponent, canActivate: [canActivateInternalRouteGuard],
+    data: {animationState: 1},
+  },
+  {
+    path: 'welcome', component: WelcomeComponent, canActivate: [canActivateExternalRouteGuard],
+    data: {animationState: 2},
+  },
+  {
+    path: 'login', component: LoginComponent, canActivate: [canActivateExternalRouteGuard],
+    data: {animationState: 3},
+  },
+  {
+    path: 'register', component: RegisterComponent, canActivate: [canActivateExternalRouteGuard],
+    data: {animationState: 4},
+  },
 ];
