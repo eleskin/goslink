@@ -28,14 +28,14 @@ export class RegisterComponent {
 
     if (this.passwordValue !== this.passwordRepeatValue) return;
 
-    this.http.post('http://149.248.78.196/api/user/auth/register', {
-      name: this.nameValue,
-      username: this.usernameValue,
-      email: this.emailValue,
-      password: this.passwordValue,
-    }).subscribe((data: any) => {
-      setJWT(data.accessToken, data.refreshToken);
-      this.router.navigate(['/']);
-    });
+    // this.http.post('http://149.248.78.196/api/user/auth/register', {
+    //   name: this.nameValue,
+    //   username: this.usernameValue,
+    //   email: this.emailValue,
+    //   password: this.passwordValue,
+    // }).subscribe((data: any) => {
+    //   setJWT(data.accessToken, data.refreshToken);
+    //   this.router.navigate(['/']);
+    // });
   }
 }
