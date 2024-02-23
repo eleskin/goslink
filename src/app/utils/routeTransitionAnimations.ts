@@ -9,7 +9,7 @@ const initialTransition = {
 };
 
 export const routeTransitionAnimations = trigger('triggerName', [
-  transition('2 => 3', [
+  transition('2 => 4', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style(initialTransition)
@@ -22,7 +22,7 @@ export const routeTransitionAnimations = trigger('triggerName', [
     ]),
     query(':enter', animateChild())
   ]),
-  transition('3 => 2', [
+  transition('4 => 2', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style(initialTransition)
