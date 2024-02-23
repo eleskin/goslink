@@ -1,6 +1,6 @@
 <div class="app-auth-form">
   <app-form>
-    <h2 class="app-title--2">{{ formType === 'login' ? 'Log in'  : 'Sign up' }}</h2>
+    <h2 class="app-title--2">{{ formType === 'login' ? 'Enter your username'  : 'Start your journey with Goslink' }}</h2>
 
     <app-input
       *ngIf="formType === 'register'"
@@ -17,28 +17,13 @@
       placeholder="Username"
       type="text"
     />
-    <app-input
-      [(ngModel)]="passwordValue"
-      [required]="true"
-      ngDefaultControl
-      placeholder="Password"
-      type="password"
-    />
-    <app-input
-      *ngIf="formType === 'register'"
-      [(ngModel)]="passwordRepeatValue"
-      [required]="true"
-      ngDefaultControl
-      placeholder="Repeat password"
-      type="password"
-    />
-    <app-checkbox
-      *ngIf="formType === 'login'"
-      [(ngModel)]="rememberValue"
-      [required]="true"
-      label="Remember me"
-      ngDefaultControl
-    />
+<!--    <app-checkbox-->
+<!--      *ngIf="formType === 'login'"-->
+<!--      [(ngModel)]="rememberValue"-->
+<!--      [required]="true"-->
+<!--      label="Remember me"-->
+<!--      ngDefaultControl-->
+<!--    />-->
     <app-button
       [text]="'Continue'"
       type="submit"
