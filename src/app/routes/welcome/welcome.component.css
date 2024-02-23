@@ -1,0 +1,11 @@
+.app-welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  max-width: 480px;
+  margin: auto;
+  text-align: center;
+  grid-row-gap: 48px;
+}

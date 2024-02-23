@@ -5,7 +5,6 @@
       <span>Home</span>
     </button>
   </div>
-  <img [priority]="true" alt="" class="app-header__logo" height="512" ngSrc="./assets/images/logo.png" width="512">
   <div class="app-header__right">
     <button (click)="openPopup = !openPopup" *ngIf="user.name">
       <i>{{ user.name.slice(0, 1) }}</i>
