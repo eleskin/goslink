@@ -1,7 +1,7 @@
 .app-button {
   background-color: var(--main-color);
   border: 1px solid transparent;
-  border-radius: var(--main-border-radius);
+  border-radius: var(--main-border-radius-2);
   box-sizing: border-box;
   color: var(--main-white-color);
   cursor: pointer;
@@ -15,6 +15,7 @@
   line-height: 28px;
   display: block;
   text-decoration: none;
+  font-weight: 500;
 }
 
 .app-button:hover {

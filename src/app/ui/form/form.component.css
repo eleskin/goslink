@@ -6,5 +6,5 @@
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
   padding: 32px;
-  width: 360px;
+  max-width: 360px;
 }
