@@ -1,11 +1,6 @@
 .app-form {
-  /*background-color: var(--main-white-color);*/
-  /*border: var(--main-border);*/
-  /*border-radius: var(--main-border-radius);*/
   display: flex;
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
-  /*padding: 32px;*/
-  /*max-width: 360px;*/
   text-align: center;
 }
