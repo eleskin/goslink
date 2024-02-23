@@ -16,6 +16,8 @@
       ngDefaultControl
       placeholder="Username"
       type="text"
+      (keydown)="keyPressAlphanumeric($event)"
+      (paste)="changeValueAlphanumeric($event)"
     />
 <!--    <app-checkbox-->
 <!--      *ngIf="formType === 'login'"-->

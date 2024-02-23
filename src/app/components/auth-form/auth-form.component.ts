@@ -44,12 +44,12 @@ export class AuthFormComponent {
 
   @Input()
   set usernameValue(value: string) {
-    this.usernameValueChange.emit(value);
-    this._usernameValue = value;
+    this.usernameValueChange.emit(value.replaceAll(/[^A-Za-z0-9]/ig, ''));
+    this._usernameValue = value.replaceAll(/[^A-Za-z0-9]/ig, '');
   }
 
   get usernameValue() {
-    return this._usernameValue;
+    return this._usernameValue.replaceAll(/[^A-Za-z0-9]/ig, '');
   }
 
   @Input()
@@ -80,6 +80,40 @@ export class AuthFormComponent {
 
   get rememberValue() {
     return this._rememberValue;
+  }
+
+  protected keyPressAlphanumeric(event: any) {
+    const navigationKeys = [
+      'Backspace',
+      'Delete',
+      'Tab',
+      'Escape',
+      'Enter',
+      'Home',
+      'End',
+      'ArrowLeft',
+      'ArrowRight',
+      'Clear',
+      'Copy',
+      'Paste',
+      'Control',
+    ];
+
+    if (navigationKeys.includes(event.key) || /[$a-zA-Z0-9^]/.test(event.key)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  protected changeValueAlphanumeric(event: any) {
+    if (/[$a-zA-Z0-9]/.test(event.target.value)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   @Output() nameValueChange = new EventEmitter<string>();
