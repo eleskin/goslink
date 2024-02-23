@@ -16,7 +16,6 @@ import {AuthFormComponent} from '../../components/auth-form/auth-form.component'
 export class RegisterComponent {
   protected nameValue: string = '';
   protected usernameValue: string = '';
-  protected emailValue: string = '';
   protected passwordValue: string = '';
   protected passwordRepeatValue: string = '';
 
@@ -31,7 +30,6 @@ export class RegisterComponent {
     this.http.post('http://149.248.78.196/api/user/auth/register', {
       name: this.nameValue,
       username: this.usernameValue,
-      email: this.emailValue,
       password: this.passwordValue,
     }).subscribe((data: any) => {
       setJWT(data.accessToken, data.refreshToken);

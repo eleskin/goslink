@@ -14,7 +14,7 @@ import {AuthFormComponent} from '../../components/auth-form/auth-form.component'
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  protected emailValue: string = '';
+  protected usernameValue: string = '';
   protected passwordValue: string = '';
   protected rememberValue: boolean = false;
 
@@ -25,7 +25,7 @@ export class LoginComponent {
     event.preventDefault();
 
     this.http.post('http://149.248.78.196/api/user/auth/login', {
-      email: this.emailValue,
+      username: this.usernameValue,
       password: this.passwordValue,
       remember: this.rememberValue,
     }).subscribe((data: any) => {

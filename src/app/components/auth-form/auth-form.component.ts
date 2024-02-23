@@ -26,7 +26,6 @@ import {NgIf} from '@angular/common';
 export class AuthFormComponent {
   private _nameValue = '';
   private _usernameValue = '';
-  private _emailValue = '';
   private _passwordValue = '';
   private _passwordRepeatValue = '';
   private _rememberValue = false;
@@ -51,16 +50,6 @@ export class AuthFormComponent {
 
   get usernameValue() {
     return this._usernameValue;
-  }
-
-  @Input()
-  set emailValue(value: string) {
-    this.emailValueChange.emit(value);
-    this._emailValue = value;
-  }
-
-  get emailValue() {
-    return this._emailValue;
   }
 
   @Input()
@@ -95,7 +84,6 @@ export class AuthFormComponent {
 
   @Output() nameValueChange = new EventEmitter<string>();
   @Output() usernameValueChange = new EventEmitter<string>();
-  @Output() emailValueChange = new EventEmitter<string>();
   @Output() passwordValueChange = new EventEmitter<string>();
   @Output() passwordRepeatValueChange = new EventEmitter<string>();
   @Output() rememberValueChange = new EventEmitter<boolean>();

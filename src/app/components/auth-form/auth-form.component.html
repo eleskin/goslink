@@ -11,19 +11,11 @@
       type="text"
     />
     <app-input
-      *ngIf="formType === 'register'"
       [(ngModel)]="usernameValue"
       [required]="true"
       ngDefaultControl
       placeholder="Username"
       type="text"
-    />
-    <app-input
-      [(ngModel)]="emailValue"
-      [required]="true"
-      ngDefaultControl
-      placeholder="Email"
-      type="email"
     />
     <app-input
       [(ngModel)]="passwordValue"
