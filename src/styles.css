@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 :root {
-  --main-border-radius: 8px;
+  --main-border-radius: 4px;
   --main-border-radius-2: 36px;
 
   --main-color: rgb(138, 43, 226);
