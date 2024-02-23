@@ -17,9 +17,9 @@ export const canActivateInternalRouteGuard: CanActivateFn = async () => {
     }
 
     removeJWT();
-    return router.createUrlTree(['login']);
+    return router.createUrlTree(['welcome']);
   } catch (error) {
     removeJWT();
-    return router.createUrlTree(['login']);
+    return router.createUrlTree(['welcome']);
   }
 };
