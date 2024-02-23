@@ -1,1 +1,4 @@
-<button [type]="type" class="app-button">{{ text }}</button>
+<ng-container>
+  <button *ngIf="!routerLink" [type]="type" class="app-button">{{ text }}</button>
+  <a *ngIf="routerLink" [routerLink]="routerLink" class="app-button">{{ text }}</a>
+</ng-container>

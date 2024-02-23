@@ -1,4 +1,5 @@
 .app-welcome {
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,5 +8,14 @@
   max-width: 480px;
   margin: auto;
   text-align: center;
-  grid-row-gap: 48px;
+  grid-row-gap: 36px;
+}
+
+.app-welcome > img {
+  max-width: 100%;
+}
+
+.app-welcome > a {
+  font-size: 12px;
+  color: var(--main-black-color);
 }
