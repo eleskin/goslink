@@ -27,7 +27,7 @@ export class LoginComponent {
     event.preventDefault();
 
     if (this.loginStep === 'username') {
-      this.http.get(`hhttps://api.goslink-messenger.online/api/user/auth/login?username=${this.usernameValue}`)
+      this.http.get(`https://api.goslink-messenger.online/api/user/auth/login?username=${this.usernameValue}`)
         .subscribe({
           next: (data: any) => {
             this.title = `Hello, ${data.name}`;
