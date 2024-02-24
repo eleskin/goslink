@@ -18,6 +18,9 @@ export class LoginComponent {
   protected passwordValue: string = '';
   protected rememberValue: boolean = false;
 
+  protected title = 'Enter your username'
+  protected loginStep = 'username';
+
   constructor(private http: HttpClient, private router: Router) {
   }
 
@@ -33,9 +36,26 @@ export class LoginComponent {
     //   this.router.navigate(['/']);
     // });
 
-    this.http.get(`http://149.248.78.196/api/user/auth/login?username=${this.usernameValue}`)
-      .subscribe((data: any) => {
-        console.log(data);
+    if (this.loginStep === 'username') {
+      this.http.get(`http://149.248.78.196/api/user/auth/login?username=${this.usernameValue}`)
+        .subscribe({
+          next: (data: any) => {
+            this.title = `Hello, ${data.name}`;
+            this.loginStep = 'password';
+          },
+          error: (error: any) => {
+            console.log(error);
+          },
+        });
+    } else if (this.loginStep === 'password') {
+      this.http.post('http://149.248.78.196/api/user/auth/login', {
+        username: this.usernameValue,
+        password: this.passwordValue,
+        remember: this.rememberValue,
+      }).subscribe((data: any) => {
+        setJWT(data.accessToken, data.refreshToken);
+        this.router.navigate(['/']);
       });
+    }
   }
 }

@@ -31,6 +31,8 @@ export class AuthFormComponent {
   private _rememberValue = false;
 
   @Input() formType!: 'login' | 'register';
+  @Input() title = '';
+  @Input() loginStep = '';
 
   @Input()
   set nameValue(value: string) {

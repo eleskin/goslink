@@ -1,6 +1,6 @@
 <div class="app-auth-form">
   <app-form>
-    <h2 class="app-title--2">{{ formType === 'login' ? 'Enter your username'  : 'Start your journey with Goslink' }}</h2>
+    <h2 class="app-title--2">{{ title }}</h2>
 
     <app-input
       *ngIf="formType === 'register'"
@@ -19,6 +19,14 @@
       prompt="Latin and numbers only"
       (keydown)="keyPressAlphanumeric($event)"
       (paste)="changeValueAlphanumeric($event)"
+    />
+    <app-input
+      *ngIf="loginStep === 'password'"
+      [(ngModel)]="passwordValue"
+      [required]="true"
+      ngDefaultControl
+      placeholder="Password"
+      type="password"
     />
 <!--    <app-checkbox-->
 <!--      *ngIf="formType === 'login'"-->
