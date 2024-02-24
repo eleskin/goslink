@@ -30,7 +30,17 @@ export class AuthFormComponent {
 
   @Input() formType!: 'login' | 'register';
   @Input() title = '';
-  @Input() loginStep = '';
+
+  private _loginStep = '';
+
+  @Input()
+  set loginStep(value: string) {
+    this._loginStep = value;
+  }
+
+  get loginStep() {
+    return this._loginStep;
+  }
 
   @Input()
   set nameValue(value: string) {
