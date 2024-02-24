@@ -21,12 +21,13 @@
       (paste)="changeValueAlphanumeric($event)"
     />
     <app-input
-      *ngIf="loginStep === 'password'"
+      [style]="{display: loginStep === 'password' ? '' : 'none'}"
       [(ngModel)]="passwordValue"
       [required]="true"
       ngDefaultControl
       placeholder="Password"
       type="password"
+      #password
     />
     <app-button
       [text]="'Continue'"

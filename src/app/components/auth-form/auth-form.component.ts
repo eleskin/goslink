@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ButtonComponent} from '../../ui/button/button.component';
 import {CheckboxComponent} from '../../ui/checkbox/checkbox.component';
 import {FormComponent} from '../../ui/form/form.component';
@@ -28,6 +28,8 @@ export class AuthFormComponent {
   private _usernameValue = '';
   private _passwordValue = '';
 
+  @ViewChild('password') inputPassword: ElementRef | undefined
+
   @Input() formType!: 'login' | 'register';
   @Input() title = '';
 
@@ -36,6 +38,8 @@ export class AuthFormComponent {
   @Input()
   set loginStep(value: string) {
     this._loginStep = value;
+    console.log(this.inputPassword?.nativeElement)
+    this.inputPassword?.nativeElement.focus();
   }
 
   get loginStep() {
