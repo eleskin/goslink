@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren} from '@angular/core';
 import {ButtonComponent} from '../../ui/button/button.component';
 import {CheckboxComponent} from '../../ui/checkbox/checkbox.component';
 import {FormComponent} from '../../ui/form/form.component';
@@ -28,7 +28,7 @@ export class AuthFormComponent {
   private _usernameValue = '';
   private _passwordValue = '';
 
-  @ViewChild('password') inputPassword: ElementRef | undefined
+  @ViewChildren('form') formInputs: QueryList<ElementRef> | undefined
 
   @Input() formType!: 'login' | 'register';
   @Input() title = '';
@@ -38,8 +38,11 @@ export class AuthFormComponent {
   @Input()
   set loginStep(value: string) {
     this._loginStep = value;
-    console.log(this.inputPassword?.nativeElement)
-    this.inputPassword?.nativeElement.focus();
+    this.formInputs?.forEach((item) => {
+      setTimeout(() => {
+        item.nativeElement.querySelector('input[type="password"]').focus();
+      })
+    });
   }
 
   get loginStep() {
@@ -74,6 +77,12 @@ export class AuthFormComponent {
 
   get passwordValue() {
     return this._passwordValue;
+  }
+
+  ngAfterViewInit() {
+    // this.formInputs?.forEach((item) => {
+    //   console.log(item.nativeElement.querySelector('input[type="password"]'))
+    // });
   }
 
   protected keyPressAlphanumeric(event: any) {
