@@ -1,5 +1,5 @@
 .app-chat-footer {
-  padding: var(--main-padding);
+  padding: var(--main-padding) 0 0 var(--main-padding);
 }
 
 .app-chat-footer form {

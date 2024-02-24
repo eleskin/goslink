@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   grid-row-gap: var(--main-grid-gap);
-  padding: 0 var(--main-border-radius);
   height: 100%;
 }
 
