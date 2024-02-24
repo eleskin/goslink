@@ -24,13 +24,18 @@ export class LoginComponent {
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
-    this.http.post('http://149.248.78.196/api/user/auth/login', {
-      username: this.usernameValue,
-      password: this.passwordValue,
-      remember: this.rememberValue,
-    }).subscribe((data: any) => {
-      setJWT(data.accessToken, data.refreshToken);
-      this.router.navigate(['/']);
-    });
+    // this.http.post('http://149.248.78.196/api/user/auth/login', {
+    //   username: this.usernameValue,
+    //   password: this.passwordValue,
+    //   remember: this.rememberValue,
+    // }).subscribe((data: any) => {
+    //   setJWT(data.accessToken, data.refreshToken);
+    //   this.router.navigate(['/']);
+    // });
+
+    this.http.get(`http://149.248.78.196/api/user/auth/login?username=${this.usernameValue}`)
+      .subscribe((data: any) => {
+        console.log(data);
+      });
   }
 }
