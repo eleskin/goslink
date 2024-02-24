@@ -29,3 +29,10 @@
   color: var(--main-color-2);
   text-decoration: underline;
 }
+
+@media (max-width: 480px) {
+  .app-auth-form {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+}
