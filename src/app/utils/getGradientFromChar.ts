@@ -1,4 +1,4 @@
-const getGradientFromChar = (char: string) => {
+const getGradientFromChar = (char = '') => {
   const generateColor = (charCode: number, offset: number): string => {
     const SATURATION = 70;
     const LIGHTNESS = 40;
