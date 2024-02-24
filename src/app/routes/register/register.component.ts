@@ -28,7 +28,7 @@ export class RegisterComponent {
     event.preventDefault();
 
     if (this.loginStep === 'username') {
-      this.http.get(`http://149.248.78.196/api/user/auth/login?username=${this.usernameValue}`)
+      this.http.get(`https://api.goslink-messenger.online/api/user/auth/login?username=${this.usernameValue}`)
         .subscribe({
           next: (data: any) => {
             console.log(data);
@@ -39,7 +39,7 @@ export class RegisterComponent {
           },
         });
     } else if (this.loginStep === 'password') {
-      this.http.post('http://149.248.78.196/api/user/auth/register', {
+      this.http.post('https://api.goslink-messenger.online/api/user/auth/register', {
         name: this.nameValue,
         username: this.usernameValue,
         password: this.passwordValue,

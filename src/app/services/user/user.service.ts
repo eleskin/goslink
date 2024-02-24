@@ -16,7 +16,7 @@ export class UserService {
 
   public getUser(): Promise<User> {
     return new Promise((resolve, reject) => {
-      this.http.post('http://149.248.78.196/api/user/auth', {
+      this.http.post('https://api.goslink-messenger.online/api/user/auth', {
         refreshToken: localStorage.getItem('refreshToken'),
       }).subscribe({
         next: (data: any) => {
@@ -34,7 +34,7 @@ export class UserService {
 
   public logout(): Promise<{}> {
     return new Promise((resolve, reject) => {
-      this.http.post('http://149.248.78.196/api/user/auth/logout', {
+      this.http.post('https://api.goslink-messenger.online/api/user/auth/logout', {
         accessToken: localStorage.getItem('accessToken'),
       }).subscribe({
         next: () => {
