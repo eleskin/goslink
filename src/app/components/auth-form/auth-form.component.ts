@@ -40,7 +40,7 @@ export class AuthFormComponent {
     this._loginStep = value;
     this.formInputs?.forEach((item) => {
       setTimeout(() => {
-        item.nativeElement.querySelector('input[type="password"]').focus();
+        item.nativeElement.querySelector('input[name="password"]').focus();
       })
     });
   }
