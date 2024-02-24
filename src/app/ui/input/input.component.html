@@ -5,4 +5,8 @@
     [type]="type"
     [value]="value"
   >
+  <span *ngIf="prompt" class="app-input__prompt">
+    <img ngSrc="assets/icons/info.svg" height="16" width="16" [alt]="prompt">
+    <em>{{ prompt }}</em>
+  </span>
 </label>

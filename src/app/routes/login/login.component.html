@@ -1,7 +1,8 @@
 <app-auth-form
   formType="login"
+  [title]="title"
+  [loginStep]="loginStep"
   (submit)="handleFormSubmit($event)"
   [(usernameValue)]="usernameValue"
   [(passwordValue)]="passwordValue"
-  [(rememberValue)]="rememberValue"
 />

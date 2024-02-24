@@ -1,15 +1,20 @@
 import {Component, Input} from '@angular/core';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf,
+    NgOptimizedImage,
+  ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
 })
 export class InputComponent {
-  @Input() type: string = 'text';
-  @Input() placeholder: string = '';
-  @Input() required: boolean = false;
-  @Input() value: string = '';
+  @Input() type = 'text';
+  @Input() placeholder = '';
+  @Input() required = false;
+  @Input() value = '';
+  @Input() prompt = ''
 }

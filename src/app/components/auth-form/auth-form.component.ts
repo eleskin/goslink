@@ -27,10 +27,10 @@ export class AuthFormComponent {
   private _nameValue = '';
   private _usernameValue = '';
   private _passwordValue = '';
-  private _passwordRepeatValue = '';
-  private _rememberValue = false;
 
   @Input() formType!: 'login' | 'register';
+  @Input() title = '';
+  @Input() loginStep = '';
 
   @Input()
   set nameValue(value: string) {
@@ -44,12 +44,12 @@ export class AuthFormComponent {
 
   @Input()
   set usernameValue(value: string) {
-    this.usernameValueChange.emit(value);
-    this._usernameValue = value;
+    this.usernameValueChange.emit(value.replaceAll(/[^A-Za-z0-9]/ig, ''));
+    this._usernameValue = value.replaceAll(/[^A-Za-z0-9]/ig, '');
   }
 
   get usernameValue() {
-    return this._usernameValue;
+    return this._usernameValue.replaceAll(/[^A-Za-z0-9]/ig, '');
   }
 
   @Input()
@@ -62,31 +62,43 @@ export class AuthFormComponent {
     return this._passwordValue;
   }
 
-  @Input()
-  set passwordRepeatValue(value: string) {
-    this.passwordRepeatValueChange.emit(value);
-    this._passwordRepeatValue = value;
+  protected keyPressAlphanumeric(event: any) {
+    const navigationKeys = [
+      'Backspace',
+      'Delete',
+      'Tab',
+      'Escape',
+      'Enter',
+      'Home',
+      'End',
+      'ArrowLeft',
+      'ArrowRight',
+      'Clear',
+      'Copy',
+      'Paste',
+      'Control',
+    ];
+
+    if (navigationKeys.includes(event.key) || /[$a-zA-Z0-9^]/.test(event.key)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
-  get passwordRepeatValue() {
-    return this._passwordRepeatValue;
-  }
-
-  @Input()
-  set rememberValue(value: boolean) {
-    this.rememberValueChange.emit(value);
-    this._rememberValue = value;
-  }
-
-  get rememberValue() {
-    return this._rememberValue;
+  protected changeValueAlphanumeric(event: any) {
+    if (/[$a-zA-Z0-9]/.test(event.target.value)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 
   @Output() nameValueChange = new EventEmitter<string>();
   @Output() usernameValueChange = new EventEmitter<string>();
   @Output() passwordValueChange = new EventEmitter<string>();
-  @Output() passwordRepeatValueChange = new EventEmitter<string>();
-  @Output() rememberValueChange = new EventEmitter<boolean>();
 
   @Output() submit = new EventEmitter<any>();
 }
