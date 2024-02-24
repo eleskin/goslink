@@ -27,7 +27,6 @@ export class AuthFormComponent {
   private _nameValue = '';
   private _usernameValue = '';
   private _passwordValue = '';
-  private _passwordRepeatValue = '';
 
   @Input() formType!: 'login' | 'register';
   @Input() title = '';
@@ -61,16 +60,6 @@ export class AuthFormComponent {
 
   get passwordValue() {
     return this._passwordValue;
-  }
-
-  @Input()
-  set passwordRepeatValue(value: string) {
-    this.passwordRepeatValueChange.emit(value);
-    this._passwordRepeatValue = value;
-  }
-
-  get passwordRepeatValue() {
-    return this._passwordRepeatValue;
   }
 
   protected keyPressAlphanumeric(event: any) {
@@ -110,7 +99,6 @@ export class AuthFormComponent {
   @Output() nameValueChange = new EventEmitter<string>();
   @Output() usernameValueChange = new EventEmitter<string>();
   @Output() passwordValueChange = new EventEmitter<string>();
-  @Output() passwordRepeatValueChange = new EventEmitter<string>();
 
   @Output() submit = new EventEmitter<any>();
 }
