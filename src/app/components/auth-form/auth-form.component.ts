@@ -28,7 +28,6 @@ export class AuthFormComponent {
   private _usernameValue = '';
   private _passwordValue = '';
   private _passwordRepeatValue = '';
-  private _rememberValue = false;
 
   @Input() formType!: 'login' | 'register';
   @Input() title = '';
@@ -74,16 +73,6 @@ export class AuthFormComponent {
     return this._passwordRepeatValue;
   }
 
-  @Input()
-  set rememberValue(value: boolean) {
-    this.rememberValueChange.emit(value);
-    this._rememberValue = value;
-  }
-
-  get rememberValue() {
-    return this._rememberValue;
-  }
-
   protected keyPressAlphanumeric(event: any) {
     const navigationKeys = [
       'Backspace',
@@ -122,7 +111,6 @@ export class AuthFormComponent {
   @Output() usernameValueChange = new EventEmitter<string>();
   @Output() passwordValueChange = new EventEmitter<string>();
   @Output() passwordRepeatValueChange = new EventEmitter<string>();
-  @Output() rememberValueChange = new EventEmitter<boolean>();
 
   @Output() submit = new EventEmitter<any>();
 }
