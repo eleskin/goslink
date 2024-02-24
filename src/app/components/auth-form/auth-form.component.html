@@ -19,6 +19,7 @@
       prompt="Latin and numbers only"
       (keydown)="keyPressAlphanumeric($event)"
       (paste)="changeValueAlphanumeric($event)"
+      autocapitalize="none"
     />
     <app-input
       [style]="{display: loginStep === 'password' ? '' : 'none'}"

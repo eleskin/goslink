@@ -43,3 +43,9 @@
 .app-sidebar__content {
   overflow: hidden;
 }
+
+@media (max-width: 720px) {
+  .app-sidebar__search app-input {
+    display: none;
+  }
+}

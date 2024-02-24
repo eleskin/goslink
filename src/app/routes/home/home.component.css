@@ -8,10 +8,3 @@
   width: 100%;
   padding: var(--main-padding);
 }
-
-@media (max-width: 720px) {
-  .app-home {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-}

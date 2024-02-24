@@ -1,8 +1,12 @@
 <div class="app-new-chat-modal">
   <app-modal (handleVisibleModal)="handleCloseModal()" [visibleModal]="visibleModal">
     <h2 class="app-title--2">New chat</h2>
-    <app-input (input)="handleInputSearch($event)" [value]="usernameValue"
-               placeholder="Enter username (ex. @username)"/>
+    <app-input
+      (input)="handleInputSearch($event)"
+      [value]="usernameValue"
+      placeholder="Enter username (ex. @username)"
+      autocapitalize="none"
+    />
     <div *ngIf="searchedUser" class="app-new-chat-modal__search-results">
       <span>Results: </span>
       <app-chats-list
@@ -13,7 +17,7 @@
         [addUser]="addUser"
       />
     </div>
-    <span>or</span>
-    <app-button (click)="handleClickNewChat()" text="New group chat"/>
+<!--    <span>or</span>-->
+<!--    <app-button (click)="handleClickNewChat()" text="New group chat"/>-->
   </app-modal>
 </div>

@@ -18,4 +18,5 @@ export class InputComponent {
   @Input() value = '';
   @Input() prompt = '';
   @Input() name = '';
+  @Input() autocapitalize = '';
 }
