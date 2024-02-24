@@ -17,4 +17,5 @@ export class InputComponent {
   @Input() required = false;
   @Input() value = '';
   @Input() prompt = '';
+  @Input() name = '';
 }
