@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 :root {
-  --main-border-radius: 4px;
+  --main-border-radius: 8px;
 
   --main-color: rgb(138, 43, 226);
   --main-color-2: rgba(138, 43, 226, 0.8);
@@ -9,7 +9,7 @@
   --main-white-color: rgb(255, 255, 255);
   --main-black-color: rgb(0, 0, 0);
   --main-light-gray-color: rgb(238, 238, 238);
-  --main-light-gray-color-2: #f8f8f8;
+  --main-light-gray-color-2: rgb(248, 248, 248);
   --main-gray-color: rgb(97, 97, 97);
 
   --main-padding: 8px;
