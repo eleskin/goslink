@@ -4,7 +4,8 @@
   grid-template-columns: calc(20% - var(--main-grid-gap) / 2) calc(80% - var(--main-grid-gap) / 2);
   grid-template-rows: 100%;
   grid-gap: var(--main-grid-gap);
-  height: 100vh;
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   width: 100%;
   padding: var(--main-padding);
 }
