@@ -1,5 +1,5 @@
-<div class="app-home">
+<div [class]="['app-home', visibleChat ? 'app-home--chat' : '']">
   <app-sidebar (handleOpenNewChatModal)="handleOpenModal()"/>
-  <app-chat *ngIf="visibleChat"/>
+  <app-chat [class]="visibleChat ? 'app-chat--visible' : ''"/>
   <app-new-chat-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()"/>
 </div>

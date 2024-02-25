@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
@@ -19,6 +19,8 @@ import {ChatHeaderComponent} from '../chat-header/chat-header.component';
   styleUrl: './chat.component.css',
 })
 export class ChatComponent {
+  @Input() class = '';
+
   protected message: string = '';
   protected edit = false;
   protected changedMessage: Message | undefined;

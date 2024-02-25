@@ -46,7 +46,7 @@
 
 @media (max-width: 720px) {
   .app-sidebar {
-    display: none;
+    /*display: none;*/
   }
 
   .app-sidebar__search app-input {

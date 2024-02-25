@@ -87,22 +87,3 @@
 .app-chats-item button:hover {
   background-color: var(--main-light-gray-color-2);
 }
-
-@media (max-width: 720px) {
-  .app-chats-item {
-    justify-content: center;
-  }
-
-  .app-chats-item > span {
-    height: 48px;
-    width: 48px;
-  }
-
-  .app-chats-item > div {
-    display: none;
-  }
-
-  .app-chats-item > button {
-    display: none;
-  }
-}

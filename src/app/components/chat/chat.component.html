@@ -1,4 +1,4 @@
-<div class="app-chat">
+<div [class]="['app-chat', class]">
   <app-chat-header/>
   <app-chat-container (edit)="setEdit($event)"/>
   <app-chat-footer

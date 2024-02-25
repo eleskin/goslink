@@ -9,9 +9,16 @@
   padding: var(--main-padding);
 }
 
+
+
 @media (max-width: 720px) {
   .app-home {
-    grid-template-columns: 0 1fr;
+    grid-template-columns: 1fr 0;
     grid-gap: 0;
+  }
+
+  .app-home--chat {
+    grid-template-columns: calc(20% - var(--main-grid-gap) / 2) calc(80% - var(--main-grid-gap) / 2);
+    grid-gap: var(--main-grid-gap);
   }
 }

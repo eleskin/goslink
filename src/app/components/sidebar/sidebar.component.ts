@@ -1,4 +1,4 @@
-import {Component, effect, EventEmitter, inject, Output} from '@angular/core';
+import {Component, effect, EventEmitter, inject, Input, Output} from '@angular/core';
 import {InputComponent} from '../../ui/input/input.component';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {ChatsListComponent} from '../chats-list/chats-list.component';
