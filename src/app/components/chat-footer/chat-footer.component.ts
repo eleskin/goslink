@@ -1,7 +1,7 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../../ui/button/button.component';
 import {InputComponent} from '../../ui/input/input.component';
-import {NgIf} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import Message from '../../interfaces/message';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -15,6 +15,7 @@ import deleteParam from '../../utils/deleteParam';
     ButtonComponent,
     InputComponent,
     NgIf,
+    NgOptimizedImage,
   ],
   templateUrl: './chat-footer.component.html',
   styleUrl: './chat-footer.component.css',

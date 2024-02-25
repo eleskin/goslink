@@ -6,7 +6,9 @@
       (input)="setMessage($event)"
       placeholder="Your message"
     />
-    <app-button text="Send" type="submit"/>
+    <button type="submit">
+      <img ngSrc="assets/icons/send.svg" alt="" height="20" width="20">
+    </button>
     <app-button *ngIf="editValue" (click)="setEdit(false)" text="Cancel" type="button"/>
   </form>
 </footer>

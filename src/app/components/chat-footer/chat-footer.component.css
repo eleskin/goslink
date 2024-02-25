@@ -6,6 +6,31 @@
   display: flex;
   flex-direction: row;
   grid-column-gap: var(--main-grid-gap);
+  position: relative;
+}
+
+.app-chat-footer form > button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: var(--main-transition);
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  position: absolute;
+  right: 2px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.app-chat-footer form > button:hover {
+  background-color: var(--main-color-3);
 }
 
 .app-chat-footer form app-input {
