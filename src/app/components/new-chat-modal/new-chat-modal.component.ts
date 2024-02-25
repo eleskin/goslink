@@ -44,6 +44,7 @@ export class NewChatModalComponent {
   protected handleCloseModal() {
     this.handleVisibleModal.emit(false);
     this.usernameValue = '';
+    this.searchedUser = undefined;
   }
 
   protected async handleInputSearch(event: any) {
