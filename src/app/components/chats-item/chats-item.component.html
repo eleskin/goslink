@@ -1,6 +1,6 @@
 <div class="app-chats-item">
-  <span [style]="getGradientFromChar(chatName[0])">
-    {{ chatName[0] }}
+  <span [style]="getGradientFromChar(chatName?.[0])">
+    {{ chatName?.[0] ?? '' }}
     <i *ngIf="onlineUsers.includes(chat._id)"></i>
   </span>
   <div>

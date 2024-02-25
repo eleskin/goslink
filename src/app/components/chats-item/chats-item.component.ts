@@ -32,7 +32,8 @@ export class ChatsItemComponent {
       this.onlineUsers = this.webSocketStore.onlineUsers();
       this.user = this.userStore.user();
 
-      if (!this.chat.group) {
+      if (this.chat.group !== undefined && !this.chat.group) {
+        this.chatName = this.chat.name;
         this.chatName = this.chat.name.split('|')[0] !== this.user.name
           ? this.chat.name.split('|')[0]
           : this.chat.name.split('|')[1];
