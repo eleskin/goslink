@@ -45,6 +45,10 @@
 }
 
 @media (max-width: 720px) {
+  .app-sidebar {
+    display: none;
+  }
+
   .app-sidebar__search app-input {
     display: none;
   }

@@ -8,3 +8,10 @@
   width: 100%;
   padding: var(--main-padding);
 }
+
+@media (max-width: 720px) {
+  .app-home {
+    grid-template-columns: 0 1fr;
+    grid-gap: 0;
+  }
+}
