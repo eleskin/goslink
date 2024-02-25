@@ -1,6 +1,6 @@
 .app-chat {
-  border-left: 1px solid var(--main-color-3);
-  border-radius: var(--main-border-radius) 0 0 0;
+  border: 1px solid var(--main-color-3);
+  border-radius: var(--main-border-radius);
   display: flex;
   flex-direction: column;
   height: 100%;

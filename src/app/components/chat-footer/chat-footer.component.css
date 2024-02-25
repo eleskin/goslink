@@ -1,7 +1,3 @@
-.app-chat-footer {
-  padding: var(--main-padding) 0 0 var(--main-padding);
-}
-
 .app-chat-footer form {
   display: flex;
   flex-direction: row;
