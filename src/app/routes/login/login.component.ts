@@ -26,7 +26,7 @@ export class LoginComponent {
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
-    if (!this.usernameValue || !this.passwordValue) {
+    if (this.loginStep === 'password' && (!this.usernameValue || !this.passwordValue)) {
       alert('All fields are required to be filled in');
       return;
     }
