@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {NgIf} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 @Component({
   selector: 'app-modal',
   standalone: true,
   imports: [
     NgIf,
+    NgOptimizedImage,
   ],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',

@@ -5,7 +5,15 @@
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s, z-index 0s 0.3s;
+}
+
+.app-modal--visible {
+  opacity: 1;
   z-index: 999999;
+  transition: opacity 0.3s;
 }
 
 .app-modal__overlay {
@@ -16,7 +24,7 @@
 }
 
 .app-modal__content {
-  padding: 16px;
+  padding: var(--main-padding);
   background-color: var(--main-white-color);
   width: 320px;
   height: fit-content;
@@ -24,4 +32,28 @@
   margin: auto;
   position: absolute;
   inset: 0;
+}
+
+.app-modal__button {
+  position: absolute;
+  right: var(--main-padding);
+  top: var(--main-padding);
+  cursor: pointer;
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 50%;
+  transition: var(--main-transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-modal__button:hover {
+  background-color: var(--main-color-3);
 }

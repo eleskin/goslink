@@ -1,6 +1,9 @@
-<div *ngIf="visibleModal" class="app-modal">
+<div [class]="['app-modal', visibleModal ? 'app-modal--visible' : '']">
   <div (click)="handleCloseModal()" class="app-modal__overlay"></div>
   <div class="app-modal__content">
+    <button class="app-modal__button">
+      <img ngSrc="assets/icons/cross.svg" height="28" width="28" alt="">
+    </button>
     <ng-content></ng-content>
   </div>
 </div>
