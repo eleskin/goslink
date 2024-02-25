@@ -18,7 +18,7 @@ export class RegisterComponent {
   protected usernameValue: string = '';
   protected passwordValue: string = '';
 
-  protected title = 'Start your journey with Goslink'
+  protected title = 'Start your journey with Goslink';
   protected loginStep = 'username';
 
   constructor(private http: HttpClient, private router: Router) {
@@ -27,14 +27,18 @@ export class RegisterComponent {
   protected async handleFormSubmit(event: any) {
     event.preventDefault();
 
+    if (!this.nameValue || !this.usernameValue || !this.passwordValue) {
+      alert('All fields are required to be filled in');
+      return;
+    }
+
     if (this.loginStep === 'username') {
       this.http.get(`https://api.goslink-messenger.online/api/user/auth/login?username=${this.usernameValue}`)
         .subscribe({
-          next: (data: any) => {
-            console.log(data);
+          next: () => {
+            alert('A user with this username already exists');
           },
-          error: (error: any) => {
-            console.log(error);
+          error: () => {
             this.loginStep = 'password';
           },
         });
@@ -43,10 +47,16 @@ export class RegisterComponent {
         name: this.nameValue,
         username: this.usernameValue,
         password: this.passwordValue,
-      }).subscribe((data: any) => {
-        setJWT(data.accessToken, data.refreshToken);
-        this.router.navigate(['/']);
+      }).subscribe({
+        next: (data: any) => {
+          setJWT(data.accessToken, data.refreshToken);
+          this.router.navigate(['/']);
+        },
+        error: () => {
+          alert('A user with this username already exists');
+        },
       });
+
     }
   }
 }
