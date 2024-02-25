@@ -1,4 +1,7 @@
 <header class="app-chat-header">
+  <a [routerLink]="'/'">
+    <img loading="eager" alt="" height="24" ngSrc="assets/icons/chevron-left.svg" width="24">
+  </a>
   <div class="app-chat-header__container">
     <div>
       <i [style]="getGradientFromChar(chatName[0])">{{ chatName[0] }}</i>

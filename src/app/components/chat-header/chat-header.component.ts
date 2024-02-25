@@ -1,9 +1,9 @@
 import {Component, effect, inject} from '@angular/core';
 import User from '../../interfaces/user';
 import WebsocketStore from '../../store/websocket/websocket.store';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import getGradientFromChar from '../../utils/getGradientFromChar';
-import {NgIf} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {NewChatModalComponent} from '../new-chat-modal/new-chat-modal.component';
 import {ButtonComponent} from '../../ui/button/button.component';
 import Chat from '../../interfaces/chat';
@@ -17,6 +17,8 @@ import UserStore from '../../store/user/user.store';
     NgIf,
     NewChatModalComponent,
     ButtonComponent,
+    NgOptimizedImage,
+    RouterLink,
   ],
   templateUrl: './chat-header.component.html',
   styleUrl: './chat-header.component.css',
