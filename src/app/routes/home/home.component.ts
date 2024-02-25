@@ -45,6 +45,7 @@ export class HomeComponent {
       const contactId = this.route.snapshot.paramMap.get('_id');
       if (value instanceof NavigationEnd) {
         if (contactId) {
+          // console.log(contactId);
           this.webSocketStore.setSearchedUser(null);
 
           this.webSocketService.webSocket?.sendJSON('GET_MESSAGE', {

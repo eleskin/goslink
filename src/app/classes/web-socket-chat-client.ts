@@ -19,7 +19,6 @@ class WebSocketChatClient extends WebSocket {
   }
 
   public sendJSON(type: string, data: any) {
-    console.log(data)
     const payload = JSON.stringify({
       type,
       data,
