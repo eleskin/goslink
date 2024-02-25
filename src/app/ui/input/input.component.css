@@ -38,7 +38,6 @@
   align-items: center;
   grid-column-gap: 8px;
   font-size: 14px;
-  width: 100%;
 }
 
 .app-input__prompt img {
@@ -53,8 +52,10 @@
   padding: 4px 0 4px 8px;
   width: 100%;
   text-align: right;
+  z-index: -1;
 }
 
 .app-input__prompt img:hover + em {
   display: inline;
+  z-index: 0;
 }
