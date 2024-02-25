@@ -20,7 +20,7 @@ export class AppComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.adjustHeight(); // Вызываем при изменении размера окна
+    this.adjustHeight();
   }
 
   adjustHeight() {
