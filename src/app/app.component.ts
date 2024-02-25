@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from './components/header/header.component';
@@ -14,4 +14,16 @@ import 'normalize.css';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  ngOnInit() {
+    this.adjustHeight();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.adjustHeight(); // Вызываем при изменении размера окна
+  }
+
+  adjustHeight() {
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+  }
 }
