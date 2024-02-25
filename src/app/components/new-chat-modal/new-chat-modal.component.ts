@@ -1,7 +1,6 @@
 import {Component, effect, EventEmitter, inject, Input, Output} from '@angular/core';
 import {ModalComponent} from '../../ui/modal/modal.component';
 import {InputComponent} from '../../ui/input/input.component';
-import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import WebsocketStore from '../../store/websocket/websocket.store';
@@ -31,7 +30,6 @@ export class NewChatModalComponent {
   @Output() public handleVisibleModal = new EventEmitter<boolean>();
   protected searchedUser: Chat | undefined;
   protected usernameValue = '';
-  protected readonly getGradientFromChar = getGradientFromChar;
   private readonly webSocketStore = inject(WebsocketStore);
   private readonly userStore = inject(UserStore);
 
