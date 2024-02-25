@@ -18,7 +18,11 @@
   }
 
   .app-home--chat {
-    grid-template-columns: calc(20% - var(--main-grid-gap) / 2) calc(80% - var(--main-grid-gap) / 2);
-    grid-gap: var(--main-grid-gap);
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
+
+  .app-home--chat app-sidebar {
+    display: none;
   }
 }
