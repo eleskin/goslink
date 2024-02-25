@@ -4,8 +4,11 @@
     <app-input
       (input)="handleInputSearch($event)"
       [value]="usernameValue"
-      placeholder="Enter username (ex. @username)"
+      placeholder="Enter username (ex. username)"
       autocapitalize="none"
+      prompt="Latin and numbers only"
+      (keydown)="keyPressAlphanumeric($event)"
+      (paste)="changeValueAlphanumeric($event)"
     />
     <div *ngIf="searchedUser" class="app-new-chat-modal__search-results">
       <span>Results: </span>

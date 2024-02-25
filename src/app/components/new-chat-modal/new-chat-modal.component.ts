@@ -47,12 +47,10 @@ export class NewChatModalComponent {
   }
 
   protected async handleInputSearch(event: any) {
-    if (!(event.target.value.trim().length > 1 && event.target.value.search(/^@[a-zA-Z0-9]*/) !== -1)) return;
-
     this.usernameValue = event.target.value;
 
     this.websocketService.webSocket?.sendJSON('SEARCH_USER', {
-      contactUsername: event.target.value.slice(1),
+      contactUsername: event.target.value,
     });
   }
 
@@ -60,5 +58,39 @@ export class NewChatModalComponent {
     this.websocketService.webSocket?.sendJSON('NEW_GROUP_CHAT', {
       userId: this.userStore.user()._id,
     });
+  }
+
+  protected keyPressAlphanumeric(event: any) {
+    const navigationKeys = [
+      'Backspace',
+      'Delete',
+      'Tab',
+      'Escape',
+      'Enter',
+      'Home',
+      'End',
+      'ArrowLeft',
+      'ArrowRight',
+      'Clear',
+      'Copy',
+      'Paste',
+      'Control',
+    ];
+
+    if (navigationKeys.includes(event.key) || /[$a-zA-Z0-9^]/.test(event.key)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  protected changeValueAlphanumeric(event: any) {
+    if (/[$a-zA-Z0-9]/.test(event.target.value)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
   }
 }

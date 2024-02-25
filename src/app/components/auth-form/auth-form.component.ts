@@ -79,12 +79,6 @@ export class AuthFormComponent {
     return this._passwordValue;
   }
 
-  ngAfterViewInit() {
-    // this.formInputs?.forEach((item) => {
-    //   console.log(item.nativeElement.querySelector('input[type="password"]'))
-    // });
-  }
-
   protected keyPressAlphanumeric(event: any) {
     const navigationKeys = [
       'Backspace',
