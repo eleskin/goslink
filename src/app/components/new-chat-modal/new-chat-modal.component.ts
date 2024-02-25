@@ -49,6 +49,7 @@ export class NewChatModalComponent {
     this.usernameValue = event.target.value;
 
     this.websocketService.webSocket?.sendJSON('SEARCH_USER', {
+      userId: this.userStore.user()._id,
       contactUsername: event.target.value,
     });
   }
