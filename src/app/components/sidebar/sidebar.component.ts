@@ -9,6 +9,7 @@ import {Router, RouterLink} from '@angular/router';
 import MessagesStore from '../../store/messages/messages.store';
 import Chat from '../../interfaces/chat';
 import {UserService} from '../../services/user/user.service';
+import {ButtonComponent} from '../../ui/button/button.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,6 +21,7 @@ import {UserService} from '../../services/user/user.service';
     NgForOf,
     NgIf,
     RouterLink,
+    ButtonComponent,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',

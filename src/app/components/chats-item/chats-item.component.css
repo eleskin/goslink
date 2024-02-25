@@ -71,6 +71,17 @@
   border: none;
   cursor: pointer;
   transition: var(--main-transition);
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 28px;
+  max-width: 28px;
+  min-height: 28px;
+  min-width: 28px;
+  border-radius: var(--main-border-radius);
 }
 
 .app-chats-item button:hover {

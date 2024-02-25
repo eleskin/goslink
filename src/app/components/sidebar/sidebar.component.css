@@ -44,14 +44,6 @@
   overflow-x: hidden;
 }
 
-.app-sidebar__search {
-  width: 100%;
-}
-
-.app-sidebar__search > button {
-  width: 100%;
-}
-
 @media (max-width: 720px) {
   .app-sidebar__search app-input {
     display: none;
