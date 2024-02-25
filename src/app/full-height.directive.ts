@@ -1,11 +1,11 @@
-import {Directive, HostListener} from '@angular/core';
+import {Directive, ElementRef, HostListener} from '@angular/core';
 
 @Directive({
   selector: '[appFullHeight]',
   standalone: true
 })
 export class FullHeightDirective {
-  constructor(private el: any) {
+  constructor(private element: ElementRef) {
     this.adjustHeight();
   }
 
@@ -15,6 +15,6 @@ export class FullHeightDirective {
   }
 
   private adjustHeight(): void {
-    this.el.nativeElement.style.height = `${window.innerHeight}px`;
+    this.element.nativeElement.style.height = `${window.innerHeight}px`;
   }
 }
