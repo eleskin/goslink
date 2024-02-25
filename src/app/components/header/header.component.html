@@ -1,9 +1,5 @@
 <header class="app-header">
   <div class="app-header__left">
-    <button (click)="handleClickBack()" *ngIf="user.name" [disabled]="disabledBackButton" class="app-header__button">
-      <img loading="eager" alt="" height="20" ngSrc="assets/icons/chevron-left.svg" width="20">
-      <span>Home</span>
-    </button>
   </div>
   <img [priority]="true" alt="" class="app-header__logo" height="512" ngSrc="./assets/images/logo.png" width="512">
   <div class="app-header__right">

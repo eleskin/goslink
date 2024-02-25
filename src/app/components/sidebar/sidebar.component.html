@@ -9,4 +9,7 @@
     <app-chats-list *ngIf="!searchFieldValue" [chats]="chats"/>
     <app-chats-list *ngIf="searchFieldValue" [chats]="searchedMessages" [messagesList]="true"/>
   </div>
+  <div class="app-sidebar__search">
+    <button (click)="handleClickLogout()">Logout</button>
+  </div>
 </div>

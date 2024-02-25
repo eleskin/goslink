@@ -5,9 +5,10 @@ import {ChatsListComponent} from '../chats-list/chats-list.component';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import MessagesStore from '../../store/messages/messages.store';
 import Chat from '../../interfaces/chat';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -33,7 +34,7 @@ export class SidebarComponent {
   protected userId = '';
   protected searchFieldValue = '';
 
-  constructor(private webSocketService: WebsocketService) {
+  constructor(private webSocketService: WebsocketService, private userService: UserService, private router: Router) {
     effect(() => {
       this.chats = this.webSocketStore.chats();
       this.searchedMessages = this.messagesStore.searchedMessages();
@@ -51,5 +52,14 @@ export class SidebarComponent {
       userId: this.userStore.user()._id,
       searchValue: event.target.value,
     })
+  }
+
+  protected async handleClickLogout() {
+    try {
+      await this.userService.logout();
+    } catch (error) {
+    } finally {
+      await this.router.navigate(['/login']);
+    }
   }
 }

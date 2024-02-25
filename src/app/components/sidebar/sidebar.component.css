@@ -1,6 +1,6 @@
 .app-sidebar {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   grid-row-gap: var(--main-grid-gap);
   height: 100%;
 }
@@ -41,7 +41,15 @@
 }
 
 .app-sidebar__content {
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.app-sidebar__search {
+  width: 100%;
+}
+
+.app-sidebar__search > button {
+  width: 100%;
 }
 
 @media (max-width: 720px) {
