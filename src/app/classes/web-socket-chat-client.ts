@@ -1,14 +1,14 @@
 class WebSocketChatClient extends WebSocket {
-  constructor(url: string) {
-    super(url);
+  constructor(...params: [url: string | URL, protocols?: string | string[]]) {
+    super(...params);
 
-    super.addEventListener('message', (event) => {
+    super.addEventListener('message', (event: MessageEvent<string>) => {
       const payload = JSON.parse(event.data);
-      super.dispatchEvent(new CustomEvent(payload.type, {detail: {data: payload.data}}));
+      super.dispatchEvent(new CustomEvent(payload.type, {detail: {...event, data: payload.data}}));
     });
   }
 
-  public override send(data: string | ArrayBufferLike | Blob | ArrayBufferView) {
+  public override send(data: string | Blob | ArrayBufferView | ArrayBufferLike) {
     if (super.readyState === 1) {
       super.send(data);
     } else {
