@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+  /* Start Color Variables */
+
+  --color-ink-darkest: #090A0A;
+  --color-ink-darker: #202325;
+  --color-ink-dark: #303437;
+  --color-ink-base: #404446;
+  --color-ink-light: #6C7072;
+  --color-ink-lighter: #72777A;
+
+  --color-sky-dark: #979C9E;
+  --color-sky-base: #CDCFD0;
+  --color-sky-light: #E3E5E5;
+  --color-sky-lighter: #F2F4F5;
+  --color-sky-lightest: #F7F9FA;
+  --color-sky-white: #FFFFFF;
+
+  --color-primary-dark: #5538EE;
+  --color-primary-base: #6B4EFF;
+  --color-primary-light: #9990FF;
+  --color-primary-lighter: #C6C4FF;
+  --color-primary-lightest: #E7E7FF;
+
+  --color-green-darkest: #198155;
+  --color-green-base: #23C16B;
+  --color-green-light: #4CD471;
+  --color-green-lighter: #7DDE86;
+  --color-green-lightest: #ECFCE5;
+
+  --color-red-darkest: #D3180C;
+  --color-red-base: #FF5247;
+  --color-red-light: #FF6D6D;
+  --color-red-lighter: #FF9898;
+  --color-red-lightest: #FFE5E5;
+
+  --color-blue-darkest: #0065D0;
+  --color-blue-base: #48A7F8;
+  --color-blue-light: #6EC2FB;
+  --color-blue-lighter: #9BDCFD;
+  --color-blue-lightest: #C9F0FF;
+
+  --color-yellow-darkest: #A05E03;
+  --color-yellow-base: #FFB323;
+  --color-yellow-light: #FFC462;
+  --color-yellow-lighter: #FFD188;
+  --color-yellow-lightest: #FFEFD7;
+
+  /* End Color Variables */
+
+  /* Start Transition Variables */
+
+  --transition-base: all 0.2s linear;
+
+  /* End Transition Variables */
+}
