@@ -20,7 +20,11 @@ import Chat from '../../interfaces/chat';
 export class ChatsListComponent {
   protected handleRightClick(event: MouseEvent, chat: Chat) {
     event.preventDefault(); // Предотвратить появление стандартного контекстного меню
-    console.log(chat);
+
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    console.log(`Позиция мыши: X = ${mouseX}, Y = ${mouseY}`);
   }
 
   protected chatId: string = '';
