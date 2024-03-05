@@ -18,6 +18,11 @@ import Chat from '../../interfaces/chat';
   styleUrl: './chats-list.component.css',
 })
 export class ChatsListComponent {
+  protected handleRightClick(event: MouseEvent, chat: Chat) {
+    event.preventDefault(); // Предотвратить появление стандартного контекстного меню
+    console.log(chat);
+  }
+
   protected chatId: string = '';
   @Input() chats!: Chat[];
   @Input() public addUser = false;
@@ -36,7 +41,8 @@ export class ChatsListComponent {
     });
   }
 
-  protected async handleCloseModal(chat: Chat) {
+  protected async handleOpenChat(chat: Chat) {
+    console.log(1);
     this.handleVisibleModal.emit(false);
 
     if (this.searchList) {

@@ -2,7 +2,8 @@
   <button
     *ngFor="let chat of chats"
     [class]="['app-chats-list__chat', chat._id === chatId && !searchList && !messagesList ? 'app-chats-list__chat--active' : '']"
-    (click)="handleCloseModal(chat)"
+    (click)="handleOpenChat(chat)"
+    (contextmenu)="handleRightClick($event, chat)"
   >
     <app-chats-item [chat]="chat" [searchList]="searchList"/>
   </button>
