@@ -1,4 +1,6 @@
-<ng-container>
-  <button *ngIf="!routerLink" [type]="type" class="app-button">{{ text }}</button>
-  <a *ngIf="routerLink" [routerLink]="routerLink" class="app-button">{{ text }}</a>
-</ng-container>
+<button
+  [class]="['app-button', 'app-button--' + variant, 'app-button--' + size]"
+  [disabled]="disabled"
+>
+  <ng-content/>
+</button>

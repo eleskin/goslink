@@ -11,7 +11,7 @@
       </div>
     </div>
     <div>
-      <app-button *ngIf="chat?.group" (click)="handleAddUser()" text="Add user"/>
+      <app-button *ngIf="chat?.group" (click)="handleAddUser()">Add user</app-button>
     </div>
   </div>
   <app-new-chat-modal [visibleModal]="visibleModal" (handleVisibleModal)="handleCloseModal()" [addUser]="true"/>

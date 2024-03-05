@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
   --vh: 1vh;
 
-  --main-border-radius: 8px;
 
+  /* Start Legacy */
+  --main-border-radius: 8px;
   --main-color: rgb(138, 43, 226);
   --main-color-2: rgba(138, 43, 226, 0.8);
   --main-color-3: rgba(138, 43, 226, 0.1);
@@ -13,16 +14,67 @@
   --main-light-gray-color: rgb(238, 238, 238);
   --main-light-gray-color-2: rgb(248, 248, 248);
   --main-gray-color: rgb(97, 97, 97);
-
   --main-padding: 8px;
-
   --main-grid-gap: 8px;
-
   --main-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
-
   --main-border: 1px solid var(--main-light-gray-color-2);
-
   --main-transition: all 0.2s linear;
+
+  /* End Legacy */
+
+  /* Start Color Variables */
+
+  --color-ink-darkest: #090A0A;
+  --color-ink-darker: #202325;
+  --color-ink-dark: #303437;
+  --color-ink-base: #404446;
+  --color-ink-light: #6C7072;
+  --color-ink-lighter: #72777A;
+
+  --color-sky-dark: #979C9E;
+  --color-sky-base: #CDCFD0;
+  --color-sky-light: #E3E5E5;
+  --color-sky-lighter: #F2F4F5;
+  --color-sky-lightest: #F7F9FA;
+  --color-sky-white: #FFFFFF;
+
+  --color-primary-dark: #5538EE;
+  --color-primary-base: #6B4EFF;
+  --color-primary-light: #9990FF;
+  --color-primary-lighter: #C6C4FF;
+  --color-primary-lightest: #E7E7FF;
+
+  --color-green-darkest: #198155;
+  --color-green-base: #23C16B;
+  --color-green-light: #4CD471;
+  --color-green-lighter: #7DDE86;
+  --color-green-lightest: #ECFCE5;
+
+  --color-red-darkest: #D3180C;
+  --color-red-base: #FF5247;
+  --color-red-light: #FF6D6D;
+  --color-red-lighter: #FF9898;
+  --color-red-lightest: #FFE5E5;
+
+  --color-blue-darkest: #0065D0;
+  --color-blue-base: #48A7F8;
+  --color-blue-light: #6EC2FB;
+  --color-blue-lighter: #9BDCFD;
+  --color-blue-lightest: #C9F0FF;
+
+  --color-yellow-darkest: #A05E03;
+  --color-yellow-base: #FFB323;
+  --color-yellow-light: #FFC462;
+  --color-yellow-lighter: #FFD188;
+  --color-yellow-lightest: #FFEFD7;
+
+  /* End Color Variables */
+
+  /* Start Transition Variables */
+
+  --transition-base: all 0.2s linear;
+
+  /* End Transition Variables */
 }
 
 * {
@@ -30,7 +82,7 @@
 }
 
 html, body {
-  font-family: 'Mulish', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   height: 100%;
   width: 100%;
   overflow-x: hidden;

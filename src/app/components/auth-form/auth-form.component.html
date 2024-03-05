@@ -30,10 +30,7 @@
       type="password"
       name="password"
     />
-    <app-button
-      [text]="'Continue'"
-      type="submit"
-    />
+    <app-button type="submit">Continue</app-button>
 
     <footer class="app-auth-form__footer">
       <a [routerLink]="formType === 'register' ? '/login'  : '/register'">

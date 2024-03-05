@@ -13,7 +13,8 @@ import {RouterLink} from '@angular/router';
   styleUrl: './button.component.css',
 })
 export class ButtonComponent {
-  @Input() text: string = '';
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() routerLink = '';
+  @Input() variant: 'primary' | 'secondary' | 'outline' | 'transparent' = 'primary';
+  @Input() size: 'default' | 'compact' = 'default';
+  @Input() disabled: boolean = false;
 }
