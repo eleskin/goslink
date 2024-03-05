@@ -1,4 +1,4 @@
-import {Component, effect, HostListener, inject, Input} from '@angular/core';
+import {Component, effect, inject, Input} from '@angular/core';
 import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf, NgOptimizedImage} from '@angular/common';
 import WebsocketStore from '../../store/websocket/websocket.store';
