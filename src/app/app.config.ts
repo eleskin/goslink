@@ -7,12 +7,14 @@ import {authorizationInterceptor} from './interceptors/authorization.interceptor
 import UserStore from './store/user/user.store';
 import WebsocketStore from './store/websocket/websocket.store';
 import MessagesStore from './store/messages/messages.store';
+import InterfaceStore from './store/interface/interface.store';
 import {provideAnimations} from '@angular/platform-browser/animations';
 
 const store = [
   UserStore,
   WebsocketStore,
   MessagesStore,
+  InterfaceStore,
 ];
 
 export const appConfig: ApplicationConfig = {

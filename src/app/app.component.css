@@ -2,3 +2,8 @@
   display: grid;
   height: 100%;
 }
+
+.app__context-menu {
+  position: fixed;
+  z-index: 9999;
+}

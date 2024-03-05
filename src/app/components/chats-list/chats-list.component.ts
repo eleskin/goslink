@@ -5,6 +5,7 @@ import {ActivatedRoute, NavigationEnd, Router, RouterLink} from '@angular/router
 import {WebsocketService} from '../../services/websocket/websocket.service';
 import UserStore from '../../store/user/user.store';
 import Chat from '../../interfaces/chat';
+import InterfaceStore from '../../store/interface/interface.store';
 
 @Component({
   selector: 'app-chats-list',
@@ -18,6 +19,8 @@ import Chat from '../../interfaces/chat';
   styleUrl: './chats-list.component.css',
 })
 export class ChatsListComponent {
+  private readonly interfaceStore = inject(InterfaceStore);
+
   protected handleRightClick(event: MouseEvent, chat: Chat) {
     event.preventDefault(); // Предотвратить появление стандартного контекстного меню
 
@@ -25,6 +28,7 @@ export class ChatsListComponent {
     const mouseY = event.clientY;
 
     console.log(`Позиция мыши: X = ${mouseX}, Y = ${mouseY}`);
+    this.interfaceStore.setMenuCoordinates({mouseX, mouseY})
   }
 
   protected chatId: string = '';
