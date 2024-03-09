@@ -1,4 +1,4 @@
-import {Component, effect, HostListener, inject} from '@angular/core';
+import {Component, effect, ElementRef, HostListener, inject, ViewChild} from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {MainComponent} from './components/main/main.component';
@@ -15,6 +15,8 @@ import InterfaceStore from './store/interface/interface.store';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  @ViewChild('contextMenu') contextMenu: ElementRef | undefined;
+
   private readonly interfaceStore = inject(InterfaceStore);
   protected mouseX = this.interfaceStore.mouseX();
   protected mouseY = this.interfaceStore.mouseY();
@@ -28,6 +30,17 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.adjustHeight();
+    document.addEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.handleClickOutside.bind(this), true);
+  }
+
+  private handleClickOutside(event: MouseEvent): void {
+    if (this.contextMenu && !this.contextMenu.nativeElement.contains(event.target)) {
+      this.interfaceStore.setMenuCoordinates({mouseX: - 1, mouseY: -1});
+    }
   }
 
   @HostListener('window:resize', ['$event'])

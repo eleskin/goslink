@@ -1,8 +1,8 @@
 import {patchState, signalStore, withMethods, withState} from '@ngrx/signals';
 
 const initialState = {
-  mouseX: 0,
-  mouseY: 0,
+  mouseX: -1,
+  mouseY: -1,
 };
 
 const InterfaceStore = signalStore(

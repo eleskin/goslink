@@ -1,6 +1,6 @@
 <div class="app">
   <app-main></app-main>
-  <div class="app__context-menu" [ngStyle]="{'left.px': mouseX, 'top.px': mouseY}">
-    <app-context-menu/>
+  <div class="app__context-menu" [ngStyle]="{'left.px': mouseX, 'top.px': mouseY}" #contextMenu>
+    <app-context-menu [visible]="mouseX >= 0 && mouseY >= 0"/>
   </div>
 </div>

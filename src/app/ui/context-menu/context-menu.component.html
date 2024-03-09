@@ -1,1 +1,5 @@
-<p>context-menu works!</p>
+<ul class="app-context-menu" *ngIf="visible">
+  <li *ngFor="let action of actionsList">
+    <button>{{ action.text }}</button>
+  </li>
+</ul>

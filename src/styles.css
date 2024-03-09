@@ -75,6 +75,14 @@
   --transition-base: all 0.2s linear;
 
   /* End Transition Variables */
+
+  /* Start Shadow Variables */
+
+  --shadow-small: 0 0 8px 2px rgba(20, 20, 20, 0.08);
+  --shadow-medium: 0 1px 8px 2px rgba(20, 20, 20, 0.08);
+  --shadow-large: 0 1px 24px 8px rgba(20, 20, 20, 0.08);
+
+  /* End Shadow Variables */
 }
 
 * {
