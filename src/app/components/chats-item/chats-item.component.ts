@@ -3,7 +3,6 @@ import getGradientFromChar from '../../utils/getGradientFromChar';
 import {NgIf, NgOptimizedImage} from '@angular/common';
 import WebsocketStore from '../../store/websocket/websocket.store';
 import UserStore from '../../store/user/user.store';
-import {WebsocketService} from '../../services/websocket/websocket.service';
 import Chat from '../../interfaces/chat';
 import User from '../../interfaces/user';
 
@@ -27,7 +26,7 @@ export class ChatsItemComponent {
   protected chatName = '';
   protected user: User = this.userStore.user();
 
-  constructor(private webSocketService: WebsocketService) {
+  constructor() {
     effect(() => {
       this.onlineUsers = this.webSocketStore.onlineUsers();
       this.user = this.userStore.user();
@@ -40,13 +39,6 @@ export class ChatsItemComponent {
       } else {
         this.chatName = this.chat.name;
       }
-    });
-  }
-
-  protected handleDeleteChat(chat: Chat) {
-    this.webSocketService.webSocket?.sendJSON('DELETE_CHAT', {
-      userId: this.userStore.user()._id,
-      chatId: chat._id,
     });
   }
 }

@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, effect, inject, Input} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
+import InterfaceStore from '../../store/interface/interface.store';
 
 @Component({
   selector: 'app-context-menu',
@@ -9,14 +10,24 @@ import {NgForOf, NgIf} from '@angular/common';
     NgIf,
   ],
   templateUrl: './context-menu.component.html',
-  styleUrl: './context-menu.component.css'
+  styleUrl: './context-menu.component.css',
 })
 export class ContextMenuComponent {
   @Input() visible = false;
 
-  protected actionsList = [
-    {text: 'Delete chat', action: () => console.log('Delete chat')},
-    {text: 'Open chat in new tab', action: () => console.log('Open chat in new tab')},
-    {text: 'Mute chat', action: () => console.log('Mute chat')},
-  ];
+  private readonly interfaceStore = inject(InterfaceStore);
+
+  protected actions = this.interfaceStore.actions();
+
+  constructor() {
+    effect(() => {
+      this.actions = this.interfaceStore.actions().map((action) => ({
+        ...action,
+        function: () => {
+          this.interfaceStore.setMenuCoordinates({mouseX: -1, mouseY: -1});
+          action.function();
+        },
+      }));
+    });
+  }
 }

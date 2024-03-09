@@ -24,10 +24,17 @@ export class AppComponent {
 
   constructor() {
     effect(() => {
-      this.mouseX = this.interfaceStore.mouseX();
-      this.mouseY = this.interfaceStore.mouseY();
-
-      if (this.mouseX >= 0 && this.mouseY >= 0) this.visibleContextMenu = true;
+      if (this.interfaceStore.mouseX() >= 0 && this.interfaceStore.mouseY() >= 0) {
+        this.mouseX = this.interfaceStore.mouseX();
+        this.mouseY = this.interfaceStore.mouseY();
+        this.visibleContextMenu = true;
+      } else {
+        this.visibleContextMenu = false;
+        setTimeout(() => {
+          this.mouseX = this.interfaceStore.mouseX();
+          this.mouseY = this.interfaceStore.mouseY();
+        }, 200);
+      }
     });
   }
 
@@ -42,10 +49,7 @@ export class AppComponent {
 
   private handleClickOutside(event: MouseEvent): void {
     if (this.contextMenu && !this.contextMenu.nativeElement.contains(event.target)) {
-      this.visibleContextMenu = false;
-      setTimeout(() => {
-        this.interfaceStore.setMenuCoordinates({mouseX: -1, mouseY: -1});
-      }, 200);
+      this.interfaceStore.setMenuCoordinates({mouseX: -1, mouseY: -1});
     }
   }
 

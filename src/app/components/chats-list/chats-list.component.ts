@@ -27,8 +27,12 @@ export class ChatsListComponent {
     const mouseX = event.clientX;
     const mouseY = event.clientY;
 
-    console.log(`Позиция мыши: X = ${mouseX}, Y = ${mouseY}`);
-    this.interfaceStore.setMenuCoordinates({mouseX, mouseY})
+    this.interfaceStore.setMenuCoordinates({mouseX, mouseY});
+    this.interfaceStore.setActions([
+      {text: 'Delete chat', function: () => this.handleDeleteChat(chat)},
+      {text: 'Open chat in new tab', function: () => window.open(`/chat/${chat._id}`, '_blank')},
+      // {text: 'Mute chat', function: () => console.log('Mute chat')},
+    ]);
   }
 
   protected chatId: string = '';
@@ -49,8 +53,14 @@ export class ChatsListComponent {
     });
   }
 
+  private handleDeleteChat(chat: Chat) {
+    this.webSocketService.webSocket?.sendJSON('DELETE_CHAT', {
+      userId: this.userStore.user()._id,
+      chatId: chat._id,
+    });
+  }
+
   protected async handleOpenChat(chat: Chat) {
-    console.log(1);
     this.handleVisibleModal.emit(false);
 
     if (this.searchList) {
