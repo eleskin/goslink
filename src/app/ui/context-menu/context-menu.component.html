@@ -1,4 +1,4 @@
-<ul class="app-context-menu" *ngIf="visible">
+<ul [class]="['app-context-menu', visible ? 'app-context-menu--visible' : '']">
   <li *ngFor="let action of actionsList">
     <button>{{ action.text }}</button>
   </li>

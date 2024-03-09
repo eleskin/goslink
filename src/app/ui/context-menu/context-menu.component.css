@@ -11,6 +11,12 @@
   box-shadow: var(--shadow-large);
   border-radius: 8px;
   border: 1px solid var(--color-sky-base);
+  transition: var(--transition-base);
+  opacity: 0;
+}
+
+.app-context-menu--visible {
+  opacity: 1;
 }
 
 .app-context-menu li {

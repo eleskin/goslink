@@ -20,11 +20,14 @@ export class AppComponent {
   private readonly interfaceStore = inject(InterfaceStore);
   protected mouseX = this.interfaceStore.mouseX();
   protected mouseY = this.interfaceStore.mouseY();
+  protected visibleContextMenu = false;
 
   constructor() {
     effect(() => {
       this.mouseX = this.interfaceStore.mouseX();
       this.mouseY = this.interfaceStore.mouseY();
+
+      if (this.mouseX >= 0 && this.mouseY >= 0) this.visibleContextMenu = true;
     });
   }
 
@@ -39,7 +42,10 @@ export class AppComponent {
 
   private handleClickOutside(event: MouseEvent): void {
     if (this.contextMenu && !this.contextMenu.nativeElement.contains(event.target)) {
-      this.interfaceStore.setMenuCoordinates({mouseX: - 1, mouseY: -1});
+      this.visibleContextMenu = false;
+      setTimeout(() => {
+        this.interfaceStore.setMenuCoordinates({mouseX: -1, mouseY: -1});
+      }, 300);
     }
   }
 
