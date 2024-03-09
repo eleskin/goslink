@@ -45,7 +45,7 @@ export class AppComponent {
       this.visibleContextMenu = false;
       setTimeout(() => {
         this.interfaceStore.setMenuCoordinates({mouseX: -1, mouseY: -1});
-      }, 300);
+      }, 200);
     }
   }
 
