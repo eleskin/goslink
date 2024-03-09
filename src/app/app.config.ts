@@ -1,4 +1,4 @@
-import {ApplicationConfig} from '@angular/core';
+import {ApplicationConfig, isDevMode} from '@angular/core';
 import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
@@ -9,6 +9,7 @@ import WebsocketStore from './store/websocket/websocket.store';
 import MessagesStore from './store/messages/messages.store';
 import InterfaceStore from './store/interface/interface.store';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import { provideServiceWorker } from '@angular/service-worker';
 
 const store = [
   UserStore,
@@ -24,5 +25,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideStore(),
     ...store,
-  ],
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    }),
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    })
+],
 };
