@@ -50,6 +50,9 @@
   color: var(--main-black-color);
   font-size: 16px;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .app-chats-item > div > span {
